@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,10 +9,43 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.flst.fges.musehome.MainActivity">
+    android:orientation="vertical"
+    android:background="@color/backgroundColor"
+    tools:context="com.flst.fges.musehome.ui.activity.MainActivity">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_textview"
+            android:text="@string/page_d_accueil"
+            android:textStyle="bold|normal"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/textMuseHome"/>
+            <FrameLayout
+                android:id="@+id/musehome_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25dp"
+        android:minHeight="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/linearLayout2"
+        android:layout_alignParentBottom="true">
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:itemBackground="@color/background"
+            app:itemIconTint="@color/textMuseHome"
+            app:itemTextColor="@color/textMuseHome"
+            app:menu="@menu/musehome_menu" />
+    </LinearLayout>
 </RelativeLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-
+    android:id="@+id/collections_cardview"
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp">
@@ -26,14 +26,14 @@
          donc rajouter un LinearLayout -->
 
         <ImageView
-            android:id="@+id/evenement_imageview"
+            android:id="@+id/collections_imageview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_folder_open_black_24dp"/>
 
         <TextView
-            android:id="@+id/evenement_text_card"
+            android:id="@+id/collections_text_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:selectableItemBackground"

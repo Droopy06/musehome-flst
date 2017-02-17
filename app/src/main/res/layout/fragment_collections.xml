@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.flst.fges.musehome.ui.fragment.EvenementsFragment">
+    tools:context="com.flst.fges.musehome.ui.fragment.CollectionsFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/evenements_list"
+        android:id="@+id/collections_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">MuseHome</string>
+    <string name="app_name">MuseH@me</string>
+    <string name="evenements">Evenements</string>
+    <string name="home">Home</string>
+    <string name="collections">Collections</string>
+    <string name="contact">Contact</string>
+    <string name="page_d_accueil">Page d\'accueil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nom">Nom :</string>
+    <string name="votre_nom">Votre nom</string>
+    <string name="pr_nom">Prénom :</string>
+    <string name="votre_prenom">Votre prenom</string>
+    <string name="email">Email :</string>
+    <string name="exemple_exemple_fr">exemple@exemple.fr</string>
+    <string name="votre_sujet">Votre sujet</string>
+    <string name="sujet">Sujet:</string>
+    <string name="message">Message:</string>
+    <string name="envoyer">Envoyer</string>
 </resources>

@@ -1,0 +1,71 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.flst.fges.musehome.ui.fragment.ContactFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nom_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nom" />
+        <EditText
+            android:id="@+id/nom_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/votre_nom"/>
+        <TextView
+            android:id="@+id/prenom_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pr_nom" />
+        <EditText
+            android:id="@+id/prenom_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/votre_prenom"/>
+        <TextView
+            android:id="@+id/email_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email" />
+        <EditText
+            android:id="@+id/email_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/exemple_exemple_fr"
+            android:inputType="textEmailAddress" />
+        <TextView
+            android:id="@+id/sujet_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sujet" />
+        <EditText
+            android:id="@+id/sujet_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/votre_sujet"
+            android:inputType="textEmailSubject" />
+        <TextView
+            android:id="@+id/message_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/message" />
+        <EditText
+            android:id="@+id/message_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:hint="@string/votre_sujet"
+            android:inputType="textEmailSubject" />
+        <Button
+            android:id="@+id/contact_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/envoyer"/>
+    </LinearLayout>
+</FrameLayout>

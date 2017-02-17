@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_inbox_black_24dp"
+        android:title="@string/home"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/evenement_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_insert_invitation_black_24dp"
+        android:title="@string/evenements"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/collections_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_folder_open_black_24dp"
+        android:title="@string/collections"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/contact_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_mode_edit_black_24dp"
+        android:title="@string/contact"
+        app:showAsAction="ifRoom"/>
+</menu>

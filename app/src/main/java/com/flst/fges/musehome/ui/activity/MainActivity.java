@@ -1,5 +1,6 @@
 package com.flst.fges.musehome.ui.activity;
 
+import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,11 +9,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
-import com.flst.fges.musehome.ui.fragment.HomeFragment;
 import com.flst.fges.musehome.R;
+import com.flst.fges.musehome.ui.fragment.CollectionsFragment;
+import com.flst.fges.musehome.ui.fragment.ContactFragment;
+import com.flst.fges.musehome.ui.fragment.EvenementsFragment;
+import com.flst.fges.musehome.ui.fragment.HomeFragment;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView mBottomNav;
     private int mSelectedItem;
+    private TextView mTitleText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mTitleText = (TextView) findViewById(R.id.home_textview);
         mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -66,19 +74,20 @@ public class MainActivity extends AppCompatActivity {
         // init corresponding fragment
         switch (item.getItemId()) {
             case R.id.home_button:
+                mTitleText.setText("Page d'accueil");
                 frag = HomeFragment.newInstance();
                 break;
             case R.id.evenement_button:
-                /*frag = MenuFragment.newInstance(getString(R.string.text_notifications),
-                        getColorFromRes(R.color.color_notifications));*/
+                mTitleText.setText("Liste des événements");
+                frag = EvenementsFragment.newInstance();
                 break;
             case R.id.collections_button:
-                /*frag = MenuFragment.newInstance(getString(R.string.text_search),
-                        getColorFromRes(R.color.color_search));*/
+                mTitleText.setText("Liste des collections");
+                frag = CollectionsFragment.newInstance();
                 break;
             case R.id.contact_button:
-                /*frag = MenuFragment.newInstance(getString(R.string.text_search),
-                        getColorFromRes(R.color.color_search));*/
+                mTitleText.setText("Formulaire de contact");
+                frag = ContactFragment.newInstance();
                 break;
         }
 
@@ -95,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (frag != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.musehome_container, frag, frag.getTag());
+            ft.replace(R.id.musehome_container, frag, frag.getTag());
             ft.commit();
         }
     }

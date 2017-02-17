@@ -11,22 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.flst.fges.musehome.R;
-import com.flst.fges.musehome.data.factory.EvenementFactory;
-import com.flst.fges.musehome.data.model.Evenement;
-import com.flst.fges.musehome.ui.adapter.EvenementsAdapater;
+import com.flst.fges.musehome.data.factory.CollectionFactory;
+import com.flst.fges.musehome.data.model.Collection;
+import com.flst.fges.musehome.ui.adapter.CollectionsAdapater;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link EvenementsFragment#newInstance} factory method to
+ * Use the {@link CollectionsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EvenementsFragment extends Fragment {
+public class CollectionsFragment extends Fragment {
 
 
-    public EvenementsFragment() {
+    public CollectionsFragment() {
         // Required empty public constructor
     }
 
@@ -34,11 +33,11 @@ public class EvenementsFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment EvenementsFragment.
+     * @return A new instance of fragment CollectionsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static EvenementsFragment newInstance() {
-        EvenementsFragment fragment = new EvenementsFragment();
+    public static CollectionsFragment newInstance() {
+        CollectionsFragment fragment = new CollectionsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -52,15 +51,14 @@ public class EvenementsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        Context applicationContext = getActivity().getApplicationContext();
-        View view = inflater.inflate(R.layout.fragment_evenements, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.evenements_list);
-        ArrayList<Evenement> evenementList = EvenementFactory.getAllEvenement();
-        EvenementsAdapater evenementsAdapater = new EvenementsAdapater(evenementList,applicationContext);
-        recyclerView.setAdapter(evenementsAdapater);
-        recyclerView.setLayoutManager(new LinearLayoutManager(applicationContext));
         // Inflate the layout for this fragment
+        Context applicationContext = getActivity().getApplicationContext();
+        View view = inflater.inflate(R.layout.fragment_collections, container, false);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.collections_list);
+        ArrayList<Collection> collectionsList = CollectionFactory.getAllCollections();
+        CollectionsAdapater collectionsAdapater = new CollectionsAdapater(collectionsList,applicationContext);
+        recyclerView.setAdapter(collectionsAdapater);
+        recyclerView.setLayoutManager(new LinearLayoutManager(applicationContext));
         return view;
     }
 
