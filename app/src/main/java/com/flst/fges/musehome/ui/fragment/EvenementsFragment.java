@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.flst.fges.musehome.R;
+import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.factory.EvenementFactory;
+import com.flst.fges.musehome.data.manager.EvenementsManager;
 import com.flst.fges.musehome.data.model.Evenement;
 import com.flst.fges.musehome.ui.adapter.EvenementsAdapater;
 
@@ -25,6 +28,9 @@ import java.util.List;
  */
 public class EvenementsFragment extends Fragment {
 
+
+    private EvenementsManager evenementsManager;
+    private List<Evenement> evenementList = new ArrayList<>();
 
     public EvenementsFragment() {
         // Required empty public constructor
@@ -56,8 +62,21 @@ public class EvenementsFragment extends Fragment {
         Context applicationContext = getActivity().getApplicationContext();
         View view = inflater.inflate(R.layout.fragment_evenements, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.evenements_list);
-        ArrayList<Evenement> evenementList = EvenementFactory.getAllEvenement();
-        EvenementsAdapater evenementsAdapater = new EvenementsAdapater(evenementList,applicationContext);
+        final EvenementsAdapater evenementsAdapater = new EvenementsAdapater(evenementList,applicationContext);
+        evenementsManager = new EvenementsManager();
+        evenementsManager.getAllEvenements(new ICallback<List<Evenement>>() {
+            @Override
+            public void success(List<Evenement> evenements) {
+                evenementList.clear();
+                evenementList.addAll(evenements);
+                evenementsAdapater.notifyDataSetChanged();
+            }
+
+            @Override
+            public void failure(Throwable error) {
+                Log.w("ERROR",error);
+            }
+        });
         recyclerView.setAdapter(evenementsAdapater);
         recyclerView.setLayoutManager(new LinearLayoutManager(applicationContext));
         // Inflate the layout for this fragment

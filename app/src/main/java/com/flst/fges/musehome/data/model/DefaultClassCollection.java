@@ -1,9 +1,11 @@
 package com.flst.fges.musehome.data.model;
 
+import java.io.Serializable;
+
 /**
  * Created by LAMOOT Alexandre on 25/11/2016.
  */
-public class DefaultClassCollection {
+public class DefaultClassCollection implements Serializable{
     protected String id;
     protected String collection;
     protected String picture;

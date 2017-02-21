@@ -2,20 +2,25 @@ package com.flst.fges.musehome.ui.fragment;
 
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.flst.fges.musehome.R;
+import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.factory.CollectionFactory;
+import com.flst.fges.musehome.data.manager.CollectionsManager;
 import com.flst.fges.musehome.data.model.Collection;
 import com.flst.fges.musehome.ui.adapter.CollectionsAdapater;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +29,9 @@ import java.util.ArrayList;
  */
 public class CollectionsFragment extends Fragment {
 
+
+    private CollectionsManager manager;
+    private List<Collection> collectionsList = new ArrayList<>();
 
     public CollectionsFragment() {
         // Required empty public constructor
@@ -55,8 +63,21 @@ public class CollectionsFragment extends Fragment {
         Context applicationContext = getActivity().getApplicationContext();
         View view = inflater.inflate(R.layout.fragment_collections, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.collections_list);
-        ArrayList<Collection> collectionsList = CollectionFactory.getAllCollections();
-        CollectionsAdapater collectionsAdapater = new CollectionsAdapater(collectionsList,applicationContext);
+        final CollectionsAdapater collectionsAdapater = new CollectionsAdapater(collectionsList,applicationContext);
+        manager = new CollectionsManager();
+        manager.getAllCollections(new ICallback<List<Collection>>() {
+            @Override
+            public void success(List<Collection> collections) {
+                collectionsList.clear();
+                collectionsList.addAll(collections);
+                collectionsAdapater.notifyDataSetChanged();
+            }
+
+            @Override
+            public void failure(Throwable error) {
+                Log.w("ERREUR",error);
+            }
+        });
         recyclerView.setAdapter(collectionsAdapater);
         recyclerView.setLayoutManager(new LinearLayoutManager(applicationContext));
         return view;

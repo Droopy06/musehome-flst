@@ -1,5 +1,8 @@
 package com.flst.fges.musehome.ui.activity;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
@@ -11,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flst.fges.musehome.R;
 import com.flst.fges.musehome.ui.fragment.CollectionsFragment;
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             selectedItem = mBottomNav.getMenu().getItem(0);
         }
         selectFragment(selectedItem);
+        checkNetwork();
     }
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -118,5 +123,19 @@ public class MainActivity extends AppCompatActivity {
 
     private int getColorFromRes(@ColorRes int resId) {
         return ContextCompat.getColor(this, resId);
+    }
+
+    private void checkNetwork(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isConnected()){
+            boolean wifiConnected = networkInfo.getType() == ConnectivityManager.TYPE_WIFI;
+            boolean mobileConnected = networkInfo.getType() == ConnectivityManager.TYPE_MOBILE;
+            if(wifiConnected)
+                Toast.makeText(this, R.string.wifi_connection,Toast.LENGTH_SHORT).show();
+            else if (mobileConnected)
+                Toast.makeText(this,R.string.mobile_connection,Toast.LENGTH_SHORT).show();
+        }else
+            Toast.makeText(this,R.string.no_wifi_or_mobile,Toast.LENGTH_SHORT).show();
     }
 }

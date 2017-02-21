@@ -21,6 +21,7 @@ import com.flst.fges.musehome.ui.fragment.ObjetsCollectionFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by LAMOOT Alexandre on 17/02/2017.
@@ -28,10 +29,10 @@ import java.util.ArrayList;
 
 public class CollectionsAdapater extends RecyclerView.Adapter<CollectionsAdapater.ViewHolder>  {
 
-    private ArrayList<Collection> collections;
+    private List<Collection> collections;
     private Context context;
 
-    public CollectionsAdapater(ArrayList<Collection> collections, Context context) {
+    public CollectionsAdapater(List<Collection> collections, Context context) {
         this.collections = collections;
         this.context = context;
     }

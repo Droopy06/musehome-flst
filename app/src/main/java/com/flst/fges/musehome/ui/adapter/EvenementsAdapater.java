@@ -13,6 +13,7 @@ import com.flst.fges.musehome.data.model.Evenement;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by LAMOOT Alexandre on 17/02/2017.
@@ -20,10 +21,10 @@ import java.util.ArrayList;
 
 public class EvenementsAdapater extends RecyclerView.Adapter<EvenementsAdapater.ViewHolder>  {
 
-    private ArrayList<Evenement> evenements;
+    private List<Evenement> evenements;
     private Context context;
 
-    public EvenementsAdapater(ArrayList<Evenement> evenements, Context context) {
+    public EvenementsAdapater(List<Evenement> evenements, Context context) {
         this.evenements = evenements;
         this.context = context;
     }
