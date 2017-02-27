@@ -13,10 +13,10 @@ public class MaterielPedagogiqueFactory {
     public static ArrayList<MaterielPedagogique> getAllMaterielPedagogique(){
         ArrayList<MaterielPedagogique> materielPedagogiques = new ArrayList<>();
         materielPedagogiques.add(new MaterielPedagogique("ICL-PEDA-01","Materiel Pedagogique",
-                                        "http://vps278022.ovh.net/patrimoine/images/Collections/pedaogique/ICL-PEDA-001.JPG",
+                                        "http://vps278022.ovh.net/patrimoine/images/Collections/materielpedagogique/ICL-PEDA-001.JPG",
                                         "Abeille"));
         materielPedagogiques.add(new MaterielPedagogique("ICL-PEDA-05","Materiel Pedagogique",
-                                        "http://vps278022.ovh.net/patrimoine/images/Collections/pedaogique/ICL-PEDA-005.JPG",
+                                        "http://vps278022.ovh.net/patrimoine/images/Collections/materielpedagogique/ICL-PEDA-005.JPG",
                                         "Cerveau de chat"));
         return materielPedagogiques;
     }

@@ -21,8 +21,9 @@ import com.flst.fges.musehome.ui.fragment.CollectionsFragment;
 import com.flst.fges.musehome.ui.fragment.ContactFragment;
 import com.flst.fges.musehome.ui.fragment.EvenementsFragment;
 import com.flst.fges.musehome.ui.fragment.HomeFragment;
+import com.flst.fges.musehome.ui.helper.NotificationHelper;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +47,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
+        ArrayList<String> messages = new ArrayList<>();
+        messages.add("L'administrateur a ajouté 5 événements durant votre absence");
+        messages.add("L'administrateur a ajouté 15 objets dans la collection Materiel pédagogique");
+        messages.add("L'administrateur a modifié l'evenement phare de l'application");
+        NotificationHelper.addLongNotification(R.mipmap.musehome,1,"MuseH@me","Bienvenue sur l'application mobile" +
+                " du patrimoine de la fges",MainActivity.class,getApplicationContext(),messages);
         MenuItem selectedItem;
         if (savedInstanceState != null) {
             mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);

@@ -1,10 +1,8 @@
 package com.flst.fges.musehome.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,12 +13,9 @@ import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
 import com.flst.fges.musehome.data.model.Collection;
-import com.flst.fges.musehome.data.model.Evenement;
-import com.flst.fges.musehome.ui.activity.MainActivity;
-import com.flst.fges.musehome.ui.fragment.ObjetsCollectionFragment;
+import com.flst.fges.musehome.ui.activity.CollectionActivity;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,13 +67,10 @@ public class CollectionsAdapater extends RecyclerView.Adapter<CollectionsAdapate
                     Snackbar snackbar = Snackbar
                             .make(v, collectionsTxt.getText(), Snackbar.LENGTH_LONG);
                     snackbar.show();
-                    Fragment frag;
-                    frag = ObjetsCollectionFragment.newInstance(collectionsTxt.getText().toString());
-                    if (frag != null) {
-                        /*FragmentTransaction ft = ((MainActivity) itemView.getContext()).getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.musehome_container, frag, frag.getTag());
-                        ft.commit();*/
-                    }
+                    Intent intent = new Intent(itemView.getContext(), CollectionActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("COLLECTION",collectionsTxt.getText().toString());
+                    itemView.getContext().startActivity(intent);
                 }
             });
         }

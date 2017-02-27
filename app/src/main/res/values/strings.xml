@@ -21,4 +21,5 @@
     <string name="wifi_connection">La connection wifi est activée.</string>
     <string name="mobile_connection">La connection mobile est activée.</string>
     <string name="no_wifi_or_mobile">L\'utilisateur n\'est pas connecté.</string>
+    <string name="title_activity_collection">CollectionActivity</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.flst.fges.musehome.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
-import com.flst.fges.musehome.data.model.Collection;
 import com.flst.fges.musehome.data.model.MaterielPedagogique;
-import com.squareup.picasso.Picasso;
+import com.flst.fges.musehome.ui.activity.ObjetsDetailActivity;
 
 import java.util.ArrayList;
 
@@ -40,8 +40,8 @@ public class MaterielPedagogiqueAdapater extends RecyclerView.Adapter<MaterielPe
 
     @Override
     public void onBindViewHolder(MaterielPedagogiqueAdapater.ViewHolder holder, int position) {
-        holder.collectionsTxt.setText(materielPedagogiques.get(position).getName());
-        Picasso.with(context).load(materielPedagogiques.get(position).getPicture()).into(holder.collectionsImagageView);
+        holder.objectCollectionTxt.setText(materielPedagogiques.get(position).getName());
+        //Picasso.with(context).load(materielPedagogiques.get(position).getPicture()).into(holder.objectCollectionImagageView);
     }
 
     @Override
@@ -51,15 +51,28 @@ public class MaterielPedagogiqueAdapater extends RecyclerView.Adapter<MaterielPe
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView collectionsTxt;
-        ImageView collectionsImagageView;
-        CardView collectionCardView;
+        TextView objectCollectionTxt;
+        ImageView objectCollectionImagageView;
+        CardView objectcollectionCardView;
 
-        ViewHolder(View itemView) {
+        ViewHolder(final View itemView) {
             super(itemView);
-            collectionsTxt = (TextView) itemView.findViewById(R.id.collections_text_card);
-            collectionsImagageView = (ImageView) itemView.findViewById(R.id.collections_imageview);
-            collectionCardView = (CardView) itemView.findViewById(R.id.collections_cardview);
+            objectCollectionTxt = (TextView) itemView.findViewById(R.id.collections_text_card);
+            objectCollectionImagageView = (ImageView) itemView.findViewById(R.id.collections_imageview);
+            objectcollectionCardView = (CardView) itemView.findViewById(R.id.collections_cardview);
+            objectcollectionCardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Snackbar snackbar = Snackbar
+                            .make(v, objectCollectionTxt.getText(), Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    Intent intent = new Intent(itemView.getContext(), ObjetsDetailActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("OBJET",objectCollectionTxt.getText().toString());
+                    intent.putExtra("COLLECTION","Materiel Pedagogique");
+                    itemView.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }
