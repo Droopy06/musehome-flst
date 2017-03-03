@@ -1,4 +1,7 @@
 package com.flst.fges.musehome.data;
+
+import com.flst.fges.musehome.data.helper.UrlHelper;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -21,7 +24,7 @@ public final class ServiceGenerator {
                     .setLevel(HttpLoggingInterceptor.Level.BODY));
 
             sRetrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.71:8090/patrimoine/rest/patrimoine/")
+                    .baseUrl("http://"+UrlHelper.BASE_URL_API+"/patrimoine/rest/patrimoine/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();

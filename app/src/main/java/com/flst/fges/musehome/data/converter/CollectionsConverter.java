@@ -1,6 +1,7 @@
 package com.flst.fges.musehome.data.converter;
 
 import com.flst.fges.musehome.data.dto.CollectionDTO;
+import com.flst.fges.musehome.data.helper.UrlHelper;
 import com.flst.fges.musehome.data.model.Collection;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class CollectionsConverter {
     private Collection convertDtoToCollection(CollectionDTO collectionDTO){
         Collection collection = new Collection();
         collection.setFamille(collection.getFamille());
-        collection.setImg("http://192.168.1.71:8090"+collectionDTO.getImg());
+        collection.setImg("http://"+UrlHelper.BASE_URL_API+":8090"+collectionDTO.getImg());
         collection.setNom(collectionDTO.getNom());
         collection.setUri(collectionDTO.getUri());
         collection.setUriadmin(collectionDTO.getUriadmin());

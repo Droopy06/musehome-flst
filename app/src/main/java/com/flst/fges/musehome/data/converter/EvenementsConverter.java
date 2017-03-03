@@ -1,6 +1,7 @@
 package com.flst.fges.musehome.data.converter;
 
 import com.flst.fges.musehome.data.dto.EvenementDTO;
+import com.flst.fges.musehome.data.helper.UrlHelper;
 import com.flst.fges.musehome.data.model.Evenement;
 
 import java.util.ArrayList;
@@ -23,8 +24,8 @@ public class EvenementsConverter {
         Evenement evenement = new Evenement();
         evenement.setTitre(evenementDTO.getTitre());
         evenement.setMiniDescr(evenementDTO.getMiniDescr());
-        evenement.setImageuri("http://192.168.1.71:8090"+evenementDTO.getImageuri());
-        evenement.setMiniimageuri("http://192.168.1.71:8090"+evenementDTO.getMiniimageuri());
+        evenement.setImageuri("http://"+ UrlHelper.BASE_URL_API+evenementDTO.getImageuri());
+        evenement.setMiniimageuri("http://1"+ UrlHelper.BASE_URL_API+evenementDTO.getMiniimageuri());
         evenement.setFacebook(evenementDTO.getFacebook());
         evenement.setGo(evenementDTO.getGo());
         evenement.setTwitter(evenementDTO.getTwitter());

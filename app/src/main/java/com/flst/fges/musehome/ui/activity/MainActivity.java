@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
         messages.add("L'administrateur a ajouté 5 événements durant votre absence");
         messages.add("L'administrateur a ajouté 15 objets dans la collection Materiel pédagogique");
         messages.add("L'administrateur a modifié l'evenement phare de l'application");
-        NotificationHelper.addLongNotification(R.mipmap.musehome,1,"MuseH@me","Bienvenue sur l'application mobile" +
+        NotificationHelper.addLongNotificationWithVibration(R.mipmap.musehome,1,"MuseH@me",
+                "Bienvenue sur l'application mobile" +
                 " du patrimoine de la fges",MainActivity.class,getApplicationContext(),messages);
         MenuItem selectedItem;
         if (savedInstanceState != null) {
