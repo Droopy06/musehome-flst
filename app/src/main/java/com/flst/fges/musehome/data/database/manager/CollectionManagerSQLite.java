@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class CollectionManagerSQLite {
 
-    private static final String TABLE_NAME = "collection";
+    public static final String TABLE_NAME = "collection";
     public static final String KEY_NAME="name";
     public static final String KEY_FAMILY="famille";
     public static final String KEY_URI="uri";

@@ -12,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
+import com.flst.fges.musehome.data.helper.UrlHelper;
 import com.flst.fges.musehome.data.model.MaterielPedagogique;
 import com.flst.fges.musehome.ui.activity.ObjetsDetailActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,8 +42,11 @@ public class MaterielPedagogiqueAdapater extends RecyclerView.Adapter<MaterielPe
 
     @Override
     public void onBindViewHolder(MaterielPedagogiqueAdapater.ViewHolder holder, int position) {
-        holder.objectCollectionTxt.setText(materielPedagogiques.get(position).getName());
-        //Picasso.with(context).load(materielPedagogiques.get(position).getPicture()).into(holder.objectCollectionImagageView);
+        holder.objectCollectionTxt.setText(materielPedagogiques.get(position).getId()+" "+materielPedagogiques.get(position).getName());
+        if(!materielPedagogiques.get(position).getPicture().equals(""))
+            Picasso.with(context).load("http://"+ UrlHelper.BASE_URL_API+"/patrimoine/images/Collections/materielpedagogique/"+materielPedagogiques.get(position).getPicture()).into(holder.objectCollectionImagageView);
+        else
+            Picasso.with(context).load("http://"+ UrlHelper.BASE_URL_API+"/patrimoine/images/icone.png").into(holder.objectCollectionImagageView);
     }
 
     @Override

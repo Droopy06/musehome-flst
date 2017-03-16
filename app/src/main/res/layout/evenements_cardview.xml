@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-
+    android:id="@+id/evenements_cardview"
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp">
@@ -32,7 +32,7 @@
             android:scaleType="centerCrop"
             android:src="@mipmap/musehome"/>
 
-        <TextView
+        <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
             android:id="@+id/evenement_text_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

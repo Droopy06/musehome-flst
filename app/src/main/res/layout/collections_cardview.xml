@@ -32,7 +32,7 @@
             android:scaleType="centerCrop"
             android:src="@mipmap/musehome"/>
 
-        <TextView
+        <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
             android:id="@+id/collections_text_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

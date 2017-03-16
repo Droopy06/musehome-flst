@@ -1,6 +1,7 @@
 package com.flst.fges.musehome.ui.activity;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
@@ -8,10 +9,12 @@ import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
 import com.flst.fges.musehome.data.ICallback;
+import com.flst.fges.musehome.data.helper.UrlHelper;
 import com.flst.fges.musehome.data.manager.CollectionsDetailsManager;
 import com.flst.fges.musehome.data.manager.DefaultClassCollectionManager;
 import com.flst.fges.musehome.data.model.CollectionDetails;
 import com.flst.fges.musehome.data.model.DefaultClassCollection;
+import com.squareup.picasso.Picasso;
 
 public class ObjetsDetailActivity extends AppCompatActivity {
 
@@ -19,6 +22,11 @@ public class ObjetsDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_objets_detail);
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setLogo(R.drawable.banniere);
+        actionBar.setDisplayUseLogoEnabled(true);
         final ImageView imageView = (ImageView) findViewById(R.id.object_collection_imageview);
         final TextView mHeaderNomCommum = (TextView) findViewById(R.id.header_nom_commum_textview);
         final TextView mTextNomCommum = (TextView) findViewById(R.id.text_nom_commum_textview);
@@ -68,14 +76,15 @@ public class ObjetsDetailActivity extends AppCompatActivity {
             }
         });
         DefaultClassCollectionManager defaultClassCollectionManager = new DefaultClassCollectionManager();
-        defaultClassCollectionManager.getDefaultClassCollectionByName(getIntent().getStringExtra("COLLECTION").replace(" ", "").toLowerCase(), "ICL-PEDA-001", new ICallback<DefaultClassCollection>() {
+        String id = getIntent().getStringExtra("OBJET").split(" ")[0];
+        defaultClassCollectionManager.getDefaultClassCollectionByName(getIntent().getStringExtra("COLLECTION").replace(" ", "").toLowerCase(), id, new ICallback<DefaultClassCollection>() {
             @Override
             public void success(DefaultClassCollection defaultClassCollection) {
-                /*Picasso.with(getApplicationContext()).
-                        load("http://192.168.1.71:8090/patrimoine/images/Collections/"+
+                Picasso.with(getApplicationContext()).
+                        load("http://"+ UrlHelper.BASE_URL_API +"/patrimoine/images/Collections/"+
                                 getIntent().getStringExtra("COLLECTION").replace(" ", "").toLowerCase()+
                                 "/"+defaultClassCollection.getPicture()).
-                        into(imageView);*/
+                        into(imageView);
                 mTextNomCommum.setText(defaultClassCollection.getName());
                 mTextGroupe.setText(defaultClassCollection.getGroupe());
                 mTextGenre.setText(defaultClassCollection.getKind());

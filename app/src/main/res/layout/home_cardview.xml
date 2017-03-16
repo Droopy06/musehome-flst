@@ -32,7 +32,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_folder_open_black_24dp"/>
 
-        <TextView
+        <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
             android:id="@+id/text_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

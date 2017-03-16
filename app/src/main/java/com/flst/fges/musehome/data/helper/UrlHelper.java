@@ -5,5 +5,5 @@ package com.flst.fges.musehome.data.helper;
  */
 
 public class UrlHelper {
-    public final static String BASE_URL_API = "10.209.128.216";
+    public final static String BASE_URL_API = "vps278022.ovh.net";
 }

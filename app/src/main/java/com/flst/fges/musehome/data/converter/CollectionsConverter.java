@@ -23,7 +23,7 @@ public class CollectionsConverter {
     private Collection convertDtoToCollection(CollectionDTO collectionDTO){
         Collection collection = new Collection();
         collection.setFamille(collection.getFamille());
-        collection.setImg("http://"+UrlHelper.BASE_URL_API+":8090"+collectionDTO.getImg());
+        collection.setImg("http://"+UrlHelper.BASE_URL_API+collectionDTO.getImg());
         collection.setNom(collectionDTO.getNom());
         collection.setUri(collectionDTO.getUri());
         collection.setUriadmin(collectionDTO.getUriadmin());

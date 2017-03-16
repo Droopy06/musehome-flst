@@ -125,6 +125,10 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(text);
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setLogo(R.drawable.banniere);
+            //actionBar.setLogo(R.mipmap.musehome);
+            actionBar.setDisplayUseLogoEnabled(true);
         }
     }
 
