@@ -16,11 +16,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by LAMOOT Alexandre on 17/02/2017.
  */
 
-public class EvenementsAdapater extends RecyclerView.Adapter<EvenementsAdapater.ViewHolder>  {
+public class EvenementsAdapater extends RecyclerView.Adapter<EvenementsAdapater.ViewHolder> {
 
     private List<Evenement> evenements;
     private Context context;
@@ -31,14 +35,14 @@ public class EvenementsAdapater extends RecyclerView.Adapter<EvenementsAdapater.
     }
 
     @Override
-    public EvenementsAdapater.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View wodView = inflater.inflate(R.layout.evenements_cardview,parent,false);
+        View wodView = inflater.inflate(R.layout.evenements_cardview, parent, false);
         return new ViewHolder(wodView);
     }
 
     @Override
-    public void onBindViewHolder(EvenementsAdapater.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         holder.evenementTxt.setText(evenements.get(position).getTitre());
         Picasso.with(context).load(evenements.get(position).getImageuri()).into(holder.evnementImagageView);
     }
@@ -48,29 +52,31 @@ public class EvenementsAdapater extends RecyclerView.Adapter<EvenementsAdapater.
         return evenements.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
 
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.evenement_text_card)
         TextView evenementTxt;
+        @BindView(R.id.evenement_imageview)
         ImageView evnementImagageView;
+        @BindView(R.id.evenements_cardview)
         CardView evenementCardView;
+
+        @OnClick(R.id.evenements_cardview)
+        public void onClick(View v) {
+            Snackbar snackbar = Snackbar
+                    .make(v, evenementTxt.getText(), Snackbar.LENGTH_LONG);
+            snackbar.show();
+            /*Intent intent = new Intent(itemView.getContext(), EvenementDetailActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("EVENEMENT",evenementTxt.getText().toString());
+            itemView.getContext().startActivity(intent);*/
+        }
 
         ViewHolder(final View itemView) {
             super(itemView);
-            evenementTxt = (TextView) itemView.findViewById(R.id.evenement_text_card);
-            evnementImagageView = (ImageView) itemView.findViewById(R.id.evenement_imageview);
-            evenementCardView = (CardView) itemView.findViewById(R.id.evenements_cardview);
-            evenementCardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Snackbar snackbar = Snackbar
-                            .make(v, evenementTxt.getText(), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    /*Intent intent = new Intent(itemView.getContext(), EvenementDetailActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("EVENEMENT",evenementTxt.getText().toString());
-                    itemView.getContext().startActivity(intent);*/
-                }
-            });
+            ButterKnife.bind(this, itemView);
         }
     }
 }

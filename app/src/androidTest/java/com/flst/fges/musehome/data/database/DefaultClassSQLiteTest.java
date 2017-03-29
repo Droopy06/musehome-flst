@@ -3,8 +3,10 @@ package com.flst.fges.musehome.data.database;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import com.flst.fges.musehome.data.database.manager.DefaultClassCollectionManagerSQLite;
+import com.flst.fges.musehome.data.database.manager.MaterielPedagogiqueManagerSQLite;
 import com.flst.fges.musehome.data.factory.DefaultClassCollectionFactory;
 import com.flst.fges.musehome.data.model.DefaultClassCollection;
 
@@ -44,6 +46,7 @@ public class DefaultClassSQLiteTest {
 
    @Test
     public void testShouldAddExpenseType() throws Exception {
+       Log.w("CREATE", MaterielPedagogiqueManagerSQLite.CREATE_TABLE);
         mDataSource.deleteAllElementCollections();
         ArrayList<DefaultClassCollection> collections = DefaultClassCollectionFactory.getAllDefaultClassCollection();
         for(int i = 0;i < collections.size();i++)

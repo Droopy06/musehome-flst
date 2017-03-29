@@ -1,5 +1,6 @@
 package com.flst.fges.musehome.ui.activity;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,25 +22,32 @@ import com.flst.fges.musehome.ui.fragment.CollectionsFragment;
 import com.flst.fges.musehome.ui.fragment.ContactFragment;
 import com.flst.fges.musehome.ui.fragment.EvenementsFragment;
 import com.flst.fges.musehome.ui.fragment.HomeFragment;
+import com.flst.fges.musehome.ui.fragment.InformationsFragment;
 import com.flst.fges.musehome.ui.helper.NotificationHelper;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String SELECTED_ITEM = "Home";
 
-    private BottomNavigationView mBottomNav;
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView mBottomNav;
     private int mSelectedItem;
-    private TextView mTitleText;
+    @BindView(R.id.home_textview)
+    TextView mTitleText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTitleText = (TextView) findViewById(R.id.home_textview);
-        mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        ButterKnife.bind(this);
+        //mTitleText = (TextView) findViewById(R.id.home_textview);
+        //mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -51,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         messages.add("L'administrateur a ajouté 5 événements durant votre absence");
         messages.add("L'administrateur a ajouté 15 objets dans la collection Materiel pédagogique");
         messages.add("L'administrateur a modifié l'evenement phare de l'application");
-        NotificationHelper.addLongNotificationWithVibration(R.mipmap.musehome,1,"MuseH@me",
+        NotificationHelper.addLongNotificationWithoutVibration(R.mipmap.musehome,1,"MuseH@me",
                 "Bienvenue sur l'application mobile" +
                 " du patrimoine de la fges",MainActivity.class,getApplicationContext(),messages);
         MenuItem selectedItem;
@@ -86,20 +94,24 @@ public class MainActivity extends AppCompatActivity {
         // init corresponding fragment
         switch (item.getItemId()) {
             case R.id.home_button:
-                mTitleText.setText("Page d'accueil");
+                mTitleText.setText("Accueil");
                 frag = HomeFragment.newInstance();
                 break;
             case R.id.evenement_button:
-                mTitleText.setText("Liste des événements");
+                mTitleText.setText("Evénements");
                 frag = EvenementsFragment.newInstance();
                 break;
             case R.id.collections_button:
-                mTitleText.setText("Liste des collections");
+                mTitleText.setText("Collections");
                 frag = CollectionsFragment.newInstance();
                 break;
             case R.id.contact_button:
                 mTitleText.setText("Formulaire de contact");
                 frag = ContactFragment.newInstance();
+                break;
+            case R.id.information_button:
+                mTitleText.setText("Informations");
+                frag = InformationsFragment.newInstance();
                 break;
         }
 
@@ -113,9 +125,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         updateToolbarText(item.getTitle());
-
-        if (frag != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        FragmentManager fragmentManager = getFragmentManager();
+        boolean fragmentPopped = fragmentManager
+                .popBackStackImmediate(frag.getClass().getSimpleName() , 0);
+        if (!fragmentPopped && fragmentManager.findFragmentByTag(frag.getClass().getSimpleName()) == null) {
+            FragmentTransaction ft =  getSupportFragmentManager().beginTransaction();
+            ft.addToBackStack(frag.getClass().getSimpleName());
+            //Fragment ft2 = getSupportFragmentManager().findFragmentById(R.id.musehome_container);
             ft.replace(R.id.musehome_container, frag, frag.getTag());
             ft.commit();
         }

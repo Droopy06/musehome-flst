@@ -5,10 +5,6 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:background="@color/backgroundColor"
     tools:context="com.flst.fges.musehome.ui.activity.MainActivity">
@@ -16,8 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="60dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_above="@+id/linearLayout2">
         <com.flst.fges.musehome.ui.helper.CustomFontChromiaTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,19 +23,25 @@
             android:textAlignment="center"
             android:textSize="28sp"
             android:textColor="@color/textMuseHome"/>
-            <FrameLayout
-                android:id="@+id/musehome_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:id="@+id/musehome_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+        </FrameLayout>
+
     </LinearLayout>
+
     <LinearLayout
-        android:orientation="horizontal"
-        android:minWidth="25dp"
-        android:minHeight="25dp"
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout2"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:minHeight="25dp"
+        android:minWidth="25dp"
+        android:orientation="horizontal">
+
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"

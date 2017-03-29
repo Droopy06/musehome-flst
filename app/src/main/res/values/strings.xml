@@ -21,8 +21,10 @@
     <string name="wifi_connection">La connection wifi est activée.</string>
     <string name="mobile_connection">La connection mobile est activée.</string>
     <string name="no_wifi_or_mobile">L\'utilisateur n\'est pas connecté.</string>
-    <string name="title_activity_collection">CollectionActivity</string>
-    <string name="title_activity_evenement_detail">EvenementDetailActivity</string>
+    <string name="storage">1</string>
+    <string name="title_activity_collection">Collection</string>
+    <string name="title_activity_evenement_detail">Détail Evenement</string>
     <string name="mini_description">Mini description</string>
     <string name="titre">Titre</string>
+    <string name="informations">Informations</string>
 </resources>

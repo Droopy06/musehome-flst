@@ -3,6 +3,7 @@ package com.flst.fges.musehome.data.database;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import com.flst.fges.musehome.data.database.manager.MaterielPedagogiqueManagerSQLite;
 import com.flst.fges.musehome.data.factory.MaterielPedagogiqueFactory;
@@ -45,6 +46,7 @@ public class MaterielPedagogiqueSQLTest {
 
     @Test
     public void testShouldAddExpenseType() throws Exception {
+        Log.w("CREATE", MaterielPedagogiqueManagerSQLite.CREATE_TABLE);
         mDataSource.deleteAllElementCollections();
         ArrayList<MaterielPedagogique> pedagogiq = MaterielPedagogiqueFactory.getAllMaterielPedagogique();
         for(int i = 0;i < pedagogiq.size();i++)

@@ -18,6 +18,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by LAMOOT Alexandre on 17/02/2017.
  */
@@ -52,15 +55,16 @@ public class CollectionsAdapater extends RecyclerView.Adapter<CollectionsAdapate
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
+        @BindView(R.id.collections_text_card)
         TextView collectionsTxt;
+        @BindView(R.id.collections_imageview)
         ImageView collectionsImagageView;
+        @BindView(R.id.collections_cardview)
         CardView collectionCardView;
 
         ViewHolder(final View itemView) {
             super(itemView);
-            collectionsTxt = (TextView) itemView.findViewById(R.id.collections_text_card);
-            collectionsImagageView = (ImageView) itemView.findViewById(R.id.collections_imageview);
-            collectionCardView = (CardView) itemView.findViewById(R.id.collections_cardview);
+            ButterKnife.bind(this,itemView);
             collectionCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

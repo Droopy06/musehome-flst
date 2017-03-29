@@ -2,6 +2,7 @@ package com.flst.fges.musehome.ui.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -52,26 +53,9 @@ import com.flst.fges.musehome.data.model.ZoologieVertebresMammiferes;
 import com.flst.fges.musehome.data.model.ZoologieVertebresPoissons;
 import com.flst.fges.musehome.data.model.ZoologieVertebresPrimates;
 import com.flst.fges.musehome.data.model.ZoologieVertebresReptile;
+import com.flst.fges.musehome.ui.activity.ObjetsDetailActivity;
 import com.flst.fges.musehome.ui.adapter.DefaultClassCollectionAdapater;
-import com.flst.fges.musehome.ui.adapter.HerbiersAdapater;
-import com.flst.fges.musehome.ui.adapter.InstrumentsAdapater;
-import com.flst.fges.musehome.ui.adapter.JardinBotaniqueAdapater;
-import com.flst.fges.musehome.ui.adapter.MaterielPedagogiqueAdapater;
-import com.flst.fges.musehome.ui.adapter.MineralogieCristallographieAdapater;
-import com.flst.fges.musehome.ui.adapter.OuvragesCartesDocumentsAdapater;
-import com.flst.fges.musehome.ui.adapter.PaleontologieAnimaleAdapater;
-import com.flst.fges.musehome.ui.adapter.PaleontologieVegetaleAdapater;
-import com.flst.fges.musehome.ui.adapter.PetrographieAdapater;
-import com.flst.fges.musehome.ui.adapter.PhysiqueAdapater;
-import com.flst.fges.musehome.ui.adapter.TypothequeAdapater;
-import com.flst.fges.musehome.ui.adapter.ZoologieInvertebresAutresAdapater;
-import com.flst.fges.musehome.ui.adapter.ZoologieInvertebresInsectesAdapater;
-import com.flst.fges.musehome.ui.adapter.ZoologieInvertebresMollusquesAdapater;
-import com.flst.fges.musehome.ui.adapter.ZoologieVertebresAutresAdapater;
-import com.flst.fges.musehome.ui.adapter.ZoologieVertebresMammiferesAdapater;
-import com.flst.fges.musehome.ui.adapter.ZoologieVertebresPoissonsAdapater;
-import com.flst.fges.musehome.ui.adapter.ZoologieVertebresPrimatesAdapater;
-import com.flst.fges.musehome.ui.adapter.ZoologieVertebresReptileAdapater;
+import com.flst.fges.musehome.ui.helper.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,7 +121,7 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Herbiers":
                 HerbiersManager herbiersManager = new HerbiersManager();
                 final ArrayList<Herbiers> herbiers = new ArrayList<>();
-                final HerbiersAdapater herbiersAdapater = new HerbiersAdapater(herbiers,applicationContext);
+                final DefaultClassCollectionAdapater<Herbiers> herbiersAdapater = new DefaultClassCollectionAdapater<>(herbiers,applicationContext);
                 herbiersManager.getAllHerbiers(new ICallback<List<Herbiers>>() {
                     @Override
                     public void success(List<Herbiers> herbiersList) {
@@ -152,11 +136,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(herbiersAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        herbiersAdapater.getItemAtPosition(position);
+                    }
+                }));
                 break;
             case "Instruments":
                 InstrumentsManager instrumentsManager = new InstrumentsManager();
                 final ArrayList<Instruments> instrumentses = new ArrayList<>();
-                final InstrumentsAdapater instrumentsAdapater = new InstrumentsAdapater(instrumentses,applicationContext);
+                final DefaultClassCollectionAdapater<Instruments> instrumentsAdapater = new DefaultClassCollectionAdapater<>(instrumentses,applicationContext);
                 instrumentsManager.getAllInstruments(new ICallback<List<Instruments>>() {
                     @Override
                     public void success(List<Instruments> instrumentsList) {
@@ -175,7 +165,7 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Jardin botanique":
                 JardinBotaniqueManager jardinBotaniqueManager = new JardinBotaniqueManager();
                 final ArrayList<JardinBotanique> botaniques = new ArrayList<>();
-                final JardinBotaniqueAdapater jardinBotaniqueAdapater = new JardinBotaniqueAdapater(botaniques,applicationContext);
+                final DefaultClassCollectionAdapater<JardinBotanique> jardinBotaniqueAdapater = new DefaultClassCollectionAdapater<>(botaniques,applicationContext);
                 jardinBotaniqueManager.getAllJardinBotanique(new ICallback<List<JardinBotanique>>() {
                     @Override
                     public void success(List<JardinBotanique> jardinBotaniques) {
@@ -194,7 +184,7 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Materiel Pedagogique":
                 MaterielPedagogiqueManager materielPedagogiqueManager = new MaterielPedagogiqueManager();
                 final ArrayList<MaterielPedagogique> pedagogiques = new ArrayList<>();
-                final MaterielPedagogiqueAdapater materielPedagogiqueAdapater = new MaterielPedagogiqueAdapater(pedagogiques,applicationContext);
+                final DefaultClassCollectionAdapater<MaterielPedagogique> materielPedagogiqueAdapater = new DefaultClassCollectionAdapater<>(pedagogiques,applicationContext);
                 materielPedagogiqueManager.getAllMaterielPedagogique(new ICallback<List<MaterielPedagogique>>() {
                     @Override
                     public void success(List<MaterielPedagogique> materielPedagogiques) {
@@ -209,11 +199,22 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(materielPedagogiqueAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        MaterielPedagogique materielPedagogique = (MaterielPedagogique) materielPedagogiqueAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",materielPedagogique.getId());
+                        intent.putExtra("COLLECTION",materielPedagogique.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Mineralogie - Cristallographie":
                 MineralogieCristallographieManager mineralogieCristallographieManager = new MineralogieCristallographieManager();
                 final ArrayList<MineralogieCristallographie> cristallographies = new ArrayList<>();
-                final MineralogieCristallographieAdapater mineralogieCristallographieAdapater = new MineralogieCristallographieAdapater(cristallographies,applicationContext);
+                final DefaultClassCollectionAdapater<MineralogieCristallographie> mineralogieCristallographieAdapater = new DefaultClassCollectionAdapater<>(cristallographies,applicationContext);
                 mineralogieCristallographieManager.getAllMineralogieCristallographie(new ICallback<List<MineralogieCristallographie>>() {
                     @Override
                     public void success(List<MineralogieCristallographie> mineralogieCristallographies) {
@@ -232,7 +233,7 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Ouvrages Cartes Documents":
                 OuvragesCartesDocumentsManager ouvragesCartesDocumentsManager = new OuvragesCartesDocumentsManager();
                 final ArrayList<OuvragesCartesDocuments> cartesDocumentses = new ArrayList<>();
-                final OuvragesCartesDocumentsAdapater ouvragesCartesDocumentsAdapater = new OuvragesCartesDocumentsAdapater(cartesDocumentses,applicationContext);
+                final DefaultClassCollectionAdapater<OuvragesCartesDocuments> ouvragesCartesDocumentsAdapater = new DefaultClassCollectionAdapater<>(cartesDocumentses,applicationContext);
                 ouvragesCartesDocumentsManager.getAllOuvragesCartesDocuments(new ICallback<List<OuvragesCartesDocuments>>() {
                     @Override
                     public void success(List<OuvragesCartesDocuments> ouvragesCartesDocumentses) {
@@ -251,7 +252,7 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Paleontologie Animale":
                 PaleontologieAnimaleManager paleontologieAnimaleManager = new PaleontologieAnimaleManager();
                 final ArrayList<PaleontologieAnimale> animales = new ArrayList<>();
-                final PaleontologieAnimaleAdapater paleontologieAnimaleAdapater = new PaleontologieAnimaleAdapater(animales,applicationContext);
+                final DefaultClassCollectionAdapater<PaleontologieAnimale> paleontologieAnimaleAdapater = new DefaultClassCollectionAdapater<>(animales,applicationContext);
                 paleontologieAnimaleManager.getAllPaleontologieAnimale(new ICallback<List<PaleontologieAnimale>>() {
                     @Override
                     public void success(List<PaleontologieAnimale> paleontologieAnimales) {
@@ -270,7 +271,7 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Paleontologie Vegetale":
                 PaleontologieVegetaleManager paleontologieVegetaleManager = new PaleontologieVegetaleManager();
                 final ArrayList<PaleontologieVegetale> vegetales = new ArrayList<>();
-                final PaleontologieVegetaleAdapater paleontologieVegetaleAdapater = new PaleontologieVegetaleAdapater(vegetales,applicationContext);
+                final DefaultClassCollectionAdapater<PaleontologieVegetale> paleontologieVegetaleAdapater = new DefaultClassCollectionAdapater<>(vegetales,applicationContext);
                 paleontologieVegetaleManager.getAllPaleontologieVegetale(new ICallback<List<PaleontologieVegetale>>() {
                     @Override
                     public void success(List<PaleontologieVegetale> paleontologieVegetales) {
@@ -289,7 +290,7 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Petrographie":
                 PetrographieManager petrographieManager = new PetrographieManager();
                 final ArrayList<Petrographie> petrographies = new ArrayList<>();
-                final PetrographieAdapater petrographieAdapater = new PetrographieAdapater(petrographies,applicationContext);
+                final DefaultClassCollectionAdapater<Petrographie> petrographieAdapater = new DefaultClassCollectionAdapater<>(petrographies,applicationContext);
                 petrographieManager.getAllPetrographie(new ICallback<List<Petrographie>>() {
                     @Override
                     public void success(List<Petrographie> petrographieList) {
@@ -309,7 +310,7 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Physique":
                 PhysiqueManager physiqueManager = new PhysiqueManager();
                 final ArrayList<Physique> physiques = new ArrayList<>();
-                final PhysiqueAdapater physiqueAdapater = new PhysiqueAdapater(physiques,applicationContext);
+                final DefaultClassCollectionAdapater<Physique> physiqueAdapater = new DefaultClassCollectionAdapater<>(physiques,applicationContext);
                 physiqueManager.getAllPhysique(new ICallback<List<Physique>>() {
                     @Override
                     public void success(List<Physique> physiqueList) {
@@ -328,7 +329,7 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Typotheque":
                 TypothequeManager typothequeManager = new TypothequeManager();
                 final ArrayList<Typotheque> typotheques = new ArrayList<>();
-                final TypothequeAdapater typothequeAdapater = new TypothequeAdapater(typotheques,applicationContext);
+                final DefaultClassCollectionAdapater<Typotheque> typothequeAdapater = new DefaultClassCollectionAdapater<>(typotheques,applicationContext);
                 typothequeManager.getAllTypotheque(new ICallback<List<Typotheque>>() {
                     @Override
                     public void success(List<Typotheque> typothequeList) {
@@ -348,8 +349,8 @@ public class ObjetsCollectionFragment extends Fragment {
                 ZoologieInvertebresAutresManager zoologieInvertebresAutresManager =
                         new ZoologieInvertebresAutresManager();
                 final ArrayList<ZoologieInvertebresAutres> invertebresAutres = new ArrayList<>();
-                final ZoologieInvertebresAutresAdapater invertebresAutresAdapater =
-                        new ZoologieInvertebresAutresAdapater(invertebresAutres,applicationContext);
+                final DefaultClassCollectionAdapater<ZoologieInvertebresAutres> invertebresAutresAdapater =
+                        new DefaultClassCollectionAdapater<>(invertebresAutres,applicationContext);
                 zoologieInvertebresAutresManager.getAllZoologieInvertebresAutres(new ICallback<List<ZoologieInvertebresAutres>>() {
                     @Override
                     public void success(List<ZoologieInvertebresAutres> zoologieInvertebresAutres) {
@@ -368,8 +369,8 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Zoologie Invertebres Insectes":
                 ZoologieInvertebresInsectesManager insectesManager = new ZoologieInvertebresInsectesManager();
                 final ArrayList<ZoologieInvertebresInsectes> invertebresInsectes = new ArrayList<>();
-                final ZoologieInvertebresInsectesAdapater insectesAdapater =
-                        new ZoologieInvertebresInsectesAdapater(invertebresInsectes,applicationContext);
+                final DefaultClassCollectionAdapater<ZoologieInvertebresInsectes> insectesAdapater =
+                        new DefaultClassCollectionAdapater<>(invertebresInsectes,applicationContext);
                 insectesManager.getAllZoologieInvertebresInsectes(new ICallback<List<ZoologieInvertebresInsectes>>() {
                     @Override
                     public void success(List<ZoologieInvertebresInsectes> zoologieInvertebresInsectes) {
@@ -388,8 +389,8 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Zoologie Invertebres Mollusques":
                 ZoologieInvertebresMollusquesManager mollusquesManager = new ZoologieInvertebresMollusquesManager();
                 final ArrayList<ZoologieInvertebresMollusques> invertebresMollusques = new ArrayList<>();
-                final ZoologieInvertebresMollusquesAdapater mollusquesAdapater =
-                        new ZoologieInvertebresMollusquesAdapater(invertebresMollusques,applicationContext);
+                final DefaultClassCollectionAdapater<ZoologieInvertebresMollusques> mollusquesAdapater =
+                        new DefaultClassCollectionAdapater<>(invertebresMollusques,applicationContext);
                 mollusquesManager.getAllZoologieInvertebresMollusques(new ICallback<List<ZoologieInvertebresMollusques>>() {
                     @Override
                     public void success(List<ZoologieInvertebresMollusques> zoologieInvertebresMollusques) {
@@ -408,8 +409,8 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Zoologie Vertebres Autres":
                 ZoologieVertebresAutresManager vertebresAutresManager = new ZoologieVertebresAutresManager();
                 final ArrayList<ZoologieVertebresAutres> vertebresAutres = new ArrayList<>();
-                final ZoologieVertebresAutresAdapater zoologieVertebresAutresAdapater =
-                        new ZoologieVertebresAutresAdapater(vertebresAutres,applicationContext);
+                final DefaultClassCollectionAdapater<ZoologieVertebresAutres> zoologieVertebresAutresAdapater =
+                        new DefaultClassCollectionAdapater<>(vertebresAutres,applicationContext);
                 vertebresAutresManager.getAllZoologieVertebresAutres(new ICallback<List<ZoologieVertebresAutres>>() {
                     @Override
                     public void success(List<ZoologieVertebresAutres> zoologieVertebresAutres) {
@@ -428,8 +429,8 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Zoologie Vertebres Mammiferes":
                 ZoologieVertebresMammiferesManager mammiferesManager = new ZoologieVertebresMammiferesManager();
                 final ArrayList<ZoologieVertebresMammiferes> vertebresMammiferes = new ArrayList<>();
-                final ZoologieVertebresMammiferesAdapater mammiferesAdapater =
-                        new ZoologieVertebresMammiferesAdapater(vertebresMammiferes,applicationContext);
+                final DefaultClassCollectionAdapater<ZoologieVertebresMammiferes> mammiferesAdapater =
+                        new DefaultClassCollectionAdapater<>(vertebresMammiferes,applicationContext);
                 mammiferesManager.getAllZoologieVertebresMammiferes(new ICallback<List<ZoologieVertebresMammiferes>>() {
                     @Override
                     public void success(List<ZoologieVertebresMammiferes> zoologieVertebresMammiferes) {
@@ -448,8 +449,8 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Zoologie Vertebres Poissons":
                 ZoologieVertebresPoissonsManager vertebresPoissonsManager = new ZoologieVertebresPoissonsManager();
                 final ArrayList<ZoologieVertebresPoissons> vertebresPoissonses = new ArrayList<>();
-                final ZoologieVertebresPoissonsAdapater poissonsAdapater =
-                        new ZoologieVertebresPoissonsAdapater(vertebresPoissonses,applicationContext);
+                final DefaultClassCollectionAdapater<ZoologieVertebresPoissons> poissonsAdapater =
+                        new DefaultClassCollectionAdapater<>(vertebresPoissonses,applicationContext);
                 vertebresPoissonsManager.getAllZoologieVertebresPoissons(new ICallback<List<ZoologieVertebresPoissons>>() {
                     @Override
                     public void success(List<ZoologieVertebresPoissons> zoologieVertebresPoissonses) {
@@ -468,8 +469,8 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Zoologie Vertebres Primates":
                 ZoologieVertebresPrimatesManager primatesManager = new ZoologieVertebresPrimatesManager();
                 final ArrayList<ZoologieVertebresPrimates> vertebresPrimates = new ArrayList<>();
-                final ZoologieVertebresPrimatesAdapater primatesAdapater =
-                        new ZoologieVertebresPrimatesAdapater(vertebresPrimates,applicationContext);
+                final DefaultClassCollectionAdapater<ZoologieVertebresPrimates> primatesAdapater =
+                        new DefaultClassCollectionAdapater<>(vertebresPrimates,applicationContext);
                 primatesManager.getAllZoologieVertebresPrimates(new ICallback<List<ZoologieVertebresPrimates>>() {
                     @Override
                     public void success(List<ZoologieVertebresPrimates> zoologieVertebresPrimates) {
@@ -488,8 +489,8 @@ public class ObjetsCollectionFragment extends Fragment {
             case "Zoologie Vertebres Reptile":
                 ZoologieVertebresReptileManager reptileManager = new ZoologieVertebresReptileManager();
                 final ArrayList<ZoologieVertebresReptile> vertebresReptiles = new ArrayList<>();
-                final ZoologieVertebresReptileAdapater reptileAdapater =
-                        new ZoologieVertebresReptileAdapater(vertebresReptiles,applicationContext);
+                final DefaultClassCollectionAdapater<ZoologieVertebresReptile> reptileAdapater =
+                        new DefaultClassCollectionAdapater<>(vertebresReptiles,applicationContext);
                 reptileManager.getAllZoologieVertebresReptile(new ICallback<List<ZoologieVertebresReptile>>() {
                     @Override
                     public void success(List<ZoologieVertebresReptile> zoologieVertebresReptiles) {
@@ -507,7 +508,7 @@ public class ObjetsCollectionFragment extends Fragment {
                 break;
             default:
                 ArrayList<DefaultClassCollection> defaultClassCollections = new ArrayList<>();
-                DefaultClassCollectionAdapater adapater = new DefaultClassCollectionAdapater(defaultClassCollections,applicationContext);
+                DefaultClassCollectionAdapater<DefaultClassCollection> adapater = new DefaultClassCollectionAdapater<>(defaultClassCollections,applicationContext);
                 recyclerView.setAdapter(adapater);
         }
     }

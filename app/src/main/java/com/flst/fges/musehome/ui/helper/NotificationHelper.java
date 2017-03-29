@@ -80,7 +80,7 @@ public class NotificationHelper {
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
         mBuilder.setContentIntent(resultPendingIntent);
-        mBuilder.setOngoing(true);
+        //mBuilder.setOngoing(true);
         Notification note = mBuilder.build();
         note.defaults |= Notification.DEFAULT_VIBRATE;
         note.defaults |= Notification.DEFAULT_SOUND;
