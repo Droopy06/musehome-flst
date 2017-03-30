@@ -1,6 +1,5 @@
 package com.flst.fges.musehome.ui.activity;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -80,10 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        MenuItem homeItem = mBottomNav.getMenu().getItem(0);
-        if (mSelectedItem != homeItem.getItemId()) {
-            // select home item
-            selectFragment(homeItem);
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
         }
@@ -92,49 +89,65 @@ public class MainActivity extends AppCompatActivity {
     private void selectFragment(MenuItem item) {
         Fragment frag = null;
         // init corresponding fragment
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.musehome_container);
         switch (item.getItemId()) {
             case R.id.home_button:
                 mTitleText.setText("Accueil");
+                if (currentFragment != null && currentFragment instanceof HomeFragment) {
+                    // Do nothing.
+                    return;
+                }
                 frag = HomeFragment.newInstance();
                 break;
             case R.id.evenement_button:
                 mTitleText.setText("Evénements");
+                if (currentFragment != null && currentFragment instanceof EvenementsFragment) {
+                    // Do nothing.
+                    return;
+                }
                 frag = EvenementsFragment.newInstance();
                 break;
             case R.id.collections_button:
                 mTitleText.setText("Collections");
+                if (currentFragment != null && currentFragment instanceof CollectionsFragment) {
+                    // Do nothing.
+                    return;
+                }
                 frag = CollectionsFragment.newInstance();
                 break;
             case R.id.contact_button:
                 mTitleText.setText("Formulaire de contact");
+                if (currentFragment != null && currentFragment instanceof ContactFragment) {
+                    // Do nothing.
+                    return;
+                }
                 frag = ContactFragment.newInstance();
                 break;
             case R.id.information_button:
                 mTitleText.setText("Informations");
+                if (currentFragment != null && currentFragment instanceof InformationsFragment) {
+                    // Do nothing.
+                    return;
+                }
                 frag = InformationsFragment.newInstance();
                 break;
         }
-
         // update selected item
         mSelectedItem = item.getItemId();
 
         // uncheck the other items.
         for (int i = 0; i< mBottomNav.getMenu().size(); i++) {
             MenuItem menuItem = mBottomNav.getMenu().getItem(i);
-            menuItem.setChecked(menuItem.getItemId() == item.getItemId());
+            if(menuItem.getItemId() == item.getItemId()) {
+                menuItem.setChecked(true);
+            }
         }
 
         updateToolbarText(item.getTitle());
-        FragmentManager fragmentManager = getFragmentManager();
-        boolean fragmentPopped = fragmentManager
-                .popBackStackImmediate(frag.getClass().getSimpleName() , 0);
-        if (!fragmentPopped && fragmentManager.findFragmentByTag(frag.getClass().getSimpleName()) == null) {
-            FragmentTransaction ft =  getSupportFragmentManager().beginTransaction();
-            ft.addToBackStack(frag.getClass().getSimpleName());
-            //Fragment ft2 = getSupportFragmentManager().findFragmentById(R.id.musehome_container);
-            ft.replace(R.id.musehome_container, frag, frag.getTag());
-            ft.commit();
-        }
+        FragmentTransaction ft =  getSupportFragmentManager().beginTransaction();
+        //Fragment ft2 = getSupportFragmentManager().findFragmentById(R.id.musehome_container);
+        ft.replace(R.id.musehome_container, frag, frag.getClass().getSimpleName()).addToBackStack(frag.getClass().getSimpleName());
+        ft.commit();
     }
 
     private void updateToolbarText(CharSequence text) {

@@ -4,10 +4,25 @@
     android:layout_height="match_parent"
     tools:context="com.flst.fges.musehome.ui.fragment.InformationsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/information_frag_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="70dp" />
+
+        <TextView
+            android:id="@+id/concepteur_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/supervision_info"/>
+
+    </LinearLayout>
 
 </FrameLayout>

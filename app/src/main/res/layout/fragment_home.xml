@@ -6,4 +6,32 @@
 
     <include layout="@layout/home_cardview"/>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Les CardView agissent comme des FrameLayout,
+         pour avoir une organisation verticale nous devons
+         donc rajouter un LinearLayout -->
+
+        <ImageView
+            android:id="@+id/catho_lille_imageview"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_folder_open_black_24dp" />
+
+        <ImageView
+            android:id="@+id/fges_imageview"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_folder_open_black_24dp" />
+    </LinearLayout>
+
 </FrameLayout>

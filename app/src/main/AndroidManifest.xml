@@ -25,13 +25,18 @@
             android:name=".ui.activity.CollectionActivity"
             android:label="@string/title_activity_collection"
             android:parentActivityName=".ui.activity.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.flst.fges.musehome.ui.activity.MainActivity" />
         </activity>
-        <activity android:name=".ui.activity.ObjetsDetailActivity" />
-        <activity android:name=".ui.activity.EvenementDetailActivity"></activity>
+        <activity
+            android:name=".ui.activity.ObjetsDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.EvenementDetailActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

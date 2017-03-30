@@ -14,6 +14,9 @@ import com.flst.fges.musehome.R;
 import com.flst.fges.musehome.data.factory.EvenementFactory;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +26,15 @@ import com.squareup.picasso.Picasso;
 public class
 
 HomeFragment extends Fragment {
+
+    @BindView(R.id.evenement_imageview)
+    ImageView imageView;
+    @BindView(R.id.catho_lille_imageview)
+    ImageView cathoImageView;
+    @BindView(R.id.fges_imageview)
+    ImageView fgesImageView;
+    @BindView(R.id.text_card)
+    TextView textView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -52,10 +64,11 @@ HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         Context applicationContext = getActivity().getApplicationContext();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this,view);
         // Inflate the layout for this fragment
-        ImageView imageView = (ImageView) view.findViewById(R.id.evenement_imageview);
         Picasso.with(applicationContext).load(EvenementFactory.getAllEvenement().get(0).getImageuri()).into(imageView);
-        TextView textView = (TextView) view.findViewById(R.id.text_card);
+        Picasso.with(applicationContext).load(R.drawable.logo_facultes_blanc).fit().into(cathoImageView);
+        Picasso.with(applicationContext).load(R.drawable.logo_fges).fit().into(fgesImageView);
         textView.setText(EvenementFactory.getAllEvenement().get(0).getTitre());
         return view;
     }
