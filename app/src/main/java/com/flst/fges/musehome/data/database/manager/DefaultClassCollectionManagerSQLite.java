@@ -74,63 +74,63 @@ public class DefaultClassCollectionManagerSQLite {
 
     public static String TABLE_NAME = "defaultclasscollection";
 
-    public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME +
+    public static String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME +
             " (" +
             " "+KEY_ID+" TEXT," +
             " "+KEY_COLLECTION+" TEXT," +
             " "+KEY_PICTURE+" TEXT," +
             " "+KEY_NAME+" TEXT," +
-            " "+KEY_GROUPE+" TEXT" +
+            " "+KEY_GROUPE+" TEXT," +
             " "+KEY_KIND+" TEXT," +
             " "+KEY_ESPECE+" TEXT," +
             " "+KEY_AUTHOR+" TEXT," +
             " "+KEY_YEAR+" TEXT," +
-            " "+KEY_COUNTRY+" TEXT" +
+            " "+KEY_COUNTRY+" TEXT," +
             " "+KEY_CITY+" TEXT," +
             " "+KEY_PLACE+" TEXT," +
             " "+KEY_NAMECOLLECTION+" TEXT," +
             " "+KEY_MANIFOLD+" TEXT," +
-            " "+KEY_LOCALIZATION+" TEXT" +
+            " "+KEY_LOCALIZATION+" TEXT," +
             " "+KEY_ANNEXE1+" TEXT," +
             " "+KEY_ANNEXE2+" TEXT," +
             " "+KEY_ANNEXE3+" TEXT," +
             " "+KEY_ANNEXE4+" TEXT," +
-            " "+KEY_ANNEXE5+" TEXT" +
+            " "+KEY_ANNEXE5+" TEXT," +
             " "+KEY_ANNEXE6+" TEXT," +
             " "+KEY_ANNEXE7+" TEXT," +
             " "+KEY_ANNEXE8+" TEXT," +
             " "+KEY_ANNEXE9+" TEXT," +
-            " "+KEY_ANNEXE10+" TEXT" +
+            " "+KEY_ANNEXE10+" TEXT," +
             " "+KEY_ANNEXE11+" TEXT," +
             " "+KEY_ANNEXE12+" TEXT," +
             " "+KEY_ANNEXE13+" TEXT," +
             " "+KEY_ANNEXE14+" TEXT," +
-            " "+KEY_ANNEXE15+" TEXT" +
+            " "+KEY_ANNEXE15+" TEXT," +
             " "+KEY_ANNEXE16+" TEXT," +
             " "+KEY_ANNEXE17+" TEXT," +
             " "+KEY_ANNEXE18+" TEXT," +
             " "+KEY_ANNEXE19+" TEXT," +
-            " "+KEY_ANNEXE20+" TEXT" +
+            " "+KEY_ANNEXE20+" TEXT," +
             " "+KEY_ANNEXE21+" TEXT," +
             " "+KEY_ANNEXE22+" TEXT," +
             " "+KEY_ANNEXE23+" TEXT," +
             " "+KEY_ANNEXE24+" TEXT," +
-            " "+KEY_ANNEXE25+" TEXT" +
+            " "+KEY_ANNEXE25+" TEXT," +
             " "+KEY_ANNEXE26+" TEXT," +
             " "+KEY_ANNEXE27+" TEXT," +
             " "+KEY_ANNEXE28+" TEXT," +
             " "+KEY_ANNEXE29+" TEXT," +
-            " "+KEY_ANNEXE30+" TEXT" +
+            " "+KEY_ANNEXE30+" TEXT," +
             " "+KEY_ANNEXE31+" TEXT," +
             " "+KEY_ANNEXE32+" TEXT," +
             " "+KEY_ANNEXE33+" TEXT," +
             " "+KEY_ANNEXE34+" TEXT," +
             " "+KEY_ANNEXE35+" TEXT," +
-            " "+KEY_ANNEXE36+" TEXT" +
+            " "+KEY_ANNEXE36+" TEXT," +
             " "+KEY_ANNEXE37+" TEXT," +
             " "+KEY_ANNEXE38+" TEXT," +
             " "+KEY_ANNEXE39+" TEXT," +
-            " "+KEY_ANNEXE40+" TEXT," +
+            " "+KEY_ANNEXE40+" TEXT" +
             ");";
     private MySQLite mySQLite; // notre gestionnaire du fichier SQLite
     private SQLiteDatabase db;
@@ -146,6 +146,64 @@ public class DefaultClassCollectionManagerSQLite {
 
     public void setTableName(String tableName) {
         TABLE_NAME = tableName;
+        CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME +
+                " (" +
+                " "+KEY_ID+" TEXT," +
+                " "+KEY_COLLECTION+" TEXT," +
+                " "+KEY_PICTURE+" TEXT," +
+                " "+KEY_NAME+" TEXT," +
+                " "+KEY_GROUPE+" TEXT," +
+                " "+KEY_KIND+" TEXT," +
+                " "+KEY_ESPECE+" TEXT," +
+                " "+KEY_AUTHOR+" TEXT," +
+                " "+KEY_YEAR+" TEXT," +
+                " "+KEY_COUNTRY+" TEXT," +
+                " "+KEY_CITY+" TEXT," +
+                " "+KEY_PLACE+" TEXT," +
+                " "+KEY_NAMECOLLECTION+" TEXT," +
+                " "+KEY_MANIFOLD+" TEXT," +
+                " "+KEY_LOCALIZATION+" TEXT," +
+                " "+KEY_ANNEXE1+" TEXT," +
+                " "+KEY_ANNEXE2+" TEXT," +
+                " "+KEY_ANNEXE3+" TEXT," +
+                " "+KEY_ANNEXE4+" TEXT," +
+                " "+KEY_ANNEXE5+" TEXT," +
+                " "+KEY_ANNEXE6+" TEXT," +
+                " "+KEY_ANNEXE7+" TEXT," +
+                " "+KEY_ANNEXE8+" TEXT," +
+                " "+KEY_ANNEXE9+" TEXT," +
+                " "+KEY_ANNEXE10+" TEXT," +
+                " "+KEY_ANNEXE11+" TEXT," +
+                " "+KEY_ANNEXE12+" TEXT," +
+                " "+KEY_ANNEXE13+" TEXT," +
+                " "+KEY_ANNEXE14+" TEXT," +
+                " "+KEY_ANNEXE15+" TEXT," +
+                " "+KEY_ANNEXE16+" TEXT," +
+                " "+KEY_ANNEXE17+" TEXT," +
+                " "+KEY_ANNEXE18+" TEXT," +
+                " "+KEY_ANNEXE19+" TEXT," +
+                " "+KEY_ANNEXE20+" TEXT," +
+                " "+KEY_ANNEXE21+" TEXT," +
+                " "+KEY_ANNEXE22+" TEXT," +
+                " "+KEY_ANNEXE23+" TEXT," +
+                " "+KEY_ANNEXE24+" TEXT," +
+                " "+KEY_ANNEXE25+" TEXT," +
+                " "+KEY_ANNEXE26+" TEXT," +
+                " "+KEY_ANNEXE27+" TEXT," +
+                " "+KEY_ANNEXE28+" TEXT," +
+                " "+KEY_ANNEXE29+" TEXT," +
+                " "+KEY_ANNEXE30+" TEXT," +
+                " "+KEY_ANNEXE31+" TEXT," +
+                " "+KEY_ANNEXE32+" TEXT," +
+                " "+KEY_ANNEXE33+" TEXT," +
+                " "+KEY_ANNEXE34+" TEXT," +
+                " "+KEY_ANNEXE35+" TEXT," +
+                " "+KEY_ANNEXE36+" TEXT," +
+                " "+KEY_ANNEXE37+" TEXT," +
+                " "+KEY_ANNEXE38+" TEXT," +
+                " "+KEY_ANNEXE39+" TEXT," +
+                " "+KEY_ANNEXE40+" TEXT" +
+                ");";
     }
 
     public void open() {
