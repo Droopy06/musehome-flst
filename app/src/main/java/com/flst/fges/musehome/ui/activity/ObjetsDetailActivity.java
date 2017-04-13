@@ -80,11 +80,13 @@ public class ObjetsDetailActivity extends AppCompatActivity {
         defaultClassCollectionManager.getDefaultClassCollectionByName(getIntent().getStringExtra("COLLECTION").replace(" ", "").toLowerCase(), id, new ICallback<DefaultClassCollection>() {
             @Override
             public void success(DefaultClassCollection defaultClassCollection) {
-                Picasso.with(getApplicationContext()).
-                        load("http://"+ UrlHelper.BASE_URL_API +"/patrimoine/images/Collections/"+
+                Picasso.with(getApplicationContext())
+                        .load("http://"+ UrlHelper.BASE_URL_API +"/patrimoine/images/Collections/"+
                                 getIntent().getStringExtra("COLLECTION").replace(" ", "").toLowerCase()+
-                                "/"+defaultClassCollection.getPicture()).
-                        into(imageView);
+                                "/"+defaultClassCollection.getPicture())
+                        .error(R.drawable.image_download_error_24dp)
+                        .placeholder(R.drawable.loading)
+                        .into(imageView);
                 mTextNomCommum.setText(defaultClassCollection.getName());
                 mTextGroupe.setText(defaultClassCollection.getGroupe());
                 mTextGenre.setText(defaultClassCollection.getKind());

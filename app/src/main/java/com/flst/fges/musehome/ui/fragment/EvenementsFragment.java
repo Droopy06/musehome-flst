@@ -2,8 +2,10 @@ package com.flst.fges.musehome.ui.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,10 +15,11 @@ import android.view.ViewGroup;
 
 import com.flst.fges.musehome.R;
 import com.flst.fges.musehome.data.ICallback;
-import com.flst.fges.musehome.data.factory.EvenementFactory;
 import com.flst.fges.musehome.data.manager.EvenementsManager;
 import com.flst.fges.musehome.data.model.Evenement;
+import com.flst.fges.musehome.ui.activity.EvenementDetailActivity;
 import com.flst.fges.musehome.ui.adapter.EvenementsAdapater;
+import com.flst.fges.musehome.ui.helper.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,9 +80,20 @@ public class EvenementsFragment extends Fragment {
                 Log.w("ERROR",error);
             }
         });
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Evenement evenement = evenementsAdapater.getItemAtPosition(position);
+                Intent intent = new Intent(getContext(), EvenementDetailActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("EVENEMENT",evenement.getTitre());
+                getContext().startActivity(intent);
+            }
+        }));
         recyclerView.setAdapter(evenementsAdapater);
         recyclerView.setLayoutManager(new LinearLayoutManager(applicationContext));
-        // Inflate the layout for this fragment
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         return view;
     }
 

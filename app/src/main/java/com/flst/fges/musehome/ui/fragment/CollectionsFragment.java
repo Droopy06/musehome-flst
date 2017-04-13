@@ -2,9 +2,10 @@ package com.flst.fges.musehome.ui.fragment;
 
 
 import android.content.Context;
-import android.nfc.Tag;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,10 +15,11 @@ import android.view.ViewGroup;
 
 import com.flst.fges.musehome.R;
 import com.flst.fges.musehome.data.ICallback;
-import com.flst.fges.musehome.data.factory.CollectionFactory;
 import com.flst.fges.musehome.data.manager.CollectionsManager;
 import com.flst.fges.musehome.data.model.Collection;
+import com.flst.fges.musehome.ui.activity.CollectionActivity;
 import com.flst.fges.musehome.ui.adapter.CollectionsAdapater;
+import com.flst.fges.musehome.ui.helper.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,8 +80,20 @@ public class CollectionsFragment extends Fragment {
                 Log.w("ERREUR",error);
             }
         });
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Collection collection = collectionsAdapater.getItemAtPosition(position);
+                Intent intent = new Intent(getContext(), CollectionActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("COLLECTION",collection.getNom());
+                getContext().startActivity(intent);
+            }
+        }));
         recyclerView.setAdapter(collectionsAdapater);
         recyclerView.setLayoutManager(new LinearLayoutManager(applicationContext));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         return view;
     }
 

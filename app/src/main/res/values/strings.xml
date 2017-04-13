@@ -28,4 +28,6 @@
     <string name="titre">Titre</string>
     <string name="informations">Informations</string>
     <string name="supervision_info">Sous la supervision de: Guilbert Fréderic, HUBERT Benoît</string>
+    <string name="developers">Personnes ayant développer l\'application</string>
+    <string name="supervision_projet">Personnes ayant superviser le projet</string>
 </resources>

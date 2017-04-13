@@ -20,7 +20,7 @@ public class EvenementsConverter {
         return list;
     }
 
-    private Evenement convertDtoToEvenement(EvenementDTO evenementDTO){
+    public Evenement convertDtoToEvenement(EvenementDTO evenementDTO){
         Evenement evenement = new Evenement();
         evenement.setTitre(evenementDTO.getTitre());
         evenement.setMiniDescr(evenementDTO.getMiniDescr());

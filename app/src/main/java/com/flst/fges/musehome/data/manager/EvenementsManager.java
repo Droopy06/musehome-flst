@@ -42,4 +42,40 @@ public class EvenementsManager {
             }
         });
     }
+
+    public void getEvenementByTitle(String title,final ICallback<Evenement> callback){
+        final Call<EvenementDTO> call = evenementService.getEvenementsByTitle(title);
+        call.enqueue(new Callback<EvenementDTO>() {
+            @Override
+            public void onResponse(Call<EvenementDTO> call, Response<EvenementDTO> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    EvenementsConverter evenementsConverter = new EvenementsConverter();
+                    callback.success(evenementsConverter.convertDtoToEvenement(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EvenementDTO> call, Throwable t) {
+                callback.failure(t);
+            }
+        });
+    }
+
+    public void getEvenementByPosition(String number,final ICallback<Evenement> callback){
+        final Call<EvenementDTO> call = evenementService.getEvenementsByPosition(number);
+        call.enqueue(new Callback<EvenementDTO>() {
+            @Override
+            public void onResponse(Call<EvenementDTO> call, Response<EvenementDTO> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    EvenementsConverter evenementsConverter = new EvenementsConverter();
+                    callback.success(evenementsConverter.convertDtoToEvenement(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EvenementDTO> call, Throwable t) {
+                callback.failure(t);
+            }
+        });
+    }
 }

@@ -1,54 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:background="@color/backgroundColor"
     tools:context="com.flst.fges.musehome.ui.activity.MainActivity">
 
-    <LinearLayout
+    <com.flst.fges.musehome.ui.helper.CustomFontChromiaTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/home_textview"
+        android:text="@string/page_d_accueil"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="28sp"
+        android:textColor="@color/textMuseHome"/>
+
+    <FrameLayout
+        android:id="@+id/musehome_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_above="@+id/linearLayout2">
-        <com.flst.fges.musehome.ui.helper.CustomFontChromiaTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/home_textview"
-            android:text="@string/page_d_accueil"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textSize="28sp"
-            android:textColor="@color/textMuseHome"/>
+        android:layout_marginTop="35dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <FrameLayout
-            android:id="@+id/musehome_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:minHeight="25dp"
-        android:minWidth="25dp"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:itemBackground="@color/background"
-            app:itemIconTint="@color/textMuseHome"
-            app:itemTextColor="@color/textMuseHome"
-            app:menu="@menu/musehome_menu" />
-    </LinearLayout>
-</RelativeLayout>
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="bottom" />
+</android.support.design.widget.CoordinatorLayout>
