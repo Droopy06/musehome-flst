@@ -22,8 +22,8 @@ public class PersonsFactory {
 
     public static ArrayList<Persons> getSupervision(){
         ArrayList<Persons> personses = new ArrayList<>();
-        personses.add(new Persons("Benoit","Hubert","Benoit.HUBERT@univ-catholille.fr", R.drawable.image_download_error_24dp));
-        personses.add(new Persons("Fréderic","Guilbert","Frederic.GUILBERT@univ-catholille.fr", R.drawable.image_download_error_24dp));
+        personses.add(new Persons("Benoit","Hubert","Benoit.HUBERT@univ-catholille.fr", R.drawable.benoit_hubert));
+        personses.add(new Persons("Frédéric","Guilbert","Frederic.GUILBERT@univ-catholille.fr", R.drawable.guilbert_frederic));
         return  personses;
     }
 }

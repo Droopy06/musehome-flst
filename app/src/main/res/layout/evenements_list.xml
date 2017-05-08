@@ -21,13 +21,13 @@
     <TextView
         android:id="@+id/evenements_titre_list_textView"
         android:layout_width="222dp"
-        android:layout_height="23dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/background"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
         app:layout_constraintLeft_toRightOf="@+id/evenements_list_imageView"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/desc_evenements_list_textView"
