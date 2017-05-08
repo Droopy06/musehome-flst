@@ -1,18 +1,26 @@
 package com.flst.fges.musehome.ui.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.flst.fges.musehome.R;
+import com.flst.fges.musehome.data.database.manager.MaterielPedagogiqueManagerSQLite;
+import com.flst.fges.musehome.data.factory.MaterielPedagogiqueFactory;
+import com.flst.fges.musehome.data.model.MaterielPedagogique;
 import com.flst.fges.musehome.ui.fragment.CollectionsFragment;
 import com.flst.fges.musehome.ui.fragment.ContactFragment;
 import com.flst.fges.musehome.ui.fragment.EvenementsFragment;
@@ -22,11 +30,14 @@ import com.flst.fges.musehome.ui.helper.GenerateMenuHelper;
 import com.flst.fges.musehome.ui.helper.NotificationHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     private static final String SELECTED_ITEM = "Home";
 
@@ -34,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     AHBottomNavigation mBottomNav;
     @BindView(R.id.home_textview)
     TextView mTitleText;
+    private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +53,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
-        ArrayList<String> messages = new ArrayList<>();
-        messages.add("L'administrateur a ajouté 5 événements durant votre absence");
-        messages.add("L'administrateur a ajouté 15 objets dans la collection Materiel pédagogique");
-        messages.add("L'administrateur a modifié l'evenement phare de l'application");
-        NotificationHelper.addLongNotificationWithoutVibration(R.mipmap.musehome,1,"MuseH@me",
-                "Bienvenue sur l'application mobile" +
-                " du patrimoine de la fges",MainActivity.class,getApplicationContext(),messages);
         GenerateMenuHelper.createMenu(mBottomNav);
         mBottomNav.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
@@ -67,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
         }
         selectFragment(mBottomNav.getItem(mBottomNav.getCurrentItem()).getTitle(this));
         checkNetwork();
+        if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+            Log.w("test","ok");
+        }else{
+            EasyPermissions.requestPermissions(this, getString(R.string.permissions), MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
     }
 
     @Override
@@ -86,6 +95,48 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             super.onBackPressed();
+        }
+        mBottomNav.restoreBottomNavigation();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 1) {
+            if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+                Log.w("test","ok");
+            }else{
+                EasyPermissions.requestPermissions(this, getString(R.string.rationale_ask_again), MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        MaterielPedagogiqueManagerSQLite mDataSource = new MaterielPedagogiqueManagerSQLite(getApplicationContext());
+        ArrayList<MaterielPedagogique> pedagogiq = MaterielPedagogiqueFactory.getAllMaterielPedagogique();
+        for(int i = 0;i < pedagogiq.size();i++)
+            mDataSource.addMaterielPedagogique(pedagogiq.get(i));
+        ArrayList<String> messages = new ArrayList<>();
+        messages.add("L'administrateur a ajouté 5 événements durant votre absence");
+        messages.add("L'administrateur a ajouté 15 objets dans la collection Materiel pédagogique");
+        messages.add("L'administrateur a modifié l'evenement phare de l'application");
+        NotificationHelper.addLongNotificationWithoutVibration(R.mipmap.musehome,1,"MuseH@me",
+                "Bienvenue sur l'application mobile" +
+                        " du patrimoine de la fges",MainActivity.class,getApplicationContext(),messages);
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
         }
     }
 

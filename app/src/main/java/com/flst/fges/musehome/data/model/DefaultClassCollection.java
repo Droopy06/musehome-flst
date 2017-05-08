@@ -1,12 +1,21 @@
 package com.flst.fges.musehome.data.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 
 /**
  * Created by LAMOOT Alexandre on 25/11/2016.
  */
+@DatabaseTable(tableName = "default_class_collection")
 public class DefaultClassCollection implements Serializable{
-    protected String id;
+
+    @DatabaseField(generatedId = true)
+    protected Integer id;
+    @SerializedName(value = "id")
+    protected String idMongoDb;
     protected String collection;
     protected String picture;
     protected String name;
@@ -65,19 +74,27 @@ public class DefaultClassCollection implements Serializable{
     public DefaultClassCollection() {
     }
 
-    public DefaultClassCollection(String id, String collection, String picture, String name) {
-        this.id = id;
+    public DefaultClassCollection(String idMongoDb, String collection, String picture, String name) {
+        this.idMongoDb = idMongoDb;
         this.collection = collection;
         this.picture = picture;
         this.name = name;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getIdMongoDb() {
+        return idMongoDb;
+    }
+
+    public void setIdMongoDb(String idMongoDb) {
+        this.idMongoDb = idMongoDb;
     }
 
     public String getCollection() {

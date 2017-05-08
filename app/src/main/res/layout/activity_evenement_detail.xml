@@ -24,13 +24,13 @@
         <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
             android:id="@+id/header_titre_textview"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.2"
             android:hint="@string/titre"
             android:layout_height="wrap_content" />
         <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
             android:id="@+id/text_nom_commum_textview"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.8"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
@@ -40,13 +40,13 @@
         <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
             android:id="@+id/header_mini_description_textview"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.2"
             android:hint="@string/mini_description"
             android:layout_height="wrap_content" />
         <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
             android:id="@+id/text_mini_description_textview"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.8"
             android:layout_height="wrap_content" />
     </LinearLayout>
 

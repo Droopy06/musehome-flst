@@ -30,6 +30,7 @@ import com.flst.fges.musehome.data.manager.ZoologieInvertebresInsectesManager;
 import com.flst.fges.musehome.data.manager.ZoologieInvertebresMollusquesManager;
 import com.flst.fges.musehome.data.manager.ZoologieVertebresAutresManager;
 import com.flst.fges.musehome.data.manager.ZoologieVertebresMammiferesManager;
+import com.flst.fges.musehome.data.manager.ZoologieVertebresOiseauxManager;
 import com.flst.fges.musehome.data.manager.ZoologieVertebresPoissonsManager;
 import com.flst.fges.musehome.data.manager.ZoologieVertebresPrimatesManager;
 import com.flst.fges.musehome.data.manager.ZoologieVertebresReptileManager;
@@ -50,6 +51,7 @@ import com.flst.fges.musehome.data.model.ZoologieInvertebresInsectes;
 import com.flst.fges.musehome.data.model.ZoologieInvertebresMollusques;
 import com.flst.fges.musehome.data.model.ZoologieVertebresAutres;
 import com.flst.fges.musehome.data.model.ZoologieVertebresMammiferes;
+import com.flst.fges.musehome.data.model.ZoologieVertebresOiseaux;
 import com.flst.fges.musehome.data.model.ZoologieVertebresPoissons;
 import com.flst.fges.musehome.data.model.ZoologieVertebresPrimates;
 import com.flst.fges.musehome.data.model.ZoologieVertebresReptile;
@@ -601,6 +603,37 @@ public class ObjetsCollectionFragment extends Fragment {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra("OBJET",zoologieVertebresMammiferes.getId());
                         intent.putExtra("COLLECTION",zoologieVertebresMammiferes.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
+                break;
+            case "Zoologie Vertebres Oiseaux":
+                ZoologieVertebresOiseauxManager zoologieVertebresOiseauxManager = new ZoologieVertebresOiseauxManager();
+                final ArrayList<ZoologieVertebresOiseaux> vertebresOiseauxes = new ArrayList<>();
+                final DefaultClassCollectionAdapater<ZoologieVertebresOiseaux> oiseauxesAdapater =
+                        new DefaultClassCollectionAdapater<>(vertebresOiseauxes,applicationContext);
+                zoologieVertebresOiseauxManager.getAllZoologieVertebresOiseaux(new ICallback<List<ZoologieVertebresOiseaux>>() {
+                    @Override
+                    public void success(List<ZoologieVertebresOiseaux> zoologieVertebresPoissonses) {
+                        vertebresOiseauxes.clear();
+                        vertebresOiseauxes.addAll(zoologieVertebresPoissonses);
+                        oiseauxesAdapater.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void failure(Throwable error) {
+                        Log.w("ERROR",error);
+                    }
+                });
+                recyclerView.setAdapter(oiseauxesAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ZoologieVertebresOiseaux zoologieVertebresOiseaux = (ZoologieVertebresOiseaux) oiseauxesAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",zoologieVertebresOiseaux.getId());
+                        intent.putExtra("COLLECTION",zoologieVertebresOiseaux.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
                 }));
