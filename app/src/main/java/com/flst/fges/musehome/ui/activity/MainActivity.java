@@ -18,18 +18,15 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.flst.fges.musehome.R;
-import com.flst.fges.musehome.data.database.manager.MaterielPedagogiqueManagerSQLite;
-import com.flst.fges.musehome.data.factory.MaterielPedagogiqueFactory;
-import com.flst.fges.musehome.data.model.MaterielPedagogique;
+import com.flst.fges.musehome.data.helper.SynchronizeApiToDatabase;
+import com.flst.fges.musehome.data.helper.SynchronizeApiToDatabaseImpl;
 import com.flst.fges.musehome.ui.fragment.CollectionsFragment;
 import com.flst.fges.musehome.ui.fragment.ContactFragment;
 import com.flst.fges.musehome.ui.fragment.EvenementsFragment;
 import com.flst.fges.musehome.ui.fragment.HomeFragment;
 import com.flst.fges.musehome.ui.fragment.InformationsFragment;
 import com.flst.fges.musehome.ui.helper.GenerateMenuHelper;
-import com.flst.fges.musehome.ui.helper.NotificationHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -101,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == 1) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 0) {
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
                 Log.w("test","ok");
             }else{
@@ -120,17 +117,10 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
-        MaterielPedagogiqueManagerSQLite mDataSource = new MaterielPedagogiqueManagerSQLite(getApplicationContext());
-        ArrayList<MaterielPedagogique> pedagogiq = MaterielPedagogiqueFactory.getAllMaterielPedagogique();
-        for(int i = 0;i < pedagogiq.size();i++)
-            mDataSource.addMaterielPedagogique(pedagogiq.get(i));
-        ArrayList<String> messages = new ArrayList<>();
-        messages.add("L'administrateur a ajouté 5 événements durant votre absence");
-        messages.add("L'administrateur a ajouté 15 objets dans la collection Materiel pédagogique");
-        messages.add("L'administrateur a modifié l'evenement phare de l'application");
-        NotificationHelper.addLongNotificationWithoutVibration(R.mipmap.musehome,1,"MuseH@me",
+        SynchronizeApiToDatabase synchronizeApiToDatabase = new SynchronizeApiToDatabaseImpl();
+        synchronizeApiToDatabase.initialize(R.mipmap.musehome,1,"MuseH@me",
                 "Bienvenue sur l'application mobile" +
-                        " du patrimoine de la fges",MainActivity.class,getApplicationContext(),messages);
+                        " du patrimoine de la fges",MainActivity.class,getApplicationContext(),10245252);
     }
 
     @Override

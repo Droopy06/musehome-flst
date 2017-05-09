@@ -11,12 +11,19 @@ public class Evenement {
 
     @DatabaseField(generatedId = true)
     protected Integer id;
+    @DatabaseField
     private String titre;
+    @DatabaseField
     private String miniDescr;
+    @DatabaseField
     private String imageuri;
+    @DatabaseField
     private String miniimageuri;
+    @DatabaseField
     private String twitter;
+    @DatabaseField
     private String facebook;
+    @DatabaseField
     private String go;
 
 

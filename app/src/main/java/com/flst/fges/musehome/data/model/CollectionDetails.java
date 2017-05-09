@@ -1,5 +1,6 @@
 package com.flst.fges.musehome.data.model;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -10,61 +11,116 @@ import com.j256.ormlite.table.DatabaseTable;
 public class CollectionDetails {
 
     @DatabaseField(generatedId = true)
-    protected Integer id;
+    transient protected Integer id;
+    @DatabaseField @Expose
     private   String nameOfCollection;
+    @DatabaseField @Expose
     private   String idMongoDb;
+    @DatabaseField @Expose
     private   String picture;
+    @DatabaseField @Expose
     private   String name;
+    @DatabaseField @Expose
     private   String groupe;
+    @DatabaseField @Expose
     private   String kind;
+    @DatabaseField @Expose
     private   String espece;
+    @DatabaseField @Expose
     private   String author;
+    @DatabaseField @Expose
     private   String year;
+    @DatabaseField @Expose
     private   String country;
+    @DatabaseField @Expose
     private   String city;
+    @DatabaseField @Expose
     private   String place;
+    @DatabaseField @Expose
     private   String nameCollection;
+    @DatabaseField @Expose
     private   String manifold;
+    @DatabaseField @Expose
     private   String localization;
+    @DatabaseField @Expose
     private   String annexe1;
+    @DatabaseField @Expose
     private   String annexe2;
+    @DatabaseField @Expose
     private   String annexe3;
+    @DatabaseField @Expose
     private   String annexe4;
+    @DatabaseField @Expose
     private   String annexe5;
+    @DatabaseField @Expose
     private   String annexe6;
+    @DatabaseField @Expose
     private   String annexe7;
+    @DatabaseField @Expose
     private   String annexe8;
+    @DatabaseField @Expose
     private   String annexe9;
+    @DatabaseField @Expose
     private   String annexe10;
+    @DatabaseField @Expose
     private   String annexe11;
+    @DatabaseField @Expose
     private   String annexe12;
+    @DatabaseField @Expose
     private   String annexe13;
+    @DatabaseField @Expose
     private   String annexe14;
+    @DatabaseField @Expose
     private   String annexe15;
+    @DatabaseField @Expose
     private   String annexe16;
+    @DatabaseField @Expose
     private   String annexe17;
+    @DatabaseField @Expose
     private   String annexe18;
+    @DatabaseField @Expose
     private   String annexe19;
+    @DatabaseField @Expose
     private   String annexe20;
+    @DatabaseField @Expose
     private   String annexe21;
+    @DatabaseField @Expose
     private   String annexe22;
+    @DatabaseField @Expose
     private   String annexe23;
+    @DatabaseField @Expose
     private   String annexe24;
+    @DatabaseField @Expose
     private   String annexe25;
+    @DatabaseField @Expose
     private   String annexe26;
+    @DatabaseField @Expose
     private   String annexe27;
+    @DatabaseField @Expose
     private   String annexe28;
+    @DatabaseField @Expose
     private   String annexe29;
+    @DatabaseField @Expose
     private   String annexe30;
+    @DatabaseField @Expose
     private   String annexe31;
+    @DatabaseField @Expose
     private   String annexe32;
+    @DatabaseField @Expose
     private   String annexe33;
+    @DatabaseField @Expose
     private   String annexe34;
+    @DatabaseField @Expose
     private   String annexe35;
+    @DatabaseField @Expose
     private   String annexe36;
+    @DatabaseField @Expose
     private   String annexe37;
+    @DatabaseField @Expose
     private   String annexe38;
+    @DatabaseField @Expose
     private   String annexe39;
+    @DatabaseField @Expose
     private   String annexe40;
 
     public CollectionDetails() {

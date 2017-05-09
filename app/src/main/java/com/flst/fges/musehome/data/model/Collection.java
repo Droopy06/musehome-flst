@@ -11,10 +11,15 @@ public class Collection {
 
     @DatabaseField(generatedId = true)
     protected Integer id;
+    @DatabaseField
     private String nom;
+    @DatabaseField
     private String famille;
+    @DatabaseField
     private String uri;
+    @DatabaseField
     private String uriadmin;
+    @DatabaseField
     private String img;
 
     public Collection() {

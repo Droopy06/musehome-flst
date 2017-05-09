@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
+import com.flst.fges.musehome.data.helper.SizeOfObjectsCollectionHelper;
 import com.flst.fges.musehome.data.model.Collection;
 import com.squareup.picasso.Picasso;
 
@@ -41,7 +42,7 @@ public class CollectionsAdapater extends RecyclerView.Adapter<CollectionsAdapate
     @Override
     public void onBindViewHolder(CollectionsAdapater.ViewHolder holder, int position) {
         holder.collectionsTxt.setText(collections.get(position).getNom());
-        holder.numberCollectionsTxt.setText("25");
+        holder.numberCollectionsTxt.setText(String.valueOf(new SizeOfObjectsCollectionHelper(this.context).getSizeOfObjectsCollection(collections.get(position).getNom())));
         Picasso.with(context).load(collections.get(position).getImg())
                 .placeholder(R.drawable.loading)
                 .error(R.drawable.image_download_error_24dp)

@@ -43,7 +43,7 @@ public class    DefaultClassCollectionAdapater<T extends DefaultClassCollection>
 
     @Override
     public void onBindViewHolder(DefaultClassCollectionAdapater.ViewHolder holder, int position) {
-        holder.objectCollectionTxt.setText(defaultClassCollections.get(position).getId()+" "+defaultClassCollections.get(position).getName());
+        holder.objectCollectionTxt.setText(defaultClassCollections.get(position).getIdMongoDb()+" "+defaultClassCollections.get(position).getName());
         Picasso.with(context)
                 .load("http://"+ UrlHelper.BASE_URL_API+"/patrimoine/images/Collections/materielpedagogique/"+defaultClassCollections.get(position).getPicture())
                 .placeholder(R.drawable.banniere)

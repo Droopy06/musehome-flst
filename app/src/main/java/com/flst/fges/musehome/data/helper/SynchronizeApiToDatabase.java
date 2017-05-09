@@ -2,6 +2,10 @@ package com.flst.fges.musehome.data.helper;
 
 import android.content.Context;
 
+import com.flst.fges.musehome.data.model.DefaultClassCollection;
+
+import java.util.List;
+
 /**
  * Created by LAMOOT Alexandre on 09/05/2017.
  */
@@ -36,4 +40,5 @@ public interface SynchronizeApiToDatabase {
     Integer getZoologieVertebresReptileApi();
     void getAllNotificationsToUser();
     void addNotification(String table,Integer result);
+    <T extends DefaultClassCollection> T getObjectCollection(List<T> array, String id);
 }

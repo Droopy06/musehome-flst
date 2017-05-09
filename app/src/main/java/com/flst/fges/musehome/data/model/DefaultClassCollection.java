@@ -1,5 +1,6 @@
 package com.flst.fges.musehome.data.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -13,117 +14,117 @@ import java.io.Serializable;
 public class DefaultClassCollection implements Serializable{
 
     @DatabaseField(generatedId = true)
-    protected Integer id;
+    transient protected Integer id;
     @SerializedName(value = "id")
-    @DatabaseField
+    @DatabaseField @Expose
     protected String idMongoDb;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String collection;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String picture;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String name;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String groupe;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String kind;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String espece;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String author;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String year;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String country;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String city;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String place;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String nameCollection;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String manifold;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String localization;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe1;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe2;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe3;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe4;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe5;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe6;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe7;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe8;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe9;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe10;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe11;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe12;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe13;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe14;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe15;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe16;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe17;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe18;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe19;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe20;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe21;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe22;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe23;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe24;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe25;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe26;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe27;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe28;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe29;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe30;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe31;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe32;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe33;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe34;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe35;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe36;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe37;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe38;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe39;
-    @DatabaseField
+    @DatabaseField @Expose
     protected String annexe40;
 
     public DefaultClassCollection() {

@@ -144,7 +144,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         Herbiers herbiers1 = (Herbiers) herbiersAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",herbiers1.getId());
+                        intent.putExtra("OBJET",herbiers1.getIdMongoDb());
                         intent.putExtra("COLLECTION",herbiers1.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -174,7 +174,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         Instruments instruments = (Instruments) instrumentsAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",instruments.getId());
+                        intent.putExtra("OBJET",instruments.getIdMongoDb());
                         intent.putExtra("COLLECTION",instruments.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -204,7 +204,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         JardinBotanique jardinBotanique = (JardinBotanique) jardinBotaniqueAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",jardinBotanique.getId());
+                        intent.putExtra("OBJET",jardinBotanique.getIdMongoDb());
                         intent.putExtra("COLLECTION",jardinBotanique.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -234,7 +234,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         MaterielPedagogique materielPedagogique = (MaterielPedagogique) materielPedagogiqueAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",materielPedagogique.getId());
+                        intent.putExtra("OBJET",materielPedagogique.getIdMongoDb());
                         intent.putExtra("COLLECTION",materielPedagogique.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -264,7 +264,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         MineralogieCristallographie mineralogieCristallographie = (MineralogieCristallographie) mineralogieCristallographieAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",mineralogieCristallographie.getId());
+                        intent.putExtra("OBJET",mineralogieCristallographie.getIdMongoDb());
                         intent.putExtra("COLLECTION",mineralogieCristallographie.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -294,7 +294,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         OuvragesCartesDocuments ouvragesCartesDocuments = (OuvragesCartesDocuments) ouvragesCartesDocumentsAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",ouvragesCartesDocuments.getId());
+                        intent.putExtra("OBJET",ouvragesCartesDocuments.getIdMongoDb());
                         intent.putExtra("COLLECTION",ouvragesCartesDocuments.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -324,7 +324,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         PaleontologieAnimale paleontologieAnimale = (PaleontologieAnimale) paleontologieAnimaleAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",paleontologieAnimale.getId());
+                        intent.putExtra("OBJET",paleontologieAnimale.getIdMongoDb());
                         intent.putExtra("COLLECTION",paleontologieAnimale.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -354,7 +354,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         PaleontologieVegetale paleontologieVegetale = (PaleontologieVegetale) paleontologieVegetaleAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",paleontologieVegetale.getId());
+                        intent.putExtra("OBJET",paleontologieVegetale.getIdMongoDb());
                         intent.putExtra("COLLECTION",paleontologieVegetale.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -385,7 +385,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         Petrographie petrographie = (Petrographie) petrographieAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",petrographie.getId());
+                        intent.putExtra("OBJET",petrographie.getIdMongoDb());
                         intent.putExtra("COLLECTION",petrographie.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -415,7 +415,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         Physique physique = (Physique) physiqueAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",physique.getId());
+                        intent.putExtra("OBJET",physique.getIdMongoDb());
                         intent.putExtra("COLLECTION",physique.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -445,7 +445,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         Typotheque typotheque = (Typotheque) typothequeAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",typotheque.getId());
+                        intent.putExtra("OBJET",typotheque.getIdMongoDb());
                         intent.putExtra("COLLECTION",typotheque.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -477,7 +477,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         ZoologieInvertebresAutres zoologieInvertebresAutres = (ZoologieInvertebresAutres) invertebresAutresAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",zoologieInvertebresAutres.getId());
+                        intent.putExtra("OBJET",zoologieInvertebresAutres.getIdMongoDb());
                         intent.putExtra("COLLECTION",zoologieInvertebresAutres.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -508,7 +508,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         ZoologieInvertebresInsectes zoologieInvertebresInsectes = (ZoologieInvertebresInsectes) insectesAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",zoologieInvertebresInsectes.getId());
+                        intent.putExtra("OBJET",zoologieInvertebresInsectes.getIdMongoDb());
                         intent.putExtra("COLLECTION",zoologieInvertebresInsectes.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -539,7 +539,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         ZoologieInvertebresMollusques zoologieInvertebresMollusques = (ZoologieInvertebresMollusques) mollusquesAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",zoologieInvertebresMollusques.getId());
+                        intent.putExtra("OBJET",zoologieInvertebresMollusques.getIdMongoDb());
                         intent.putExtra("COLLECTION",zoologieInvertebresMollusques.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -570,7 +570,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         ZoologieVertebresAutres zoologieVertebresAutres = (ZoologieVertebresAutres) zoologieVertebresAutresAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",zoologieVertebresAutres.getId());
+                        intent.putExtra("OBJET",zoologieVertebresAutres.getIdMongoDb());
                         intent.putExtra("COLLECTION",zoologieVertebresAutres.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -601,7 +601,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         ZoologieVertebresMammiferes zoologieVertebresMammiferes = (ZoologieVertebresMammiferes) mammiferesAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",zoologieVertebresMammiferes.getId());
+                        intent.putExtra("OBJET",zoologieVertebresMammiferes.getIdMongoDb());
                         intent.putExtra("COLLECTION",zoologieVertebresMammiferes.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -632,7 +632,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         ZoologieVertebresOiseaux zoologieVertebresOiseaux = (ZoologieVertebresOiseaux) oiseauxesAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",zoologieVertebresOiseaux.getId());
+                        intent.putExtra("OBJET",zoologieVertebresOiseaux.getIdMongoDb());
                         intent.putExtra("COLLECTION",zoologieVertebresOiseaux.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -663,7 +663,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         ZoologieVertebresPoissons zoologieVertebresPoissons = (ZoologieVertebresPoissons) poissonsAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",zoologieVertebresPoissons.getId());
+                        intent.putExtra("OBJET",zoologieVertebresPoissons.getIdMongoDb());
                         intent.putExtra("COLLECTION",zoologieVertebresPoissons.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -694,7 +694,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         ZoologieVertebresPrimates zoologieVertebresPrimates = (ZoologieVertebresPrimates) primatesAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",zoologieVertebresPrimates.getId());
+                        intent.putExtra("OBJET",zoologieVertebresPrimates.getIdMongoDb());
                         intent.putExtra("COLLECTION",zoologieVertebresPrimates.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -725,7 +725,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         ZoologieVertebresReptile vertebresReptile = (ZoologieVertebresReptile) reptileAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",vertebresReptile.getId());
+                        intent.putExtra("OBJET",vertebresReptile.getIdMongoDb());
                         intent.putExtra("COLLECTION",vertebresReptile.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
