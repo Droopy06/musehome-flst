@@ -1,5 +1,6 @@
 package com.flst.fges.musehome.data.model;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -8,7 +9,8 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "evenement")
 public class Evenement {
 
-
+    @DatabaseField(generatedId = true)
+    protected Integer id;
     private String titre;
     private String miniDescr;
     private String imageuri;
@@ -29,6 +31,14 @@ public class Evenement {
         this.twitter = twitter;
         this.facebook = facebook;
         this.go = go;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitre() {

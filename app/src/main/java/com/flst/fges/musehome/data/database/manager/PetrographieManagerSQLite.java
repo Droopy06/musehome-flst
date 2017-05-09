@@ -27,7 +27,7 @@ public class PetrographieManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private PetrographieManagerSQLite(Context ctx) {
+    public PetrographieManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

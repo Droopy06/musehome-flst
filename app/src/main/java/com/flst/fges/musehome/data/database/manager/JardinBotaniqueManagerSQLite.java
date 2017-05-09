@@ -27,7 +27,7 @@ public class JardinBotaniqueManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private JardinBotaniqueManagerSQLite(Context ctx) {
+    public JardinBotaniqueManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

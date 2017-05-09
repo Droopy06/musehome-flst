@@ -27,7 +27,7 @@ public class OuvragesCartesDocumentsManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private OuvragesCartesDocumentsManagerSQLite(Context ctx) {
+    public OuvragesCartesDocumentsManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

@@ -27,7 +27,7 @@ public class DefaultClassCollectionManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private DefaultClassCollectionManagerSQLite(Context ctx) {
+    public DefaultClassCollectionManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

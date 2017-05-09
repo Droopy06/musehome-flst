@@ -27,7 +27,7 @@ public class PaleontologieAnimaleManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private PaleontologieAnimaleManagerSQLite(Context ctx) {
+    public PaleontologieAnimaleManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

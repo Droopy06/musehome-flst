@@ -27,7 +27,7 @@ public class ZoologieVertebresReptileManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private ZoologieVertebresReptileManagerSQLite(Context ctx) {
+    public ZoologieVertebresReptileManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

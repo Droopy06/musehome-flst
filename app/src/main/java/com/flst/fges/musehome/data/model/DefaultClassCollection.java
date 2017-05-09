@@ -15,60 +15,115 @@ public class DefaultClassCollection implements Serializable{
     @DatabaseField(generatedId = true)
     protected Integer id;
     @SerializedName(value = "id")
+    @DatabaseField
     protected String idMongoDb;
+    @DatabaseField
     protected String collection;
+    @DatabaseField
     protected String picture;
+    @DatabaseField
     protected String name;
+    @DatabaseField
     protected String groupe;
+    @DatabaseField
     protected String kind;
+    @DatabaseField
     protected String espece;
+    @DatabaseField
     protected String author;
+    @DatabaseField
     protected String year;
+    @DatabaseField
     protected String country;
+    @DatabaseField
     protected String city;
+    @DatabaseField
     protected String place;
+    @DatabaseField
     protected String nameCollection;
+    @DatabaseField
     protected String manifold;
+    @DatabaseField
     protected String localization;
+    @DatabaseField
     protected String annexe1;
+    @DatabaseField
     protected String annexe2;
+    @DatabaseField
     protected String annexe3;
+    @DatabaseField
     protected String annexe4;
+    @DatabaseField
     protected String annexe5;
+    @DatabaseField
     protected String annexe6;
+    @DatabaseField
     protected String annexe7;
+    @DatabaseField
     protected String annexe8;
+    @DatabaseField
     protected String annexe9;
+    @DatabaseField
     protected String annexe10;
+    @DatabaseField
     protected String annexe11;
+    @DatabaseField
     protected String annexe12;
+    @DatabaseField
     protected String annexe13;
+    @DatabaseField
     protected String annexe14;
+    @DatabaseField
     protected String annexe15;
+    @DatabaseField
     protected String annexe16;
+    @DatabaseField
     protected String annexe17;
+    @DatabaseField
     protected String annexe18;
+    @DatabaseField
     protected String annexe19;
+    @DatabaseField
     protected String annexe20;
+    @DatabaseField
     protected String annexe21;
+    @DatabaseField
     protected String annexe22;
+    @DatabaseField
     protected String annexe23;
+    @DatabaseField
     protected String annexe24;
+    @DatabaseField
     protected String annexe25;
+    @DatabaseField
     protected String annexe26;
+    @DatabaseField
     protected String annexe27;
+    @DatabaseField
     protected String annexe28;
+    @DatabaseField
     protected String annexe29;
+    @DatabaseField
     protected String annexe30;
+    @DatabaseField
     protected String annexe31;
+    @DatabaseField
     protected String annexe32;
+    @DatabaseField
     protected String annexe33;
+    @DatabaseField
     protected String annexe34;
+    @DatabaseField
     protected String annexe35;
+    @DatabaseField
     protected String annexe36;
+    @DatabaseField
     protected String annexe37;
+    @DatabaseField
     protected String annexe38;
+    @DatabaseField
     protected String annexe39;
+    @DatabaseField
     protected String annexe40;
 
     public DefaultClassCollection() {

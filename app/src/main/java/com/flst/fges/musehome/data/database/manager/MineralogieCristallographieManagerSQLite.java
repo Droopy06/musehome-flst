@@ -27,7 +27,7 @@ public class MineralogieCristallographieManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private MineralogieCristallographieManagerSQLite(Context ctx) {
+    public MineralogieCristallographieManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

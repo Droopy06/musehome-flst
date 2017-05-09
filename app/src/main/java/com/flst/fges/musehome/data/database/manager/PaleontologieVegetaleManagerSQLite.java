@@ -27,7 +27,7 @@ public class PaleontologieVegetaleManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private PaleontologieVegetaleManagerSQLite(Context ctx) {
+    public PaleontologieVegetaleManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

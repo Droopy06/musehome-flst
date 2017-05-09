@@ -27,7 +27,7 @@ public class InstrumentsManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private InstrumentsManagerSQLite(Context ctx) {
+    public InstrumentsManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

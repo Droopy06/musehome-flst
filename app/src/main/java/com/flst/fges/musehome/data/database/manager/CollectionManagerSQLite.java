@@ -27,7 +27,7 @@ public class CollectionManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private CollectionManagerSQLite(Context ctx) {
+    public CollectionManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

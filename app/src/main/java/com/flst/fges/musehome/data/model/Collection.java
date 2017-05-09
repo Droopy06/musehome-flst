@@ -1,5 +1,6 @@
 package com.flst.fges.musehome.data.model;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -7,6 +8,9 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "collection")
 public class Collection {
+
+    @DatabaseField(generatedId = true)
+    protected Integer id;
     private String nom;
     private String famille;
     private String uri;
@@ -28,6 +32,14 @@ public class Collection {
         this.uri = uri;
         this.uriadmin = uriadmin;
         this.img = img;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNom() {

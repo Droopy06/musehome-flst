@@ -27,7 +27,7 @@ public class HerbiersManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private HerbiersManagerSQLite(Context ctx) {
+    public HerbiersManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

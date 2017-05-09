@@ -27,7 +27,7 @@ public class TypothequeManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private TypothequeManagerSQLite(Context ctx) {
+    public TypothequeManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

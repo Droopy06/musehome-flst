@@ -27,7 +27,7 @@ public class PhysiqueManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private PhysiqueManagerSQLite(Context ctx) {
+    public PhysiqueManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 

@@ -1,5 +1,6 @@
 package com.flst.fges.musehome.data.model;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -7,8 +8,11 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "collection_details")
 public class CollectionDetails {
+
+    @DatabaseField(generatedId = true)
+    protected Integer id;
     private   String nameOfCollection;
-    private   String id;
+    private   String idMongoDb;
     private   String picture;
     private   String name;
     private   String groupe;
@@ -66,6 +70,14 @@ public class CollectionDetails {
     public CollectionDetails() {
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getNameOfCollection() {
         return nameOfCollection;
     }
@@ -74,12 +86,12 @@ public class CollectionDetails {
         this.nameOfCollection = nameOfCollection;
     }
 
-    public String getId() {
-        return id;
+    public String getIdMongoDb() {
+        return idMongoDb;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdMongoDb(String idMongoDb) {
+        this.idMongoDb = idMongoDb;
     }
 
     public String getPicture() {

@@ -27,7 +27,7 @@ public class EvenementManagerSQLite {
     }
 
     private DatabaseHelper helper;
-    private EvenementManagerSQLite(Context ctx) {
+    public EvenementManagerSQLite(Context ctx) {
         helper = new DatabaseHelper(ctx);
     }
 
