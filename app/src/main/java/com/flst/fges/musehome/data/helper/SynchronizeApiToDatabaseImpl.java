@@ -3,6 +3,7 @@ package com.flst.fges.musehome.data.helper;
 import android.content.Context;
 import android.util.Log;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.database.manager.CollectionDetailsManagerSQLite;
 import com.flst.fges.musehome.data.database.manager.CollectionManagerSQLite;
@@ -85,7 +86,7 @@ import java.util.function.Predicate;
  * Created by LAMOOT Alexandre on 09/05/2017.
  */
 public class SynchronizeApiToDatabaseImpl implements SynchronizeApiToDatabase{
-
+    private AHBottomNavigation ahBottomNavigation;
     private ArrayList<String> notifications;
     private CollectionManagerSQLite collectionManagerSQLite;
     private CollectionDetailsManagerSQLite collectionDetailsManagerSQLite;
@@ -117,7 +118,8 @@ public class SynchronizeApiToDatabaseImpl implements SynchronizeApiToDatabase{
 
     @Override
     public void initialize(int drawable, int idNotify, String contentTitle, String contentText,
-                           Class aClass, Context context, long timestamp) {
+                           Class aClass, Context context, AHBottomNavigation ahBottomNavigation, long timestamp) {
+        this.ahBottomNavigation = ahBottomNavigation;
         notifications = new ArrayList<>();
         collectionManagerSQLite = new CollectionManagerSQLite(context);
         collectionDetailsManagerSQLite = new CollectionDetailsManagerSQLite(context);
@@ -715,6 +717,7 @@ public class SynchronizeApiToDatabaseImpl implements SynchronizeApiToDatabase{
         result = getZoologieVertebresReptileApi();
         if(result != 0)
             addNotification("zoologie vertebres reptile",result);
+        this.ahBottomNavigation.setNotification("60",2);
     }
 
     @Override

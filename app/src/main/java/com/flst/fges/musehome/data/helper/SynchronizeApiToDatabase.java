@@ -2,6 +2,7 @@ package com.flst.fges.musehome.data.helper;
 
 import android.content.Context;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.flst.fges.musehome.data.model.DefaultClassCollection;
 
 import java.util.List;
@@ -12,8 +13,8 @@ import java.util.List;
 
 public interface SynchronizeApiToDatabase {
 
-    void initialize(int drawable,int idNotify,String contentTitle,
-                    String contentText,Class aClass,Context context,long timestamp);
+    void initialize(int drawable, int idNotify, String contentTitle,
+                    String contentText, Class aClass, Context context, AHBottomNavigation ahBottomNavigation, long timestamp);
     Integer getCollectionsApi();
     Integer getCollectionDetailsApi();
     Integer getDefaultClassCollectionApi();

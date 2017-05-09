@@ -2,10 +2,7 @@ package com.flst.fges.musehome.ui.activity;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,7 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.flst.fges.musehome.R;
@@ -26,6 +22,7 @@ import com.flst.fges.musehome.ui.fragment.EvenementsFragment;
 import com.flst.fges.musehome.ui.fragment.HomeFragment;
 import com.flst.fges.musehome.ui.fragment.InformationsFragment;
 import com.flst.fges.musehome.ui.helper.GenerateMenuHelper;
+import com.flst.fges.musehome.ui.helper.NetworkHelper;
 
 import java.util.List;
 
@@ -55,19 +52,21 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 selectFragment(mBottomNav.getItem(position).getTitle(getApplicationContext()));
+                mBottomNav.setNotification("", position);
                 return true;
             }
         });
         mBottomNav.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
             @Override public void onPositionChange(int y) {
                 selectFragment(mBottomNav.getItem(mBottomNav.getCurrentItem()).getTitle(getApplicationContext()));
+                mBottomNav.setNotification("", mBottomNav.getCurrentItem());
             }
         });
         if (savedInstanceState != null) {
             mBottomNav.setCurrentItem(savedInstanceState.getInt(SELECTED_ITEM, 0));
         }
         selectFragment(mBottomNav.getItem(mBottomNav.getCurrentItem()).getTitle(this));
-        checkNetwork();
+        NetworkHelper.checkNetwork(this);
         if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
             Log.w("test","ok");
         }else{
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         SynchronizeApiToDatabase synchronizeApiToDatabase = new SynchronizeApiToDatabaseImpl();
         synchronizeApiToDatabase.initialize(R.mipmap.musehome,1,"MuseH@me",
                 "Bienvenue sur l'application mobile" +
-                        " du patrimoine de la fges",MainActivity.class,getApplicationContext(),10245252);
+                        " du patrimoine de la fges",MainActivity.class,getApplicationContext(),mBottomNav,10245252);
     }
 
     @Override
@@ -202,19 +201,5 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             //actionBar.setLogo(R.mipmap.musehome);
             actionBar.setDisplayUseLogoEnabled(true);
         }
-    }
-
-    private void checkNetwork(){
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo != null && networkInfo.isConnected()){
-            boolean wifiConnected = networkInfo.getType() == ConnectivityManager.TYPE_WIFI;
-            boolean mobileConnected = networkInfo.getType() == ConnectivityManager.TYPE_MOBILE;
-            if(wifiConnected)
-                Toast.makeText(this, R.string.wifi_connection,Toast.LENGTH_SHORT).show();
-            else if (mobileConnected)
-                Toast.makeText(this,R.string.mobile_connection,Toast.LENGTH_SHORT).show();
-        }else
-            Toast.makeText(this,R.string.no_wifi_or_mobile,Toast.LENGTH_SHORT).show();
     }
 }

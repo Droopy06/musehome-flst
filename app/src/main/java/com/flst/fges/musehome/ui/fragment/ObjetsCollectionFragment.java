@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -57,10 +58,14 @@ import com.flst.fges.musehome.data.model.ZoologieVertebresPrimates;
 import com.flst.fges.musehome.data.model.ZoologieVertebresReptile;
 import com.flst.fges.musehome.ui.activity.ObjetsDetailActivity;
 import com.flst.fges.musehome.ui.adapter.DefaultClassCollectionAdapater;
+import com.flst.fges.musehome.ui.helper.NetworkHelper;
 import com.flst.fges.musehome.ui.helper.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,6 +77,11 @@ public class ObjetsCollectionFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM_COLLECTION = "objet";
     private static String mCollection;
+
+    @BindView(R.id.collections_objets_list)
+    RecyclerView recyclerView;
+    @BindView(R.id.swipe_collections_objets_container)
+    SwipeRefreshLayout swipeCollectionsObjetsContainer;
 
     // TODO: Rename and change types of parameters
     private String mParamCollection;
@@ -111,9 +121,26 @@ public class ObjetsCollectionFragment extends Fragment {
                              Bundle savedInstanceState) {
         Context applicationContext = getActivity().getApplicationContext();
         View view = inflater.inflate(R.layout.fragment_objets_collection, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.collections_objets_list);
+        ButterKnife.bind(this,view);
         checkCollection(recyclerView,applicationContext);
         recyclerView.setLayoutManager(new LinearLayoutManager(applicationContext));
+        swipeCollectionsObjetsContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                if(NetworkHelper.checkNetwork(applicationContext)){
+                    checkCollection(recyclerView,applicationContext);
+                    swipeCollectionsObjetsContainer.setRefreshing(false);
+                }
+            }
+        });
+        // Configure the refreshing colors
+        swipeCollectionsObjetsContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
         // Inflate the layout for this fragment
         return view;
     }
