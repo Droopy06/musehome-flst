@@ -42,7 +42,9 @@ public class EvenementsAdapater extends RecyclerView.Adapter<EvenementsAdapater.
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.evenementTxt.setText(evenements.get(position).getTitre());
         holder.descEvenementTxt.setText(evenements.get(position).getMiniDescr());
-        Picasso.with(context).load(evenements.get(position).getImageuri()).into(holder.evnementImagageView);
+        Picasso.with(context).load(evenements.get(position).getImageuri())
+                             .placeholder(R.drawable.banniere)
+                             .into(holder.evnementImagageView);
     }
 
     @Override

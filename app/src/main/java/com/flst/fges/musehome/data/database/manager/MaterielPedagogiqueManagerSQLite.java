@@ -7,6 +7,7 @@ import com.flst.fges.musehome.data.model.MaterielPedagogique;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Alexandre LAMOOT on 08/05/2017
@@ -49,13 +50,21 @@ public class MaterielPedagogiqueManagerSQLite {
 
     public void updateMaterielPedagogique(MaterielPedagogique object) {
         try {
-            getHelper().getMaterielPedagogiqueDao().refresh(object);
+            getHelper().getMaterielPedagogiqueDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void deleteMaterielPedagogique(MaterielPedagogique object){
+        try {
+            getHelper().getMaterielPedagogiqueDao().delete(object);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteListMaterielPedagogique(List<MaterielPedagogique> object){
         try {
             getHelper().getMaterielPedagogiqueDao().delete(object);
         } catch (SQLException e) {

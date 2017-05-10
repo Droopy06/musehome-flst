@@ -49,7 +49,7 @@ public class MineralogieCristallographieManagerSQLite {
 
     public void updateMineralogieCristallographie(MineralogieCristallographie object) {
         try {
-            getHelper().getMineralogieCristallographieDao().refresh(object);
+            getHelper().getMineralogieCristallographieDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }

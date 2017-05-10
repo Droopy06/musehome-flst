@@ -49,7 +49,7 @@ public class TypothequeManagerSQLite {
 
     public void updateTypotheque(Typotheque object) {
         try {
-            getHelper().getTypothequeDao().refresh(object);
+            getHelper().getTypothequeDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }
