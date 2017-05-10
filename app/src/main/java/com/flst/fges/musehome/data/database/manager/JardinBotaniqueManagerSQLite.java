@@ -49,7 +49,7 @@ public class JardinBotaniqueManagerSQLite {
 
     public void updateJardinBotanique(JardinBotanique object) {
         try {
-            getHelper().getJardinBotaniqueDao().refresh(object);
+            getHelper().getJardinBotaniqueDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }

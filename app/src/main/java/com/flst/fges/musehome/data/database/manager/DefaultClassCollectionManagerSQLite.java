@@ -49,7 +49,7 @@ public class DefaultClassCollectionManagerSQLite {
 
     public void updateDefaultClassCollection(DefaultClassCollection object) {
         try {
-            getHelper().getDefaultClassCollectionDao().refresh(object);
+            getHelper().getDefaultClassCollectionDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }

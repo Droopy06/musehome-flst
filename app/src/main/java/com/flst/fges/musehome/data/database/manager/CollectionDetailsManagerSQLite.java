@@ -49,7 +49,7 @@ public class CollectionDetailsManagerSQLite {
 
     public void updateCollectionDetails(CollectionDetails object) {
         try {
-            getHelper().getCollectionDetailsDao().refresh(object);
+            getHelper().getCollectionDetailsDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }

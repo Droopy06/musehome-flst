@@ -49,7 +49,7 @@ public class PetrographieManagerSQLite {
 
     public void updatePetrographie(Petrographie object) {
         try {
-            getHelper().getPetrographieDao().refresh(object);
+            getHelper().getPetrographieDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }
