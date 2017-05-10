@@ -1,5 +1,6 @@
 package com.flst.fges.musehome.data.model;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -10,20 +11,20 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Evenement {
 
     @DatabaseField(generatedId = true)
-    protected Integer id;
-    @DatabaseField
+    transient protected Integer id;
+    @DatabaseField @Expose
     private String titre;
-    @DatabaseField
+    @DatabaseField @Expose
     private String miniDescr;
-    @DatabaseField
+    @DatabaseField @Expose
     private String imageuri;
-    @DatabaseField
+    @DatabaseField @Expose
     private String miniimageuri;
-    @DatabaseField
+    @DatabaseField @Expose
     private String twitter;
-    @DatabaseField
+    @DatabaseField @Expose
     private String facebook;
-    @DatabaseField
+    @DatabaseField @Expose
     private String go;
 
 

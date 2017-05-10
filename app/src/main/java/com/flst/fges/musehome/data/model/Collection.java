@@ -1,5 +1,6 @@
 package com.flst.fges.musehome.data.model;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -10,16 +11,16 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Collection {
 
     @DatabaseField(generatedId = true)
-    protected Integer id;
-    @DatabaseField
+    transient protected Integer id;
+    @DatabaseField @Expose
     private String nom;
-    @DatabaseField
+    @DatabaseField @Expose
     private String famille;
-    @DatabaseField
+    @DatabaseField @Expose
     private String uri;
-    @DatabaseField
+    @DatabaseField @Expose
     private String uriadmin;
-    @DatabaseField
+    @DatabaseField @Expose
     private String img;
 
     public Collection() {

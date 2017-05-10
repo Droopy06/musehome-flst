@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.OuvragesCartesDocumentsConverter;
 import com.flst.fges.musehome.data.model.OuvragesCartesDocuments;
 import com.flst.fges.musehome.data.service.IOuvragesCartesDocumentsService;
 
@@ -30,8 +29,7 @@ public class OuvragesCartesDocumentsManager {
             @Override
             public void onResponse(Call<List<OuvragesCartesDocuments>> call, Response<List<OuvragesCartesDocuments>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    OuvragesCartesDocumentsConverter ouvragesCartesDocumentsConverter = new OuvragesCartesDocumentsConverter();
-                    callback.success(ouvragesCartesDocumentsConverter.convertDtoToOuvragesCartesDocuments(response.body()));
+                    callback.success(response.body());
                 }
             }
 

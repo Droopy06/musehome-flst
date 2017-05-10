@@ -13,6 +13,8 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "default_class_collection")
 public class DefaultClassCollection implements Serializable{
 
+    transient protected static final long serialVersionUID = 1L;
+
     @DatabaseField(generatedId = true)
     transient protected Integer id;
     @SerializedName(value = "id")

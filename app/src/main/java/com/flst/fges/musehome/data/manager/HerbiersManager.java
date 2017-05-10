@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.HerbiersConverter;
 import com.flst.fges.musehome.data.model.Herbiers;
 import com.flst.fges.musehome.data.service.IHerbiersService;
 
@@ -30,8 +29,7 @@ public class HerbiersManager {
             @Override
             public void onResponse(Call<List<Herbiers>> call, Response<List<Herbiers>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    HerbiersConverter herbiersConverter = new HerbiersConverter();
-                    callback.success(herbiersConverter.convertDtoToHerbiers(response.body()));
+                    callback.success(response.body());
                 }
             }
 

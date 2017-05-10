@@ -1,6 +1,6 @@
 package com.flst.fges.musehome.data.service;
 
-import com.flst.fges.musehome.data.dto.EvenementDTO;
+import com.flst.fges.musehome.data.model.Evenement;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import retrofit2.http.Path;
 public interface IEvenementService {
 
     @GET("evenements")
-    Call<List<EvenementDTO>> getAllEvenements();
+    Call<List<Evenement>> getAllEvenements();
     @GET("evenement/{title}")
-    Call<EvenementDTO> getEvenementsByTitle(@Path("title") String title);
+    Call<Evenement> getEvenementsByTitle(@Path("title") String title);
     @GET("evenement/position/{number}")
-    Call<EvenementDTO> getEvenementsByPosition(@Path("number") String number);
+    Call<Evenement> getEvenementsByPosition(@Path("number") String number);
 }

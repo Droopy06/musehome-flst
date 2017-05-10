@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.PaleontologieAnimaleConverter;
 import com.flst.fges.musehome.data.model.PaleontologieAnimale;
 import com.flst.fges.musehome.data.service.IPaleontologieAnimaleService;
 
@@ -30,8 +29,7 @@ public class PaleontologieAnimaleManager {
             @Override
             public void onResponse(Call<List<PaleontologieAnimale>> call, Response<List<PaleontologieAnimale>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    PaleontologieAnimaleConverter paleontologieAnimaleConverter = new PaleontologieAnimaleConverter();
-                    callback.success(paleontologieAnimaleConverter.convertDtoToPaleontologieAnimale(response.body()));
+                    callback.success(response.body());
                 }
             }
 

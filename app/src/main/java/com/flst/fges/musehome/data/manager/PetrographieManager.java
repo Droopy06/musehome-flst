@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.PetrographieConverter;
 import com.flst.fges.musehome.data.model.Petrographie;
 import com.flst.fges.musehome.data.service.IPetrographieService;
 
@@ -30,8 +29,7 @@ public class PetrographieManager {
             @Override
             public void onResponse(Call<List<Petrographie>> call, Response<List<Petrographie>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    PetrographieConverter petrographieConverter = new PetrographieConverter();
-                    callback.success(petrographieConverter.convertDtoToPetrographie(response.body()));
+                    callback.success(response.body());
                 }
             }
 

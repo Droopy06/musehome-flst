@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.MaterielPedagogiqueConverter;
 import com.flst.fges.musehome.data.model.MaterielPedagogique;
 import com.flst.fges.musehome.data.service.IMaterielPedagogiqueService;
 
@@ -30,8 +29,7 @@ public class MaterielPedagogiqueManager {
             @Override
             public void onResponse(Call<List<MaterielPedagogique>> call, Response<List<MaterielPedagogique>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    MaterielPedagogiqueConverter materielPedagogiqueConverter = new MaterielPedagogiqueConverter();
-                    callback.success(materielPedagogiqueConverter.convertDtoToMaterielPedagogique(response.body()));
+                    callback.success(response.body());
                 }
             }
 
@@ -48,7 +46,6 @@ public class MaterielPedagogiqueManager {
             @Override
             public void onResponse(Call<MaterielPedagogique> call, Response<MaterielPedagogique> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    MaterielPedagogiqueConverter materielPedagogiqueConverter = new MaterielPedagogiqueConverter();
                     callback.success(response.body());
                 }
             }
