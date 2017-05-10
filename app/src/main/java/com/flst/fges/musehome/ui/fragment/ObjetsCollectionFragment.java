@@ -4,6 +4,7 @@ package com.flst.fges.musehome.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -82,6 +83,8 @@ public class ObjetsCollectionFragment extends Fragment {
     RecyclerView recyclerView;
     @BindView(R.id.swipe_collections_objets_container)
     SwipeRefreshLayout swipeCollectionsObjetsContainer;
+    @BindView(R.id.no_content_layout)
+    ConstraintLayout emptyView;
 
     // TODO: Rename and change types of parameters
     private String mParamCollection;
@@ -157,6 +160,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         herbiers.clear();
                         herbiers.addAll(herbiersList);
                         herbiersAdapater.notifyDataSetChanged();
+                        if (herbiers.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -187,6 +198,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         instrumentses.clear();
                         instrumentses.addAll(instrumentsList);
                         instrumentsAdapater.notifyDataSetChanged();
+                        if (instrumentses.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -217,6 +236,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         botaniques.clear();
                         botaniques.addAll(jardinBotaniques);
                         jardinBotaniqueAdapater.notifyDataSetChanged();
+                        if (botaniques.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -247,6 +274,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         pedagogiques.clear();
                         pedagogiques.addAll(materielPedagogiques);
                         materielPedagogiqueAdapater.notifyDataSetChanged();
+                        if (pedagogiques.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -277,6 +312,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         cristallographies.clear();
                         cristallographies.addAll(mineralogieCristallographies);
                         mineralogieCristallographieAdapater.notifyDataSetChanged();
+                        if (cristallographies.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -307,6 +350,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         cartesDocumentses.clear();
                         cartesDocumentses.addAll(ouvragesCartesDocumentses);
                         ouvragesCartesDocumentsAdapater.notifyDataSetChanged();
+                        if (cartesDocumentses.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -337,6 +388,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         animales.clear();
                         animales.addAll(paleontologieAnimales);
                         paleontologieAnimaleAdapater.notifyDataSetChanged();
+                        if (animales.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -367,6 +426,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         vegetales.clear();
                         vegetales.addAll(paleontologieVegetales);
                         paleontologieVegetaleAdapater.notifyDataSetChanged();
+                        if (vegetales.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -397,6 +464,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         petrographies.clear();
                         petrographies.addAll(petrographieList);
                         petrographieAdapater.notifyDataSetChanged();
+                        if (petrographies.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
 
                     }
 
@@ -428,6 +503,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         physiques.clear();
                         physiques.addAll(physiqueList);
                         physiqueAdapater.notifyDataSetChanged();
+                        if (physiques.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -458,6 +541,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         typotheques.clear();
                         typotheques.addAll(typothequeList);
                         typothequeAdapater.notifyDataSetChanged();
+                        if (typotheques.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -490,6 +581,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         invertebresAutres.clear();
                         invertebresAutres.addAll(zoologieInvertebresAutres);
                         invertebresAutresAdapater.notifyDataSetChanged();
+                        if (invertebresAutres.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -521,6 +620,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         invertebresInsectes.clear();
                         invertebresInsectes.addAll(zoologieInvertebresInsectes);
                         insectesAdapater.notifyDataSetChanged();
+                        if (invertebresInsectes.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -552,6 +659,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         invertebresMollusques.clear();
                         invertebresMollusques.addAll(zoologieInvertebresMollusques);
                         mollusquesAdapater.notifyDataSetChanged();
+                        if (invertebresMollusques.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -583,6 +698,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         vertebresAutres.clear();
                         vertebresAutres.addAll(zoologieVertebresAutres);
                         zoologieVertebresAutresAdapater.notifyDataSetChanged();
+                        if (vertebresAutres.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -614,6 +737,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         vertebresMammiferes.clear();
                         vertebresMammiferes.addAll(zoologieVertebresMammiferes);
                         mammiferesAdapater.notifyDataSetChanged();
+                        if (vertebresMammiferes.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -645,6 +776,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         vertebresOiseauxes.clear();
                         vertebresOiseauxes.addAll(zoologieVertebresPoissonses);
                         oiseauxesAdapater.notifyDataSetChanged();
+                        if (vertebresOiseauxes.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -676,6 +815,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         vertebresPoissonses.clear();
                         vertebresPoissonses.addAll(zoologieVertebresPoissonses);
                         poissonsAdapater.notifyDataSetChanged();
+                        if (vertebresPoissonses.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -707,6 +854,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         vertebresPrimates.clear();
                         vertebresPrimates.addAll(zoologieVertebresPrimates);
                         primatesAdapater.notifyDataSetChanged();
+                        if (vertebresPrimates.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -738,6 +893,14 @@ public class ObjetsCollectionFragment extends Fragment {
                         vertebresReptiles.clear();
                         vertebresReptiles.addAll(zoologieVertebresReptiles);
                         reptileAdapater.notifyDataSetChanged();
+                        if (vertebresReptiles.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override

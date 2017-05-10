@@ -31,4 +31,5 @@
     <string name="developers">Personnes ayant développés l\'application</string>
     <string name="supervision_projet">Personnes ayant supervisés le projet</string>
     <string name="permissions">Le mode hors ligne nécessite d\'avoir la permission du stockage sur le téléphone</string>
+    <string name="aucun_contenu">Aucun contenu disponible actuellement.</string>
 </resources>
