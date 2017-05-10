@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.JardinBotaniqueConverter;
 import com.flst.fges.musehome.data.model.JardinBotanique;
 import com.flst.fges.musehome.data.service.IJardinBotaniqueService;
 
@@ -30,8 +29,7 @@ public class JardinBotaniqueManager {
             @Override
             public void onResponse(Call<List<JardinBotanique>> call, Response<List<JardinBotanique>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    JardinBotaniqueConverter jardinBotaniqueConverter = new JardinBotaniqueConverter();
-                    callback.success(jardinBotaniqueConverter.convertDtoToJardinBotanique(response.body()));
+                    callback.success(response.body());
                 }
             }
 

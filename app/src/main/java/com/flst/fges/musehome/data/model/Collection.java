@@ -1,13 +1,26 @@
 package com.flst.fges.musehome.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * Created by LAMOOT Alexandre on 11/04/2016.
  */
+@DatabaseTable(tableName = "collection")
 public class Collection {
+
+    @DatabaseField(generatedId = true)
+    transient protected Integer id;
+    @DatabaseField @Expose
     private String nom;
+    @DatabaseField @Expose
     private String famille;
+    @DatabaseField @Expose
     private String uri;
+    @DatabaseField @Expose
     private String uriadmin;
+    @DatabaseField @Expose
     private String img;
 
     public Collection() {
@@ -25,6 +38,14 @@ public class Collection {
         this.uri = uri;
         this.uriadmin = uriadmin;
         this.img = img;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNom() {

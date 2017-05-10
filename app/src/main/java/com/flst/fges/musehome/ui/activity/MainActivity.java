@@ -1,44 +1,45 @@
 package com.flst.fges.musehome.ui.activity;
 
-import android.app.FragmentManager;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.flst.fges.musehome.R;
+import com.flst.fges.musehome.data.helper.SynchronizeApiToDatabase;
+import com.flst.fges.musehome.data.helper.SynchronizeApiToDatabaseImpl;
 import com.flst.fges.musehome.ui.fragment.CollectionsFragment;
 import com.flst.fges.musehome.ui.fragment.ContactFragment;
 import com.flst.fges.musehome.ui.fragment.EvenementsFragment;
 import com.flst.fges.musehome.ui.fragment.HomeFragment;
 import com.flst.fges.musehome.ui.fragment.InformationsFragment;
-import com.flst.fges.musehome.ui.helper.NotificationHelper;
+import com.flst.fges.musehome.ui.helper.GenerateMenuHelper;
+import com.flst.fges.musehome.ui.helper.NetworkHelper;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     private static final String SELECTED_ITEM = "Home";
 
     @BindView(R.id.bottom_navigation)
-    BottomNavigationView mBottomNav;
-    private int mSelectedItem;
+    AHBottomNavigation mBottomNav;
     @BindView(R.id.home_textview)
     TextView mTitleText;
+    private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,95 +47,149 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        //mTitleText = (TextView) findViewById(R.id.home_textview);
-        //mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        GenerateMenuHelper.createMenu(mBottomNav);
+        mBottomNav.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                selectFragment(item);
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                selectFragment(mBottomNav.getItem(position).getTitle(getApplicationContext()));
+                mBottomNav.setNotification("", position);
                 return true;
             }
         });
-        ArrayList<String> messages = new ArrayList<>();
-        messages.add("L'administrateur a ajouté 5 événements durant votre absence");
-        messages.add("L'administrateur a ajouté 15 objets dans la collection Materiel pédagogique");
-        messages.add("L'administrateur a modifié l'evenement phare de l'application");
-        NotificationHelper.addLongNotificationWithoutVibration(R.mipmap.musehome,1,"MuseH@me",
-                "Bienvenue sur l'application mobile" +
-                " du patrimoine de la fges",MainActivity.class,getApplicationContext(),messages);
-        MenuItem selectedItem;
+        mBottomNav.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
+            @Override public void onPositionChange(int y) {
+                selectFragment(mBottomNav.getItem(mBottomNav.getCurrentItem()).getTitle(getApplicationContext()));
+                mBottomNav.setNotification("", mBottomNav.getCurrentItem());
+            }
+        });
         if (savedInstanceState != null) {
-            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
-            selectedItem = mBottomNav.getMenu().findItem(mSelectedItem);
-        } else {
-            selectedItem = mBottomNav.getMenu().getItem(0);
+            mBottomNav.setCurrentItem(savedInstanceState.getInt(SELECTED_ITEM, 0));
         }
-        selectFragment(selectedItem);
-        checkNetwork();
+        selectFragment(mBottomNav.getItem(mBottomNav.getCurrentItem()).getTitle(this));
+        NetworkHelper.checkNetwork(this);
+        if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+            Log.w("test","ok");
+        }else{
+            EasyPermissions.requestPermissions(this, getString(R.string.permissions), MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(SELECTED_ITEM, mSelectedItem);
+        outState.putInt(SELECTED_ITEM, mBottomNav.getCurrentItem());
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onBackPressed() {
-        MenuItem homeItem = mBottomNav.getMenu().getItem(0);
-        if (mSelectedItem != homeItem.getItemId()) {
-            // select home item
-            selectFragment(homeItem);
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStack();
+            if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+                String name = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount()-2).getName();
+                Fragment mCurrentFragment = getSupportFragmentManager().findFragmentByTag(name);
+                getCurrentItem(mCurrentFragment);
+            }
         } else {
             super.onBackPressed();
         }
+        mBottomNav.restoreBottomNavigation();
     }
 
-    private void selectFragment(MenuItem item) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 0) {
+            if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+                Log.w("test","ok");
+            }else{
+                EasyPermissions.requestPermissions(this, getString(R.string.rationale_ask_again), MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        SynchronizeApiToDatabase synchronizeApiToDatabase = new SynchronizeApiToDatabaseImpl();
+        synchronizeApiToDatabase.initialize(R.mipmap.musehome,1,"MuseH@me",
+                "Bienvenue sur l'application mobile" +
+                        " du patrimoine de la fges",MainActivity.class,getApplicationContext(),mBottomNav,10245252);
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
+    }
+
+    private void getCurrentItem(Fragment currentFragment){
+        if(currentFragment instanceof HomeFragment)
+            mBottomNav.setCurrentItem(0);
+        else if (currentFragment instanceof EvenementsFragment)
+            mBottomNav.setCurrentItem(1);
+        else if (currentFragment instanceof CollectionsFragment)
+            mBottomNav.setCurrentItem(2);
+        else if (currentFragment instanceof ContactFragment)
+            mBottomNav.setCurrentItem(3);
+        else if (currentFragment instanceof InformationsFragment)
+            mBottomNav.setCurrentItem(4);
+        mTitleText.setText(mBottomNav.getItem(mBottomNav.getCurrentItem()).getTitle(getApplicationContext()));
+    }
+
+    private void selectFragment(String title) {
         Fragment frag = null;
         // init corresponding fragment
-        switch (item.getItemId()) {
-            case R.id.home_button:
-                mTitleText.setText("Accueil");
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.musehome_container);
+        mTitleText.setText(title);
+        switch (title) {
+            case "Home":
+                if (currentFragment != null && currentFragment instanceof HomeFragment) {
+                    // Do nothing.
+                    return;
+                }
                 frag = HomeFragment.newInstance();
                 break;
-            case R.id.evenement_button:
-                mTitleText.setText("Evénements");
+            case "Evenements":
+                if (currentFragment != null && currentFragment instanceof EvenementsFragment) {
+                    // Do nothing.
+                    return;
+                }
                 frag = EvenementsFragment.newInstance();
                 break;
-            case R.id.collections_button:
-                mTitleText.setText("Collections");
+            case "Collections":
+                if (currentFragment != null && currentFragment instanceof CollectionsFragment) {
+                    // Do nothing.
+                    return;
+                }
                 frag = CollectionsFragment.newInstance();
                 break;
-            case R.id.contact_button:
-                mTitleText.setText("Formulaire de contact");
+            case "Contact":
+                if (currentFragment != null && currentFragment instanceof ContactFragment) {
+                    // Do nothing.
+                    return;
+                }
                 frag = ContactFragment.newInstance();
                 break;
-            case R.id.information_button:
-                mTitleText.setText("Informations");
+            case "Informations":
+                if (currentFragment != null && currentFragment instanceof InformationsFragment) {
+                    // Do nothing.
+                    return;
+                }
                 frag = InformationsFragment.newInstance();
                 break;
         }
-
-        // update selected item
-        mSelectedItem = item.getItemId();
-
-        // uncheck the other items.
-        for (int i = 0; i< mBottomNav.getMenu().size(); i++) {
-            MenuItem menuItem = mBottomNav.getMenu().getItem(i);
-            menuItem.setChecked(menuItem.getItemId() == item.getItemId());
-        }
-
-        updateToolbarText(item.getTitle());
-        FragmentManager fragmentManager = getFragmentManager();
-        boolean fragmentPopped = fragmentManager
-                .popBackStackImmediate(frag.getClass().getSimpleName() , 0);
-        if (!fragmentPopped && fragmentManager.findFragmentByTag(frag.getClass().getSimpleName()) == null) {
-            FragmentTransaction ft =  getSupportFragmentManager().beginTransaction();
-            ft.addToBackStack(frag.getClass().getSimpleName());
-            //Fragment ft2 = getSupportFragmentManager().findFragmentById(R.id.musehome_container);
-            ft.replace(R.id.musehome_container, frag, frag.getTag());
-            ft.commit();
-        }
+        updateToolbarText(title);
+        FragmentTransaction ft =  getSupportFragmentManager().beginTransaction();
+        //Fragment ft2 = getSupportFragmentManager().findFragmentById(R.id.musehome_container);
+        ft.replace(R.id.musehome_container, frag, frag.getClass().getSimpleName()).addToBackStack(frag.getClass().getSimpleName());
+        ft.commit();
     }
 
     private void updateToolbarText(CharSequence text) {
@@ -146,23 +201,5 @@ public class MainActivity extends AppCompatActivity {
             //actionBar.setLogo(R.mipmap.musehome);
             actionBar.setDisplayUseLogoEnabled(true);
         }
-    }
-
-    private int getColorFromRes(@ColorRes int resId) {
-        return ContextCompat.getColor(this, resId);
-    }
-
-    private void checkNetwork(){
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo != null && networkInfo.isConnected()){
-            boolean wifiConnected = networkInfo.getType() == ConnectivityManager.TYPE_WIFI;
-            boolean mobileConnected = networkInfo.getType() == ConnectivityManager.TYPE_MOBILE;
-            if(wifiConnected)
-                Toast.makeText(this, R.string.wifi_connection,Toast.LENGTH_SHORT).show();
-            else if (mobileConnected)
-                Toast.makeText(this,R.string.mobile_connection,Toast.LENGTH_SHORT).show();
-        }else
-            Toast.makeText(this,R.string.no_wifi_or_mobile,Toast.LENGTH_SHORT).show();
     }
 }

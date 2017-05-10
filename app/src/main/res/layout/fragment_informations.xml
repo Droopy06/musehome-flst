@@ -4,10 +4,50 @@
     android:layout_height="match_parent"
     tools:context="com.flst.fges.musehome.ui.fragment.InformationsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+
+        <ScrollView
+            android:id="@+id/information_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/information_frag_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/supervision_info"
+                android:minHeight="70dp" />
+        </ScrollView>
+
+
+        <com.flst.fges.musehome.ui.helper.CustomFontChromiaTextView
+            android:id="@+id/title_supervision_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:hint="@string/supervision_projet"
+            android:textColor="@color/textMuseHome" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/supervision_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.flst.fges.musehome.ui.helper.CustomFontChromiaTextView
+            android:id="@+id/title_developer_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:hint="@string/developers"
+            android:textColor="@color/textMuseHome" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/developers_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </FrameLayout>

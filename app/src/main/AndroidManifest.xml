@@ -14,7 +14,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.MainActivity">
+        <meta-data android:name="DATABASE" android:value="muse_home.db" />
+        <meta-data android:name="VERSION" android:value="1" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.flst.fges.musehome.date.model" />
+        <activity android:name=".ui.activity.MainActivity"
+                  android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,13 +30,19 @@
             android:name=".ui.activity.CollectionActivity"
             android:label="@string/title_activity_collection"
             android:parentActivityName=".ui.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.flst.fges.musehome.ui.activity.MainActivity" />
         </activity>
-        <activity android:name=".ui.activity.ObjetsDetailActivity" />
-        <activity android:name=".ui.activity.EvenementDetailActivity"></activity>
+        <activity
+            android:name=".ui.activity.ObjetsDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.EvenementDetailActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.MineralogieCristallographieConverter;
 import com.flst.fges.musehome.data.model.MineralogieCristallographie;
 import com.flst.fges.musehome.data.service.IMineralogieCristallographieService;
 
@@ -30,8 +29,7 @@ public class MineralogieCristallographieManager {
             @Override
             public void onResponse(Call<List<MineralogieCristallographie>> call, Response<List<MineralogieCristallographie>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    MineralogieCristallographieConverter mineralogieCristallographieConverter = new MineralogieCristallographieConverter();
-                    callback.success(mineralogieCristallographieConverter.convertDtoTocristallographie(response.body()));
+                    callback.success(response.body());
                 }
             }
 

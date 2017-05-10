@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.ZoologieVertebresPoissonsConverter;
 import com.flst.fges.musehome.data.model.ZoologieVertebresPoissons;
 import com.flst.fges.musehome.data.service.IZoologieVertebresPoissonsService;
 
@@ -30,8 +29,7 @@ public class ZoologieVertebresPoissonsManager {
             @Override
             public void onResponse(Call<List<ZoologieVertebresPoissons>> call, Response<List<ZoologieVertebresPoissons>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    ZoologieVertebresPoissonsConverter vertebresPoissonsConverter = new ZoologieVertebresPoissonsConverter();
-                    callback.success(vertebresPoissonsConverter.convertDtoToZoologieVertebresPoissons(response.body()));
+                    callback.success(response.body());
                 }
             }
 

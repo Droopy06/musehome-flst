@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.InstrumentsConverter;
 import com.flst.fges.musehome.data.model.Instruments;
 import com.flst.fges.musehome.data.service.IInstrumentsService;
 
@@ -30,8 +29,7 @@ public class InstrumentsManager {
             @Override
             public void onResponse(Call<List<Instruments>> call, Response<List<Instruments>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    InstrumentsConverter instrumentsConverter = new InstrumentsConverter();
-                    callback.success(instrumentsConverter.convertDtoToInstruments(response.body()));
+                    callback.success(response.body());
                 }
             }
 

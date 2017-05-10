@@ -1,9 +1,6 @@
 package com.flst.fges.musehome.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
+import com.flst.fges.musehome.data.helper.SizeOfObjectsCollectionHelper;
 import com.flst.fges.musehome.data.model.Collection;
-import com.flst.fges.musehome.ui.activity.CollectionActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -38,14 +35,18 @@ public class CollectionsAdapater extends RecyclerView.Adapter<CollectionsAdapate
     @Override
     public CollectionsAdapater.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View wodView = inflater.inflate(R.layout.collections_cardview,parent,false);
+        View wodView = inflater.inflate(R.layout.collections_list,parent,false);
         return new ViewHolder(wodView);
     }
 
     @Override
     public void onBindViewHolder(CollectionsAdapater.ViewHolder holder, int position) {
         holder.collectionsTxt.setText(collections.get(position).getNom());
-        Picasso.with(context).load(collections.get(position).getImg()).into(holder.collectionsImagageView);
+        holder.numberCollectionsTxt.setText(String.valueOf(new SizeOfObjectsCollectionHelper(this.context).getSizeOfObjectsCollection(collections.get(position).getNom())));
+        Picasso.with(context).load(collections.get(position).getImg())
+                .placeholder(R.drawable.loading)
+                .error(R.drawable.image_download_error_24dp)
+                .into(holder.collectionsImagageView);
     }
 
     @Override
@@ -53,30 +54,22 @@ public class CollectionsAdapater extends RecyclerView.Adapter<CollectionsAdapate
         return collections.size();
     }
 
+    public Collection getItemAtPosition(int position) {
+        return collections.get(position);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.collections_text_card)
+        @BindView(R.id.collection_name_list_textView)
         TextView collectionsTxt;
-        @BindView(R.id.collections_imageview)
+        @BindView(R.id.nombre_collections_list_textView)
+        TextView numberCollectionsTxt;
+        @BindView(R.id.collections_list_imageView)
         ImageView collectionsImagageView;
-        @BindView(R.id.collections_cardview)
-        CardView collectionCardView;
 
         ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
-            collectionCardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Snackbar snackbar = Snackbar
-                            .make(v, collectionsTxt.getText(), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    Intent intent = new Intent(itemView.getContext(), CollectionActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("COLLECTION",collectionsTxt.getText().toString());
-                    itemView.getContext().startActivity(intent);
-                }
-            });
         }
     }
 }

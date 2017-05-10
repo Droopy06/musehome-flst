@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,6 +31,7 @@ import com.flst.fges.musehome.data.manager.ZoologieInvertebresInsectesManager;
 import com.flst.fges.musehome.data.manager.ZoologieInvertebresMollusquesManager;
 import com.flst.fges.musehome.data.manager.ZoologieVertebresAutresManager;
 import com.flst.fges.musehome.data.manager.ZoologieVertebresMammiferesManager;
+import com.flst.fges.musehome.data.manager.ZoologieVertebresOiseauxManager;
 import com.flst.fges.musehome.data.manager.ZoologieVertebresPoissonsManager;
 import com.flst.fges.musehome.data.manager.ZoologieVertebresPrimatesManager;
 import com.flst.fges.musehome.data.manager.ZoologieVertebresReptileManager;
@@ -50,15 +52,20 @@ import com.flst.fges.musehome.data.model.ZoologieInvertebresInsectes;
 import com.flst.fges.musehome.data.model.ZoologieInvertebresMollusques;
 import com.flst.fges.musehome.data.model.ZoologieVertebresAutres;
 import com.flst.fges.musehome.data.model.ZoologieVertebresMammiferes;
+import com.flst.fges.musehome.data.model.ZoologieVertebresOiseaux;
 import com.flst.fges.musehome.data.model.ZoologieVertebresPoissons;
 import com.flst.fges.musehome.data.model.ZoologieVertebresPrimates;
 import com.flst.fges.musehome.data.model.ZoologieVertebresReptile;
 import com.flst.fges.musehome.ui.activity.ObjetsDetailActivity;
 import com.flst.fges.musehome.ui.adapter.DefaultClassCollectionAdapater;
+import com.flst.fges.musehome.ui.helper.NetworkHelper;
 import com.flst.fges.musehome.ui.helper.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +77,11 @@ public class ObjetsCollectionFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM_COLLECTION = "objet";
     private static String mCollection;
+
+    @BindView(R.id.collections_objets_list)
+    RecyclerView recyclerView;
+    @BindView(R.id.swipe_collections_objets_container)
+    SwipeRefreshLayout swipeCollectionsObjetsContainer;
 
     // TODO: Rename and change types of parameters
     private String mParamCollection;
@@ -109,9 +121,26 @@ public class ObjetsCollectionFragment extends Fragment {
                              Bundle savedInstanceState) {
         Context applicationContext = getActivity().getApplicationContext();
         View view = inflater.inflate(R.layout.fragment_objets_collection, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.collections_objets_list);
+        ButterKnife.bind(this,view);
         checkCollection(recyclerView,applicationContext);
         recyclerView.setLayoutManager(new LinearLayoutManager(applicationContext));
+        swipeCollectionsObjetsContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                if(NetworkHelper.checkNetwork(applicationContext)){
+                    checkCollection(recyclerView,applicationContext);
+                    swipeCollectionsObjetsContainer.setRefreshing(false);
+                }
+            }
+        });
+        // Configure the refreshing colors
+        swipeCollectionsObjetsContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
         // Inflate the layout for this fragment
         return view;
     }
@@ -139,7 +168,12 @@ public class ObjetsCollectionFragment extends Fragment {
                 recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        herbiersAdapater.getItemAtPosition(position);
+                        Herbiers herbiers1 = (Herbiers) herbiersAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",herbiers1.getIdMongoDb());
+                        intent.putExtra("COLLECTION",herbiers1.getClass().getSimpleName());
+                        getContext().startActivity(intent);
                     }
                 }));
                 break;
@@ -161,6 +195,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(instrumentsAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Instruments instruments = (Instruments) instrumentsAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",instruments.getIdMongoDb());
+                        intent.putExtra("COLLECTION",instruments.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Jardin botanique":
                 JardinBotaniqueManager jardinBotaniqueManager = new JardinBotaniqueManager();
@@ -180,6 +225,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(jardinBotaniqueAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        JardinBotanique jardinBotanique = (JardinBotanique) jardinBotaniqueAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",jardinBotanique.getIdMongoDb());
+                        intent.putExtra("COLLECTION",jardinBotanique.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Materiel Pedagogique":
                 MaterielPedagogiqueManager materielPedagogiqueManager = new MaterielPedagogiqueManager();
@@ -205,7 +261,7 @@ public class ObjetsCollectionFragment extends Fragment {
                         MaterielPedagogique materielPedagogique = (MaterielPedagogique) materielPedagogiqueAdapater.getItemAtPosition(position);
                         Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("OBJET",materielPedagogique.getId());
+                        intent.putExtra("OBJET",materielPedagogique.getIdMongoDb());
                         intent.putExtra("COLLECTION",materielPedagogique.getClass().getSimpleName());
                         getContext().startActivity(intent);
                     }
@@ -229,6 +285,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(mineralogieCristallographieAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        MineralogieCristallographie mineralogieCristallographie = (MineralogieCristallographie) mineralogieCristallographieAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",mineralogieCristallographie.getIdMongoDb());
+                        intent.putExtra("COLLECTION",mineralogieCristallographie.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Ouvrages Cartes Documents":
                 OuvragesCartesDocumentsManager ouvragesCartesDocumentsManager = new OuvragesCartesDocumentsManager();
@@ -248,6 +315,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(ouvragesCartesDocumentsAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        OuvragesCartesDocuments ouvragesCartesDocuments = (OuvragesCartesDocuments) ouvragesCartesDocumentsAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",ouvragesCartesDocuments.getIdMongoDb());
+                        intent.putExtra("COLLECTION",ouvragesCartesDocuments.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Paleontologie Animale":
                 PaleontologieAnimaleManager paleontologieAnimaleManager = new PaleontologieAnimaleManager();
@@ -267,6 +345,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(paleontologieAnimaleAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        PaleontologieAnimale paleontologieAnimale = (PaleontologieAnimale) paleontologieAnimaleAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",paleontologieAnimale.getIdMongoDb());
+                        intent.putExtra("COLLECTION",paleontologieAnimale.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Paleontologie Vegetale":
                 PaleontologieVegetaleManager paleontologieVegetaleManager = new PaleontologieVegetaleManager();
@@ -286,6 +375,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(paleontologieVegetaleAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        PaleontologieVegetale paleontologieVegetale = (PaleontologieVegetale) paleontologieVegetaleAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",paleontologieVegetale.getIdMongoDb());
+                        intent.putExtra("COLLECTION",paleontologieVegetale.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Petrographie":
                 PetrographieManager petrographieManager = new PetrographieManager();
@@ -306,6 +406,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(petrographieAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Petrographie petrographie = (Petrographie) petrographieAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",petrographie.getIdMongoDb());
+                        intent.putExtra("COLLECTION",petrographie.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Physique":
                 PhysiqueManager physiqueManager = new PhysiqueManager();
@@ -325,6 +436,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(physiqueAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Physique physique = (Physique) physiqueAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",physique.getIdMongoDb());
+                        intent.putExtra("COLLECTION",physique.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Typotheque":
                 TypothequeManager typothequeManager = new TypothequeManager();
@@ -344,6 +466,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(typothequeAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Typotheque typotheque = (Typotheque) typothequeAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",typotheque.getIdMongoDb());
+                        intent.putExtra("COLLECTION",typotheque.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Zoologie Invertebres Autres":
                 ZoologieInvertebresAutresManager zoologieInvertebresAutresManager =
@@ -365,6 +498,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(invertebresAutresAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ZoologieInvertebresAutres zoologieInvertebresAutres = (ZoologieInvertebresAutres) invertebresAutresAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",zoologieInvertebresAutres.getIdMongoDb());
+                        intent.putExtra("COLLECTION",zoologieInvertebresAutres.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Zoologie Invertebres Insectes":
                 ZoologieInvertebresInsectesManager insectesManager = new ZoologieInvertebresInsectesManager();
@@ -385,6 +529,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(insectesAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ZoologieInvertebresInsectes zoologieInvertebresInsectes = (ZoologieInvertebresInsectes) insectesAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",zoologieInvertebresInsectes.getIdMongoDb());
+                        intent.putExtra("COLLECTION",zoologieInvertebresInsectes.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Zoologie Invertebres Mollusques":
                 ZoologieInvertebresMollusquesManager mollusquesManager = new ZoologieInvertebresMollusquesManager();
@@ -405,6 +560,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(mollusquesAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ZoologieInvertebresMollusques zoologieInvertebresMollusques = (ZoologieInvertebresMollusques) mollusquesAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",zoologieInvertebresMollusques.getIdMongoDb());
+                        intent.putExtra("COLLECTION",zoologieInvertebresMollusques.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Zoologie Vertebres Autres":
                 ZoologieVertebresAutresManager vertebresAutresManager = new ZoologieVertebresAutresManager();
@@ -425,6 +591,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(zoologieVertebresAutresAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ZoologieVertebresAutres zoologieVertebresAutres = (ZoologieVertebresAutres) zoologieVertebresAutresAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",zoologieVertebresAutres.getIdMongoDb());
+                        intent.putExtra("COLLECTION",zoologieVertebresAutres.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Zoologie Vertebres Mammiferes":
                 ZoologieVertebresMammiferesManager mammiferesManager = new ZoologieVertebresMammiferesManager();
@@ -445,6 +622,48 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(mammiferesAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ZoologieVertebresMammiferes zoologieVertebresMammiferes = (ZoologieVertebresMammiferes) mammiferesAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",zoologieVertebresMammiferes.getIdMongoDb());
+                        intent.putExtra("COLLECTION",zoologieVertebresMammiferes.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
+                break;
+            case "Zoologie Vertebres Oiseaux":
+                ZoologieVertebresOiseauxManager zoologieVertebresOiseauxManager = new ZoologieVertebresOiseauxManager();
+                final ArrayList<ZoologieVertebresOiseaux> vertebresOiseauxes = new ArrayList<>();
+                final DefaultClassCollectionAdapater<ZoologieVertebresOiseaux> oiseauxesAdapater =
+                        new DefaultClassCollectionAdapater<>(vertebresOiseauxes,applicationContext);
+                zoologieVertebresOiseauxManager.getAllZoologieVertebresOiseaux(new ICallback<List<ZoologieVertebresOiseaux>>() {
+                    @Override
+                    public void success(List<ZoologieVertebresOiseaux> zoologieVertebresPoissonses) {
+                        vertebresOiseauxes.clear();
+                        vertebresOiseauxes.addAll(zoologieVertebresPoissonses);
+                        oiseauxesAdapater.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void failure(Throwable error) {
+                        Log.w("ERROR",error);
+                    }
+                });
+                recyclerView.setAdapter(oiseauxesAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ZoologieVertebresOiseaux zoologieVertebresOiseaux = (ZoologieVertebresOiseaux) oiseauxesAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",zoologieVertebresOiseaux.getIdMongoDb());
+                        intent.putExtra("COLLECTION",zoologieVertebresOiseaux.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Zoologie Vertebres Poissons":
                 ZoologieVertebresPoissonsManager vertebresPoissonsManager = new ZoologieVertebresPoissonsManager();
@@ -465,6 +684,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(poissonsAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ZoologieVertebresPoissons zoologieVertebresPoissons = (ZoologieVertebresPoissons) poissonsAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",zoologieVertebresPoissons.getIdMongoDb());
+                        intent.putExtra("COLLECTION",zoologieVertebresPoissons.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Zoologie Vertebres Primates":
                 ZoologieVertebresPrimatesManager primatesManager = new ZoologieVertebresPrimatesManager();
@@ -485,6 +715,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(primatesAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ZoologieVertebresPrimates zoologieVertebresPrimates = (ZoologieVertebresPrimates) primatesAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",zoologieVertebresPrimates.getIdMongoDb());
+                        intent.putExtra("COLLECTION",zoologieVertebresPrimates.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             case "Zoologie Vertebres Reptile":
                 ZoologieVertebresReptileManager reptileManager = new ZoologieVertebresReptileManager();
@@ -505,6 +746,17 @@ public class ObjetsCollectionFragment extends Fragment {
                     }
                 });
                 recyclerView.setAdapter(reptileAdapater);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(applicationContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ZoologieVertebresReptile vertebresReptile = (ZoologieVertebresReptile) reptileAdapater.getItemAtPosition(position);
+                        Intent intent = new Intent(getContext(), ObjetsDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("OBJET",vertebresReptile.getIdMongoDb());
+                        intent.putExtra("COLLECTION",vertebresReptile.getClass().getSimpleName());
+                        getContext().startActivity(intent);
+                    }
+                }));
                 break;
             default:
                 ArrayList<DefaultClassCollection> defaultClassCollections = new ArrayList<>();

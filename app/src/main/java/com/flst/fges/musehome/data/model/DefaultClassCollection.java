@@ -1,83 +1,158 @@
 package com.flst.fges.musehome.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 
 /**
  * Created by LAMOOT Alexandre on 25/11/2016.
  */
+@DatabaseTable(tableName = "default_class_collection")
 public class DefaultClassCollection implements Serializable{
-    protected String id;
+
+    transient protected static final long serialVersionUID = 1L;
+
+    @DatabaseField(generatedId = true)
+    transient protected Integer id;
+    @SerializedName(value = "id")
+    @DatabaseField @Expose
+    protected String idMongoDb;
+    @DatabaseField @Expose
     protected String collection;
+    @DatabaseField @Expose
     protected String picture;
+    @DatabaseField @Expose
     protected String name;
+    @DatabaseField @Expose
     protected String groupe;
+    @DatabaseField @Expose
     protected String kind;
+    @DatabaseField @Expose
     protected String espece;
+    @DatabaseField @Expose
     protected String author;
+    @DatabaseField @Expose
     protected String year;
+    @DatabaseField @Expose
     protected String country;
+    @DatabaseField @Expose
     protected String city;
+    @DatabaseField @Expose
     protected String place;
+    @DatabaseField @Expose
     protected String nameCollection;
+    @DatabaseField @Expose
     protected String manifold;
+    @DatabaseField @Expose
     protected String localization;
+    @DatabaseField @Expose
     protected String annexe1;
+    @DatabaseField @Expose
     protected String annexe2;
+    @DatabaseField @Expose
     protected String annexe3;
+    @DatabaseField @Expose
     protected String annexe4;
+    @DatabaseField @Expose
     protected String annexe5;
+    @DatabaseField @Expose
     protected String annexe6;
+    @DatabaseField @Expose
     protected String annexe7;
+    @DatabaseField @Expose
     protected String annexe8;
+    @DatabaseField @Expose
     protected String annexe9;
+    @DatabaseField @Expose
     protected String annexe10;
+    @DatabaseField @Expose
     protected String annexe11;
+    @DatabaseField @Expose
     protected String annexe12;
+    @DatabaseField @Expose
     protected String annexe13;
+    @DatabaseField @Expose
     protected String annexe14;
+    @DatabaseField @Expose
     protected String annexe15;
+    @DatabaseField @Expose
     protected String annexe16;
+    @DatabaseField @Expose
     protected String annexe17;
+    @DatabaseField @Expose
     protected String annexe18;
+    @DatabaseField @Expose
     protected String annexe19;
+    @DatabaseField @Expose
     protected String annexe20;
+    @DatabaseField @Expose
     protected String annexe21;
+    @DatabaseField @Expose
     protected String annexe22;
+    @DatabaseField @Expose
     protected String annexe23;
+    @DatabaseField @Expose
     protected String annexe24;
+    @DatabaseField @Expose
     protected String annexe25;
+    @DatabaseField @Expose
     protected String annexe26;
+    @DatabaseField @Expose
     protected String annexe27;
+    @DatabaseField @Expose
     protected String annexe28;
+    @DatabaseField @Expose
     protected String annexe29;
+    @DatabaseField @Expose
     protected String annexe30;
+    @DatabaseField @Expose
     protected String annexe31;
+    @DatabaseField @Expose
     protected String annexe32;
+    @DatabaseField @Expose
     protected String annexe33;
+    @DatabaseField @Expose
     protected String annexe34;
+    @DatabaseField @Expose
     protected String annexe35;
+    @DatabaseField @Expose
     protected String annexe36;
+    @DatabaseField @Expose
     protected String annexe37;
+    @DatabaseField @Expose
     protected String annexe38;
+    @DatabaseField @Expose
     protected String annexe39;
+    @DatabaseField @Expose
     protected String annexe40;
 
     public DefaultClassCollection() {
     }
 
-    public DefaultClassCollection(String id, String collection, String picture, String name) {
-        this.id = id;
+    public DefaultClassCollection(String idMongoDb, String collection, String picture, String name) {
+        this.idMongoDb = idMongoDb;
         this.collection = collection;
         this.picture = picture;
         this.name = name;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getIdMongoDb() {
+        return idMongoDb;
+    }
+
+    public void setIdMongoDb(String idMongoDb) {
+        this.idMongoDb = idMongoDb;
     }
 
     public String getCollection() {

@@ -1,17 +1,30 @@
 package com.flst.fges.musehome.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * Created by LAMOOT Alexandre on 11/04/2016.
  */
+@DatabaseTable(tableName = "evenement")
 public class Evenement {
 
-
+    @DatabaseField(generatedId = true)
+    transient protected Integer id;
+    @DatabaseField @Expose
     private String titre;
+    @DatabaseField @Expose
     private String miniDescr;
+    @DatabaseField @Expose
     private String imageuri;
+    @DatabaseField @Expose
     private String miniimageuri;
+    @DatabaseField @Expose
     private String twitter;
+    @DatabaseField @Expose
     private String facebook;
+    @DatabaseField @Expose
     private String go;
 
 
@@ -26,6 +39,14 @@ public class Evenement {
         this.twitter = twitter;
         this.facebook = facebook;
         this.go = go;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitre() {

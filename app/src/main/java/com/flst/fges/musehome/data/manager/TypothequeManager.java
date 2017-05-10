@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.TypothequeConverter;
 import com.flst.fges.musehome.data.model.Typotheque;
 import com.flst.fges.musehome.data.service.ITypothequeService;
 
@@ -30,8 +29,7 @@ public class TypothequeManager {
             @Override
             public void onResponse(Call<List<Typotheque>> call, Response<List<Typotheque>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    TypothequeConverter typothequeConverter = new TypothequeConverter();
-                    callback.success(typothequeConverter.convertDtoToTypotheque(response.body()));
+                    callback.success(response.body());
                 }
             }
 

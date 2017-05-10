@@ -24,7 +24,11 @@
     <string name="storage">1</string>
     <string name="title_activity_collection">Collection</string>
     <string name="title_activity_evenement_detail">Détail Evenement</string>
-    <string name="mini_description">Mini description</string>
+    <string name="mini_description">Description</string>
     <string name="titre">Titre</string>
     <string name="informations">Informations</string>
+    <string name="supervision_info">Sous la supervision de: Guilbert Fréderic, HUBERT Benoît</string>
+    <string name="developers">Personnes ayant développés l\'application</string>
+    <string name="supervision_projet">Personnes ayant supervisés le projet</string>
+    <string name="permissions">Le mode hors ligne nécessite d\'avoir la permission du stockage sur le téléphone</string>
 </resources>

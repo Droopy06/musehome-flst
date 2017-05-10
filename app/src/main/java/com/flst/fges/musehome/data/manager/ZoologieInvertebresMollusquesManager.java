@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.ZoologieInvertebresMollusquesConverter;
 import com.flst.fges.musehome.data.model.ZoologieInvertebresMollusques;
 import com.flst.fges.musehome.data.service.IZoologieInvertebresMollusquesService;
 
@@ -30,8 +29,7 @@ public class ZoologieInvertebresMollusquesManager {
             @Override
             public void onResponse(Call<List<ZoologieInvertebresMollusques>> call, Response<List<ZoologieInvertebresMollusques>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    ZoologieInvertebresMollusquesConverter zoologieInvertebresMollusquesConverter = new ZoologieInvertebresMollusquesConverter();
-                    callback.success(zoologieInvertebresMollusquesConverter.convertDtoToZoologieInvertebresMollusques(response.body()));
+                    callback.success(response.body());
                 }
             }
 

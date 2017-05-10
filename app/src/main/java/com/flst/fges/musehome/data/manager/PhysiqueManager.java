@@ -2,7 +2,6 @@ package com.flst.fges.musehome.data.manager;
 
 import com.flst.fges.musehome.data.ICallback;
 import com.flst.fges.musehome.data.ServiceGenerator;
-import com.flst.fges.musehome.data.converter.PhysiqueConverter;
 import com.flst.fges.musehome.data.model.Physique;
 import com.flst.fges.musehome.data.service.IPhysiqueService;
 
@@ -30,8 +29,7 @@ public class PhysiqueManager {
             @Override
             public void onResponse(Call<List<Physique>> call, Response<List<Physique>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    PhysiqueConverter physiqueConverter = new PhysiqueConverter();
-                    callback.success(physiqueConverter.convertDtoToPhysique(response.body()));
+                    callback.success(response.body());
                 }
             }
 
