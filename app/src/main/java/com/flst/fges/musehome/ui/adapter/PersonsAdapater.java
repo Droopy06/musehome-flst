@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
 import com.flst.fges.musehome.data.model.Persons;
+import com.flst.fges.musehome.ui.helper.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,8 +41,14 @@ public class PersonsAdapater extends RecyclerView.Adapter<PersonsAdapater.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.personTxt.setText(personses.get(position).getName()+" "+personses.get(position).getLastName()+"\n"+personses.get(position).getMail());
-        Picasso.with(context).load(personses.get(position).getImg()).placeholder(R.drawable.loading).error(R.drawable.image_download_error_24dp).into(holder.personImagageView);
+        holder.personTxt.setText(personses.get(position).getName()+" "+personses.get(position).getLastName());
+        holder.mailTxt.setText(personses.get(position).getMail());
+        Picasso.with(context).load(personses.get(position).getImg())
+                .placeholder(R.drawable.loading)
+                .transform(new CircleTransform())
+                //.resize(50,50)
+                .error(R.drawable.image_download_error_24dp)
+                .into(holder.personImagageView);
     }
 
     @Override
@@ -57,6 +64,8 @@ public class PersonsAdapater extends RecyclerView.Adapter<PersonsAdapater.ViewHo
 
         @BindView(R.id.person_titre_list_textView)
         TextView personTxt;
+        @BindView(R.id.person_mail_list_textview)
+        TextView mailTxt;
         @BindView(R.id.person_list_imageView)
         ImageView personImagageView;
 

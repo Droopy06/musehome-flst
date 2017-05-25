@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
 import com.flst.fges.musehome.data.model.Evenement;
+import com.flst.fges.musehome.ui.helper.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -41,8 +42,11 @@ public class EvenementsAdapater extends RecyclerView.Adapter<EvenementsAdapater.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.evenementTxt.setText(evenements.get(position).getTitre());
-        holder.descEvenementTxt.setText(evenements.get(position).getMiniDescr());
-        Picasso.with(context).load(evenements.get(position).getImageuri()).into(holder.evnementImagageView);
+        if(evenements.get(position).getMiniDescr().length() >= 50)
+            holder.descEvenementTxt.setText(evenements.get(position).getMiniDescr().substring(0,50)+"..");
+        else
+            holder.descEvenementTxt.setText(evenements.get(position).getMiniDescr());
+        Picasso.with(context).load(evenements.get(position).getImageuri()).transform(new CircleTransform()).resize(300,300).into(holder.evnementImagageView);
     }
 
     @Override

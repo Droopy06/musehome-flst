@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.flst.fges.musehome.R;
 import com.flst.fges.musehome.data.helper.SizeOfObjectsCollectionHelper;
 import com.flst.fges.musehome.data.model.Collection;
+import com.flst.fges.musehome.ui.helper.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -46,6 +47,7 @@ public class CollectionsAdapater extends RecyclerView.Adapter<CollectionsAdapate
         Picasso.with(context).load(collections.get(position).getImg())
                 .placeholder(R.drawable.loading)
                 .error(R.drawable.image_download_error_24dp)
+                .transform(new CircleTransform())
                 .into(holder.collectionsImagageView);
     }
 
