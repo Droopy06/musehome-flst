@@ -46,7 +46,7 @@ public class EvenementsAdapater extends RecyclerView.Adapter<EvenementsAdapater.
             holder.descEvenementTxt.setText(evenements.get(position).getMiniDescr().substring(0,50)+"..");
         else
             holder.descEvenementTxt.setText(evenements.get(position).getMiniDescr());
-        Picasso.with(context).load(evenements.get(position).getImageuri()).transform(new CircleTransform()).resize(300,300).into(holder.evnementImagageView);
+        Picasso.with(context).load(evenements.get(position).getImageuri()).placeholder(R.drawable.banniere).transform(new CircleTransform()).into(holder.evnementImagageView);
     }
 
     @Override

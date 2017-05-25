@@ -13,17 +13,29 @@ public class PersonsFactory {
 
     public static ArrayList<Persons> getDevelopers(){
         ArrayList<Persons> personses = new ArrayList<>();
-        personses.add(new Persons("Armand","Guillon","", R.drawable.armand));
-        personses.add(new Persons("Louis","Dupin","dupinlouis@gmail.com", R.drawable.louis));
-        personses.add(new Persons("Alexandre","Lamoot","lamootalexandre@gmail.com", R.drawable.alexandre));
-        personses.add(new Persons("Olive","Ndayizigiye","ndayizigiye.olive@gmail.com", R.drawable.olive));
+        personses.add(new Persons("Armand","Guillon","", R.drawable.armand,Persons.DEVELOPER_TYPE));
+        personses.add(new Persons("Louis","Dupin","dupinlouis@gmail.com", R.drawable.louis,Persons.DEVELOPER_TYPE));
+        personses.add(new Persons("Alexandre","Lamoot","lamootalexandre@gmail.com", R.drawable.alexandre,Persons.DEVELOPER_TYPE));
+        personses.add(new Persons("Olive","Ndayizigiye","ndayizigiye.olive@gmail.com", R.drawable.olive,Persons.DEVELOPER_TYPE));
         return  personses;
     }
 
     public static ArrayList<Persons> getSupervision(){
         ArrayList<Persons> personses = new ArrayList<>();
-        personses.add(new Persons("Benoit","Hubert","Benoit.HUBERT@univ-catholille.fr", R.drawable.benoit_hubert));
-        personses.add(new Persons("Frédéric","Guilbert","Frederic.GUILBERT@univ-catholille.fr", R.drawable.guilbert_frederic));
+        personses.add(new Persons("Benoit","Hubert","Benoit.HUBERT@univ-catholille.fr", R.drawable.benoit_hubert,Persons.OVERSIGHT_TYPE));
+        personses.add(new Persons("Frédéric","Guilbert","Frederic.GUILBERT@univ-catholille.fr", R.drawable.guilbert_frederic,Persons.OVERSIGHT_TYPE));
         return  personses;
     }
+
+    public static ArrayList<Persons> getAllPersons(){
+        ArrayList<Persons> personses = new ArrayList<>();
+        personses.add(new Persons("Benoit","Hubert","Benoit.HUBERT@univ-catholille.fr", R.drawable.benoit_hubert,Persons.OVERSIGHT_TYPE));
+        personses.add(new Persons("Frédéric","Guilbert","Frederic.GUILBERT@univ-catholille.fr", R.drawable.guilbert_frederic,Persons.OVERSIGHT_TYPE));
+        personses.add(new Persons("Armand","Guillon","", R.drawable.armand,Persons.DEVELOPER_TYPE));
+        personses.add(new Persons("Louis","Dupin","dupinlouis@gmail.com", R.drawable.louis,Persons.DEVELOPER_TYPE));
+        personses.add(new Persons("Alexandre","Lamoot","lamootalexandre@gmail.com", R.drawable.alexandre,Persons.DEVELOPER_TYPE));
+        personses.add(new Persons("Olive","Ndayizigiye","ndayizigiye.olive@gmail.com", R.drawable.olive,Persons.DEVELOPER_TYPE));
+        return personses;
+    }
+
 }

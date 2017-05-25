@@ -16,7 +16,13 @@ import com.flst.fges.musehome.data.model.CollectionDetails;
 import com.flst.fges.musehome.data.model.DefaultClassCollection;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class ObjetsDetailActivity extends AppCompatActivity {
+
+    HashMap<String,String> informations;
+    ArrayList<String> keyHeaderMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,8 @@ public class ObjetsDetailActivity extends AppCompatActivity {
         collectionsDetailsManager.getCollectionsDetailsByName(getIntent().getStringExtra("COLLECTION").replace(" ", "").toLowerCase(), new ICallback<CollectionDetails>() {
             @Override
             public void success(CollectionDetails collectionDetails) {
+                informations.put(collectionDetails.getName(),"");
+                keyHeaderMap.add(collectionDetails.getName());
                 mHeaderNomCommum.setText(collectionDetails.getName());
                 mHeaderGroupe.setText(collectionDetails.getGroupe());
                 mHeaderGenre.setText(collectionDetails.getKind());

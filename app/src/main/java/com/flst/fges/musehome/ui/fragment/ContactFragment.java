@@ -80,21 +80,27 @@ public class ContactFragment extends Fragment {
         contact.setSubject(sujetEditText.getText().toString());
         contact.setMessage(messageEditText.getText().toString());
         ContactManager contactManager = new ContactManager();
-        contactManager.saveContact(contact, new ICallback<Contact>() {
-            @Override
-            public void success(Contact contact) {
-                Snackbar.make(getView(),"Votre message a été envoyé",Snackbar.LENGTH_LONG).show();
-                prenomEditText.setText("");
-                nomEditText.setText("");
-                emailEditText.setText("");
-                sujetEditText.setText("");
-                messageEditText.setText("");
-            }
+        if(contact.getName().equals("") || contact.getLastName().equals("")
+            || contact.getMail().equals("") || contact.getSubject().equals("")
+            || contact.getMessage().equals("")){
+            Snackbar.make(getView(),"Votre message n'a pas été envoyé",Snackbar.LENGTH_LONG).show();
+        }else{
+            contactManager.saveContact(contact, new ICallback<Contact>() {
+                @Override
+                public void success(Contact contact) {
+                    Snackbar.make(getView(),"Votre message a été envoyé",Snackbar.LENGTH_LONG).show();
+                    prenomEditText.setText("");
+                    nomEditText.setText("");
+                    emailEditText.setText("");
+                    sujetEditText.setText("");
+                    messageEditText.setText("");
+                }
 
-            @Override
-            public void failure(Throwable error) {
-                Snackbar.make(getView(),"Votre message n'a pas été envoyé",Snackbar.LENGTH_LONG).show();
-            }
-        });
+                @Override
+                public void failure(Throwable error) {
+                    Snackbar.make(getView(),"Votre message n'a pas été envoyé",Snackbar.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 }

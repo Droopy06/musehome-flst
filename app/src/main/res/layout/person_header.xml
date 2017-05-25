@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.flst.fges.musehome.ui.helper.CustomFontChromiaTextView
+        android:id="@+id/title_person_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:hint="@string/supervision_projet"
+        android:textColor="@color/textMuseHome" />
+</RelativeLayout>
