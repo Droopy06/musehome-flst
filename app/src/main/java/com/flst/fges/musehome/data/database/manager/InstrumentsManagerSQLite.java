@@ -49,7 +49,7 @@ public class InstrumentsManagerSQLite {
 
     public void updateInstruments(Instruments object) {
         try {
-            getHelper().getInstrumentsDao().refresh(object);
+            getHelper().getInstrumentsDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }

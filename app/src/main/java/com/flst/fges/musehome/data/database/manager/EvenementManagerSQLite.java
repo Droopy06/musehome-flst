@@ -49,7 +49,7 @@ public class EvenementManagerSQLite {
 
     public void updateEvenement(Evenement object) {
         try {
-            getHelper().getEvenementDao().refresh(object);
+            getHelper().getEvenementDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }

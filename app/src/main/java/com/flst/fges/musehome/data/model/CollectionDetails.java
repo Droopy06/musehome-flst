@@ -1,6 +1,7 @@
 package com.flst.fges.musehome.data.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -14,6 +15,7 @@ public class CollectionDetails {
     transient protected Integer id;
     @DatabaseField @Expose
     private   String nameOfCollection;
+    @SerializedName(value = "id")
     @DatabaseField @Expose
     private   String idMongoDb;
     @DatabaseField @Expose

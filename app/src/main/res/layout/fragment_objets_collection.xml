@@ -4,6 +4,10 @@
     android:layout_height="match_parent"
     tools:context="com.flst.fges.musehome.ui.fragment.ObjetsCollectionFragment">
 
+    <include
+        layout="@layout/no_item_list"
+        android:visibility="gone"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipe_collections_objets_container"

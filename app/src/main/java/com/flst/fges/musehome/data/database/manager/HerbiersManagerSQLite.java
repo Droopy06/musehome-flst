@@ -49,7 +49,7 @@ public class HerbiersManagerSQLite {
 
     public void updateHerbiers(Herbiers object) {
         try {
-            getHelper().getHerbiersDao().refresh(object);
+            getHelper().getHerbiersDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }

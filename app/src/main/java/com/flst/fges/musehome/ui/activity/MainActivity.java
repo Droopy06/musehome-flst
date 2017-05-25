@@ -116,10 +116,9 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
-        SynchronizeApiToDatabase synchronizeApiToDatabase = new SynchronizeApiToDatabaseImpl();
-        synchronizeApiToDatabase.initialize(R.mipmap.musehome,1,"MuseH@me",
-                "Bienvenue sur l'application mobile" +
-                        " du patrimoine de la fges",MainActivity.class,getApplicationContext(),mBottomNav,10245252);
+        SynchronizeApiToDatabase synchronizeApiToDatabase = (SynchronizeApiToDatabase) new SynchronizeApiToDatabaseImpl(R.mipmap.musehome,1,"MuseH@me",
+                "Bienvenue sur l'application mobile du patrimoine de la fges",MainActivity.class,
+                getApplicationContext(),mBottomNav,10245252).execute(true,true,true);
     }
 
     @Override
