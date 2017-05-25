@@ -49,7 +49,7 @@ public class ZoologieVertebresMammiferesManagerSQLite {
 
     public void updateZoologieVertebresMammiferes(ZoologieVertebresMammiferes object) {
         try {
-            getHelper().getZoologieVertebresMammiferesDao().refresh(object);
+            getHelper().getZoologieVertebresMammiferesDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }

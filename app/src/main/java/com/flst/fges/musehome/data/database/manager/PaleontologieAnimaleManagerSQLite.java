@@ -49,7 +49,7 @@ public class PaleontologieAnimaleManagerSQLite {
 
     public void updatePaleontologieAnimale(PaleontologieAnimale object) {
         try {
-            getHelper().getPaleontologieAnimaleDao().refresh(object);
+            getHelper().getPaleontologieAnimaleDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }

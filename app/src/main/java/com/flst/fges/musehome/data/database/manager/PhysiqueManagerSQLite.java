@@ -49,7 +49,7 @@ public class PhysiqueManagerSQLite {
 
     public void updatePhysique(Physique object) {
         try {
-            getHelper().getPhysiqueDao().refresh(object);
+            getHelper().getPhysiqueDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }

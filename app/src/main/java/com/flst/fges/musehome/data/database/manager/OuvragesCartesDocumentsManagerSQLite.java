@@ -49,7 +49,7 @@ public class OuvragesCartesDocumentsManagerSQLite {
 
     public void updateOuvragesCartesDocuments(OuvragesCartesDocuments object) {
         try {
-            getHelper().getOuvragesCartesDocumentsDao().refresh(object);
+            getHelper().getOuvragesCartesDocumentsDao().update(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }
