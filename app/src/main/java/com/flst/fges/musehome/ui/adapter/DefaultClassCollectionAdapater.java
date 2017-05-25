@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
-import com.flst.fges.musehome.data.helper.UrlHelper;
 import com.flst.fges.musehome.data.model.DefaultClassCollection;
+import com.flst.fges.musehome.ui.helper.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -45,7 +45,8 @@ public class    DefaultClassCollectionAdapater<T extends DefaultClassCollection>
     public void onBindViewHolder(DefaultClassCollectionAdapater.ViewHolder holder, int position) {
         holder.objectCollectionTxt.setText(defaultClassCollections.get(position).getIdMongoDb()+" "+defaultClassCollections.get(position).getName());
         Picasso.with(context)
-                .load("http://"+ UrlHelper.BASE_URL_API+"/patrimoine/images/Collections/materielpedagogique/"+defaultClassCollections.get(position).getPicture())
+                .load(defaultClassCollections.get(position).getPicture())
+                .transform(new CircleTransform())
                 .placeholder(R.drawable.banniere)
                 .into(holder.objectCollectionImagageView);
     }
