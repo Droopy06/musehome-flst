@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,67 +6,74 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/nom_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/nom" />
-        <EditText
-            android:id="@+id/nom_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/votre_nom"/>
-        <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
+            android:text="@string/nom" >
+            <EditText
+                android:id="@+id/nom_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/votre_nom"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/prenom_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pr_nom" />
-        <EditText
-            android:id="@+id/prenom_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/votre_prenom"/>
-        <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
+            android:text="@string/pr_nom">
+            <EditText
+                android:id="@+id/prenom_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/votre_prenom"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/email_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/email" />
-        <EditText
-            android:id="@+id/email_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/exemple_exemple_fr"
-            android:inputType="textEmailAddress" />
-        <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
+            android:text="@string/email" >
+            <EditText
+                android:id="@+id/email_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/sujet_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sujet" />
-        <EditText
-            android:id="@+id/sujet_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/votre_sujet"
-            android:inputType="textEmailSubject" />
-        <com.flst.fges.musehome.ui.helper.CustomFontNeutrafaceTextView
+            android:text="@string/sujet" >
+            <EditText
+                android:id="@+id/sujet_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/votre_sujet"
+                android:inputType="textEmailSubject" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/message_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/message" />
-        <EditText
-            android:id="@+id/message_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/votre_sujet"
-            android:inputType="textEmailSubject" />
+            android:text="@string/message" >
+            <EditText
+                android:id="@+id/message_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/message"
+                android:inputType="textMultiLine" />
+        </android.support.design.widget.TextInputLayout>
+
         <Button
-            android:layout_gravity="bottom"
             android:id="@+id/contact_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/envoyer"/>
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="50dp"
+            android:hint="@string/envoyer" />
     </LinearLayout>
-</FrameLayout>
+</ScrollView>

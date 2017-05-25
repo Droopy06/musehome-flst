@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
+import com.flst.fges.musehome.data.helper.UrlHelper;
 import com.flst.fges.musehome.data.model.DefaultClassCollection;
 import com.flst.fges.musehome.ui.helper.CircleTransform;
 import com.squareup.picasso.Picasso;
@@ -44,10 +45,11 @@ public class    DefaultClassCollectionAdapater<T extends DefaultClassCollection>
     @Override
     public void onBindViewHolder(DefaultClassCollectionAdapater.ViewHolder holder, int position) {
         holder.objectCollectionTxt.setText(defaultClassCollections.get(position).getIdMongoDb()+" "+defaultClassCollections.get(position).getName());
+
         Picasso.with(context)
-                .load(defaultClassCollections.get(position).getPicture())
-                .transform(new CircleTransform())
+                .load("http://"+ UrlHelper.BASE_URL_API+"/patrimoine/images/Collections/materielpedagogique/"+defaultClassCollections.get(position).getPicture())
                 .placeholder(R.drawable.banniere)
+                .transform(new CircleTransform())
                 .into(holder.objectCollectionImagageView);
     }
 
