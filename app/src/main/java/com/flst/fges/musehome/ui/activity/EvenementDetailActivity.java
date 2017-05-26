@@ -32,7 +32,9 @@ public class EvenementDetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.drawable.banniere);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setLogo(R.mipmap.musehome);
         actionBar.setDisplayUseLogoEnabled(true);
         ButterKnife.bind(this);
         EvenementsManager evenementsManager = new EvenementsManager();
@@ -41,7 +43,7 @@ public class EvenementDetailActivity extends AppCompatActivity {
             public void success(Evenement evenement) {
                 titreTextView.setText(evenement.getTitre());
                 descriptionTextView.setText(evenement.getMiniDescr());
-                Picasso.with(getApplicationContext()).load(evenement.getImageuri()).into(evenementImageView);
+                Picasso.with(getApplicationContext()).load(evenement.getImageuri()).fit().centerInside().into(evenementImageView);
             }
 
             @Override
@@ -50,4 +52,5 @@ public class EvenementDetailActivity extends AppCompatActivity {
             }
         });
     }
+
 }

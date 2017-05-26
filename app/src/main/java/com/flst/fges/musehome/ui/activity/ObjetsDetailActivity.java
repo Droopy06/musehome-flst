@@ -43,7 +43,9 @@ public class ObjetsDetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.drawable.banniere);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setLogo(R.mipmap.musehome);
         actionBar.setDisplayUseLogoEnabled(true);
         ButterKnife.bind(this);
         informations = new HashMap<>();
