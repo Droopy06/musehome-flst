@@ -23,7 +23,9 @@ public class CollectionActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.drawable.banniere);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setLogo(R.mipmap.musehome);
         actionBar.setDisplayUseLogoEnabled(true);
         mCollection = getIntent().getStringExtra("COLLECTION");
         TextView collectionTitle = (TextView) findViewById(R.id.collections_title_textview);
