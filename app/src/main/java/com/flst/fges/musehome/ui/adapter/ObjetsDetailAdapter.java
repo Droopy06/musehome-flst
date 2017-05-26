@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,21 +20,19 @@ import butterknife.ButterKnife;
 
 public class ObjetsDetailAdapter extends RecyclerView.Adapter<ObjetsDetailAdapter.Holder> {
 
-    HashMap<String,String> informations;
-    ArrayList<String> keyHeaderMap;
+    private Map<String,String> informations;
 
-    public ObjetsDetailAdapter(HashMap<String, String> informations,ArrayList<String> keyHeaderMap) {
-        this.informations = informations;
-        this.keyHeaderMap = keyHeaderMap;
+    public ObjetsDetailAdapter(Map<String, String> informations) {
+        this.informations = informations/*new TreeMap<String,String>(informations)*/;
     }
 
-    public static class Holder extends RecyclerView.ViewHolder {
+    static class Holder extends RecyclerView.ViewHolder {
         @BindView(R.id.object_header_textview)
-        public TextView headerTextView;
+        TextView headerTextView;
         @BindView(R.id.object_title_textview)
-        public TextView textView;
+        TextView textView;
 
-        public Holder(View itemView) {
+        Holder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
@@ -48,9 +46,10 @@ public class ObjetsDetailAdapter extends RecyclerView.Adapter<ObjetsDetailAdapte
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
+        informations = new TreeMap<>(informations);
         String key = (String) informations.keySet().toArray()[position];
-        holder.textView.setText(key);
-        holder.headerTextView.setText(informations.get(key));
+        holder.textView.setText(informations.get(key));
+        holder.headerTextView.setText(key);
     }
 
     @Override
