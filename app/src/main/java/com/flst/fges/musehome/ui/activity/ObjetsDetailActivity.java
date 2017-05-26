@@ -3,9 +3,11 @@ package com.flst.fges.musehome.ui.activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.flst.fges.musehome.R;
 import com.flst.fges.musehome.data.ICallback;
@@ -14,15 +16,25 @@ import com.flst.fges.musehome.data.manager.CollectionsDetailsManager;
 import com.flst.fges.musehome.data.manager.DefaultClassCollectionManager;
 import com.flst.fges.musehome.data.model.CollectionDetails;
 import com.flst.fges.musehome.data.model.DefaultClassCollection;
+import com.flst.fges.musehome.ui.adapter.ObjetsDetailAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ObjetsDetailActivity extends AppCompatActivity {
 
-    HashMap<String,String> informations;
+    Map<String,String> informations;
     ArrayList<String> keyHeaderMap;
+    ObjetsDetailAdapter objetsDetailAdapter;
+    @BindView(R.id.object_collection_imageview)
+    ImageView imageView;
+    @BindView(R.id.object_collection_recyclerview)
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,58 +45,56 @@ public class ObjetsDetailActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setLogo(R.drawable.banniere);
         actionBar.setDisplayUseLogoEnabled(true);
-        final ImageView imageView = (ImageView) findViewById(R.id.object_collection_imageview);
-        final TextView mHeaderNomCommum = (TextView) findViewById(R.id.header_nom_commum_textview);
-        final TextView mTextNomCommum = (TextView) findViewById(R.id.text_nom_commum_textview);
-        final TextView mHeaderGroupe = (TextView) findViewById(R.id.header_groupe_textview);
-        final TextView mTextGroupe = (TextView) findViewById(R.id.text_groupe_textview);
-        final TextView mHeaderGenre = (TextView) findViewById(R.id.header_genre_textview);
-        final TextView mTextGenre = (TextView) findViewById(R.id.text_genre_textview);
-        final TextView mHeaderEspece = (TextView) findViewById(R.id.header_espece_textview);
-        final TextView mTextEspece = (TextView) findViewById(R.id.text_espece_textview);
-        final TextView mHeaderAuteur = (TextView) findViewById(R.id.header_auteur_textview);
-        final TextView mTextAuteur = (TextView) findViewById(R.id.text_auteur_textview);
-        final TextView mHeaderAnnee = (TextView) findViewById(R.id.header_annee_textview);
-        final TextView mTextAnnee = (TextView) findViewById(R.id.text_annee_textview);
-        final TextView mHeaderPays = (TextView) findViewById(R.id.header_pays_textview);
-        final TextView mTextPays = (TextView) findViewById(R.id.text_pays_textview);
-        final TextView mHeaderVille = (TextView) findViewById(R.id.header_ville_textview);
-        final TextView mTextVille = (TextView) findViewById(R.id.text_ville_textview);
-        final TextView mHeaderLieu = (TextView) findViewById(R.id.header_lieu_textview);
-        final TextView mTextLieu = (TextView) findViewById(R.id.text_lieu_textview);
-        final TextView mHeaderNomCollection = (TextView) findViewById(R.id.header_nom_collection_textview);
-        final TextView mTextNomCollection = (TextView) findViewById(R.id.text_nom_collection_textview);
-        final TextView mHeaderCollectionneur = (TextView) findViewById(R.id.header_collectionneur_textview);
-        final TextView mTextCollectionneur = (TextView) findViewById(R.id.text_collectionneur_textview);
-        final TextView mHeaderLocalisation = (TextView) findViewById(R.id.header_localisation_textview);
-        final TextView mTextLocalisation = (TextView) findViewById(R.id.text_localisation_textview);
+        ButterKnife.bind(this);
+        informations = new HashMap<>();
+        keyHeaderMap = new ArrayList<>();
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
+        objetsDetailAdapter = new ObjetsDetailAdapter(informations);
+        recyclerView.setAdapter(objetsDetailAdapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         CollectionsDetailsManager collectionsDetailsManager = new CollectionsDetailsManager();
         collectionsDetailsManager.getCollectionsDetailsByName(getIntent().getStringExtra("COLLECTION").replace(" ", "").toLowerCase(), new ICallback<CollectionDetails>() {
             @Override
             public void success(CollectionDetails collectionDetails) {
-                informations.put(collectionDetails.getName(),"");
+                informations.put(collectionDetails.getName(), "");
                 keyHeaderMap.add(collectionDetails.getName());
-                mHeaderNomCommum.setText(collectionDetails.getName());
-                mHeaderGroupe.setText(collectionDetails.getGroupe());
-                mHeaderGenre.setText(collectionDetails.getKind());
-                mHeaderEspece.setText(collectionDetails.getEspece());
-                mHeaderAuteur.setText(collectionDetails.getAuthor());
-                mHeaderAnnee.setText(collectionDetails.getYear());
-                mHeaderPays.setText(collectionDetails.getCountry());
-                mHeaderVille.setText(collectionDetails.getCity());
-                mHeaderLieu.setText(collectionDetails.getPlace());
-                mHeaderNomCollection.setText(collectionDetails.getNameCollection());
-                mHeaderCollectionneur.setText(collectionDetails.getManifold());
-                mHeaderLocalisation.setText(collectionDetails.getLocalization());
+                informations.put(collectionDetails.getGroupe(), "");
+                keyHeaderMap.add(collectionDetails.getGroupe());
+                informations.put(collectionDetails.getKind(), "");
+                keyHeaderMap.add(collectionDetails.getKind());
+                informations.put(collectionDetails.getEspece(), "");
+                keyHeaderMap.add(collectionDetails.getEspece());
+                informations.put(collectionDetails.getAuthor(), "");
+                keyHeaderMap.add(collectionDetails.getAuthor());
+                informations.put(collectionDetails.getYear(), "");
+                keyHeaderMap.add(collectionDetails.getYear());
+                informations.put(collectionDetails.getCountry(), "");
+                keyHeaderMap.add(collectionDetails.getCountry());
+                informations.put(collectionDetails.getCity(), "");
+                keyHeaderMap.add(collectionDetails.getCity());
+                informations.put(collectionDetails.getPlace(), "");
+                keyHeaderMap.add(collectionDetails.getPlace());
+                informations.put(collectionDetails.getNameCollection(), "");
+                keyHeaderMap.add(collectionDetails.getNameCollection());
+                informations.put(collectionDetails.getManifold(), "");
+                keyHeaderMap.add(collectionDetails.getManifold());
+                informations.put(collectionDetails.getLocalization(), "");
+                keyHeaderMap.add(collectionDetails.getLocalization());
+                launchDetailObject(getIntent().getStringExtra("OBJET").split(" ")[0]);
             }
 
             @Override
             public void failure(Throwable error) {
-                Log.w("ERROR",error);
+                Log.w("ERROR", error);
             }
         });
+    }
+
+    public void launchDetailObject(String id){
         DefaultClassCollectionManager defaultClassCollectionManager = new DefaultClassCollectionManager();
-        String id = getIntent().getStringExtra("OBJET").split(" ")[0];
         defaultClassCollectionManager.getDefaultClassCollectionByName(getIntent().getStringExtra("COLLECTION").replace(" ", "").toLowerCase(), id, new ICallback<DefaultClassCollection>() {
             @Override
             public void success(DefaultClassCollection defaultClassCollection) {
@@ -95,18 +105,19 @@ public class ObjetsDetailActivity extends AppCompatActivity {
                         .error(R.drawable.image_download_error_24dp)
                         .placeholder(R.drawable.loading)
                         .into(imageView);
-                mTextNomCommum.setText(defaultClassCollection.getName());
-                mTextGroupe.setText(defaultClassCollection.getGroupe());
-                mTextGenre.setText(defaultClassCollection.getKind());
-                mTextEspece.setText(defaultClassCollection.getEspece());
-                mTextAuteur.setText(defaultClassCollection.getAuthor());
-                mTextAnnee.setText(defaultClassCollection.getYear());
-                mTextPays.setText(defaultClassCollection.getCountry());
-                mTextVille.setText(defaultClassCollection.getCity());
-                mTextLieu.setText(defaultClassCollection.getPlace());
-                mTextNomCollection.setText(defaultClassCollection.getNameCollection());
-                mTextCollectionneur.setText(defaultClassCollection.getManifold());
-                mTextLocalisation.setText(defaultClassCollection.getLocalization());
+                informations.put(keyHeaderMap.get(0),defaultClassCollection.getName());
+                informations.put(keyHeaderMap.get(1),defaultClassCollection.getGroupe());
+                informations.put(keyHeaderMap.get(2),defaultClassCollection.getKind());
+                informations.put(keyHeaderMap.get(3),defaultClassCollection.getEspece());
+                informations.put(keyHeaderMap.get(4),defaultClassCollection.getAuthor());
+                informations.put(keyHeaderMap.get(5),defaultClassCollection.getYear());
+                informations.put(keyHeaderMap.get(6),defaultClassCollection.getCountry());
+                informations.put(keyHeaderMap.get(7),defaultClassCollection.getCity());
+                informations.put(keyHeaderMap.get(8),defaultClassCollection.getPlace());
+                informations.put(keyHeaderMap.get(9),defaultClassCollection.getNameCollection());
+                informations.put(keyHeaderMap.get(10),defaultClassCollection.getManifold());
+                informations.put(keyHeaderMap.get(11),defaultClassCollection.getLocalization());
+                objetsDetailAdapter.notifyDataSetChanged();
             }
 
             @Override
